@@ -7,14 +7,12 @@ export const navigation: FuseNavigation[] = [
     {
         id       : 'applications',
         title    : 'Applications',
-        translate: 'NAV.APPLICATIONS',
         type     : 'group',
         icon     : 'apps',
         children : [
             {
                 id       : 'dashboards',
                 title    : 'Dashboards',
-                translate: 'NAV.DASHBOARDS',
                 type     : 'collapsable',
                 icon     : 'dashboard',
                 children : [
@@ -25,15 +23,21 @@ export const navigation: FuseNavigation[] = [
                         url  : '/apps/dashboards/analytics'
                     },
                     {
-                        id   : 'forms',
-                        title: 'Forms',
+                        id   : 'project',
+                        title: 'Project',
                         type : 'item',
-                        url  : '/apps/dashboards/forms'
+                        url  : '/apps/dashboards/project'
                     }
                 ]
             },
+            {
+                id       : 'users',
+                title    : 'Gestion d\'utilisateurs',
+                type     : 'item',
+                icon     : 'account_box',
+                url      : '/apps/administration/gstuser'
+            }
         ]
-    },
-
+    }
 
 ];

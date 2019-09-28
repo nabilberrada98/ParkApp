@@ -58,7 +58,7 @@ export class FakeDbService implements InMemoryDbService
 
             // Contacts
             'contacts-contacts': ContactsFakeDb.contacts,
-            'contacts-user'    : ContactsFakeDb.user,
+            'users'    : ContactsFakeDb.user,
 
             // Todo
             'todo-todos'  : TodoFakeDb.todos,

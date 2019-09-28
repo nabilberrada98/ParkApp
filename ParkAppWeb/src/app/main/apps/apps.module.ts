@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { FuseSharedModule } from '@fuse/shared.module';
-
 const routes = [
     {
         path        : 'dashboards/analytics',
@@ -13,11 +12,9 @@ const routes = [
         loadChildren: './dashboards/project/project.module#ProjectDashboardModule'
     },
     {
-        path        : 'dashboards/forms',
-        loadChildren: './dashboards/forms/forms.module#UIFormsModule'
-    },
-
-
+        path        : 'administration/gstuser',
+        loadChildren: './administration/gstuser/gstuser.module#UsersModule'
+    }
 ];
 
 @NgModule({

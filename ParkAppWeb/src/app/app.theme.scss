@@ -95,13 +95,8 @@ $typography: mat-typography-config(
 // @import "src/app/main/apps/todo/todo.theme";
 
 @import "src/app/main/pages/authentication/login/login.theme";
-@import "src/app/main/pages/authentication/login-2/login-2.theme";
 @import "src/app/main/pages/authentication/register/register.theme";
-@import "src/app/main/pages/authentication/register-2/register-2.theme";
 @import "src/app/main/pages/authentication/reset-password/reset-password.theme";
-@import "src/app/main/pages/authentication/reset-password-2/reset-password-2.theme";
-@import "src/app/main/pages/authentication/forgot-password/forgot-password.theme";
-@import "src/app/main/pages/authentication/forgot-password-2/forgot-password-2.theme";
 @import "src/app/main/pages/authentication/lock/lock.theme";
 @import "src/app/main/pages/authentication/mail-confirm/mail-confirm.theme";
 @import "src/app/main/pages/coming-soon/coming-soon.theme";
@@ -146,13 +141,8 @@ $typography: mat-typography-config(
 
     // Pages
     @include login-theme($theme);
-    @include login-2-theme($theme);
     @include register-theme($theme);
-    @include register-2-theme($theme);
     @include reset-password-theme($theme);
-    @include reset-password-2-theme($theme);
-    @include forgot-password-theme($theme);
-    @include forgot-password-2-theme($theme);
     @include lock-theme($theme);
     @include mail-confirm-theme($theme);
     @include coming-soon-theme($theme);
