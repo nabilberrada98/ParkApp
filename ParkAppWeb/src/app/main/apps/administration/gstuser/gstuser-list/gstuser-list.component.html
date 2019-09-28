@@ -47,6 +47,15 @@
         </mat-cell>
     </ng-container>
 
+    <!-- Phone Column -->
+    <ng-container matColumnDef="Etat">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Etat</mat-header-cell>
+        <mat-cell *matCellDef="let user" fxHide fxShow.gt-md>
+                <mat-icon *ngIf="user.isBanned" style="color: darkred">block</mat-icon>
+                <mat-icon *ngIf="!user.isBanned" style="color: darkgreen">done_outline</mat-icon>
+        </mat-cell>
+    </ng-container>
+
     <!-- Buttons Column -->
     <ng-container matColumnDef="Buttons">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>

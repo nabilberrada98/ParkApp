@@ -3,7 +3,7 @@
         <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
             <span class="title dialog-title">{{dialogTitle}}</span>
             <button mat-icon-button (click)="matDialogRef.close()" aria-label="Fermer dialog">
-                <mat-icon>fermer</mat-icon>
+                <mat-icon>close</mat-icon>
             </button>
         </mat-toolbar-row>
 
@@ -51,12 +51,8 @@
             </div>
 
             <div fxLayout="row" fxLayoutAlign="start start">
-                    <mat-checkbox name="isBanned" formControlName="isBanned" matInput >
-                    </mat-checkbox>
-                
+                    <mat-checkbox name="isBanned" formControlName="isBanned" matInput >Utilisateur banné ?</mat-checkbox>
             </div>
-
-
         </form>
 
     </div>

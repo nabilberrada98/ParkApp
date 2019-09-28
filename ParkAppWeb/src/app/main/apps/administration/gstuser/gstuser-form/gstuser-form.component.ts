@@ -17,7 +17,6 @@ export class UsersFormDialogComponent
     user : User;
     userForm: FormGroup;
     dialogTitle: string;
-
     /**
      * Constructor
      *
@@ -41,7 +40,7 @@ export class UsersFormDialogComponent
         }
         else
         {
-            this.dialogTitle = 'add';
+            this.dialogTitle = 'Ajouter un utilisateur';
             this.user = new User({});
         }
 
