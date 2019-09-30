@@ -359,7 +359,8 @@ export class ContactsFakeDb
             'isBanned' : false,
             'roles' : [
                 'Propriétaire',
-                'Locataire'
+                'Locataire',
+                'Administrateur'
             ]
         },
         {

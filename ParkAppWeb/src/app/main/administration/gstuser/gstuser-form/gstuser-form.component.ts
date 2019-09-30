@@ -1,8 +1,8 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { User } from '../User.model';
 
-import { User } from 'app/main/apps/administration/gstuser/user.model';
 
 @Component({
     selector     : 'gstuser-form-dialog',

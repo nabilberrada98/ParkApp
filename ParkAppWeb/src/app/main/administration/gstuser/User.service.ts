@@ -4,8 +4,7 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 import { FuseUtils } from '@fuse/utils';
-
-import { User } from 'app/main/apps/administration/gstuser/user.model';
+import { User } from './User.model';
 
 @Injectable()
 export class UserService implements Resolve<any>
@@ -88,6 +87,13 @@ export class UserService implements Resolve<any>
                         {
                             this.users = this.users.filter(_user => {
                                 return _user.roles?_user.roles.includes('Propriétaire'):false;
+                            });
+                        }
+
+                        if ( this.filterBy === 'Administrateur' )
+                        {
+                            this.users = this.users.filter(_user => {
+                                return _user.roles?_user.roles.includes('Administrateur'):false;
                             });
                         }
 

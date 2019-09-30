@@ -25,6 +25,12 @@
                     </a>
                 </div>
 
+                <div class="nav-item" (click)="changeFilter('Administrateur')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='Administrateur'}">
+                        <div class="title">Administrateurs seulement</div>
+                    </a>
+                </div>
+
                 <div class="nav-item" (click)="changeFilter('Locataire')">
                     <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='Locataire'}">
                         <div class="title">Locataires seulement</div>
@@ -36,6 +42,8 @@
                         <div class="title">Propriétaires seulement</div>
                     </a>
                 </div>
+
+                
             </div>
 
         </div>

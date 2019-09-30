@@ -7,9 +7,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
-
-import { AnalyticsDashboardComponent } from 'app/main/apps/dashboards/analytics/analytics.component';
-import { AnalyticsDashboardService } from 'app/main/apps/dashboards/analytics/analytics.service';
+import { AnalyticsDashboardComponent } from './analytics.component';
+import { AnalyticsDashboardService } from './analytics.service';
 
 const routes: Routes = [
     {

@@ -7,8 +7,8 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
-import { UserService } from 'app/main/apps/administration/gstuser/User.service';
 import { UsersFormDialogComponent } from './gstuser-form/gstuser-form.component';
+import { UserService } from './User.service';
 
 @Component({
     selector     : 'users',

@@ -52,7 +52,7 @@ export class AnalyticsDashboardService implements Resolve<any>
             this._httpClient.get('api/analytics-dashboard-widgets')
                 .subscribe((response: any) => {
                     this.widgets = response;
-                    resolve(response);
+                    resolve(response); 
                 }, reject);
         });
     }

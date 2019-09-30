@@ -22,8 +22,20 @@ import { FakeDbService } from './fake-db/fake-db.service';
 
 const appRoutes: Routes = [
     {
-        path        : 'apps',
-        loadChildren: './main/apps/apps.module#AppsModule'
+        path        : 'login',
+        loadChildren: './main/login/login.module#LoginModule'
+    },
+    {
+        path        : 'dashboards/analytics',
+        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule'
+    },
+    {
+        path        : 'dashboards/project',
+        loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule'
+    },
+    {
+        path        : 'administration/gstuser',
+        loadChildren: './main/administration/gstuser/gstuser.module#UsersModule'
     }
 ];
 

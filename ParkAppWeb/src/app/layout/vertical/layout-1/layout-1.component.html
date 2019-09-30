@@ -30,21 +30,23 @@
 
 <!-- TOOLBAR -->
 <ng-template #toolbar>
-    <toolbar ngClass="below-static ng-star-inserted">
+    <toolbar *ngIf="!fuseConfig.layout.toolbar.hidden" ngClass="below-static ng-star-inserted">
     </toolbar>
 </ng-template>
 <!-- / TOOLBAR -->
 
 <!-- FOOTER -->
 <ng-template #footer>
-    <footer class="ng-star-inserted below-fixed fuse-navy-900"></footer>
+    <footer *ngIf="!fuseConfig.layout.footer.hidden"
+         class="ng-star-inserted below-fixed fuse-navy-900"></footer>
 </ng-template>
 <!-- / FOOTER -->
 
 <!-- LEFT NAVBAR -->
 <ng-template #leftNavbar>
     <fuse-sidebar name="navbar" class="navbar-fuse-sidebar"
-                  lockedOpen="gt-md">
+                  lockedOpen="gt-md"
+                  *ngIf="!fuseConfig.layout.navbar.hidden">
         <navbar  class="left-navbar"></navbar>
     </fuse-sidebar>
 </ng-template>

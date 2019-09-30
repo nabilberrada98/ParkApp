@@ -7,8 +7,8 @@ import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule } from '@fuse/components';
 import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 
-import { ProjectDashboardComponent } from 'app/main/apps/dashboards/project/project.component';
-import { ProjectDashboardService } from 'app/main/apps/dashboards/project/project.service';
+import { ProjectDashboardComponent } from 'app/main/dashboards/project/project.component';
+import { ProjectDashboardService } from 'app/main/dashboards/project/project.service';
 
 const routes: Routes = [
     {

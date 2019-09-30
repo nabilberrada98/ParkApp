@@ -5,7 +5,7 @@ import * as shape from 'd3-shape';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { ProjectDashboardService } from 'app/main/apps/dashboards/project/project.service';
+import { ProjectDashboardService } from 'app/main/dashboards/project/project.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 @Component({

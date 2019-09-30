@@ -85,7 +85,7 @@ $typography: mat-typography-config(
 //@import "src/app/main/apps/calendar/calendar.theme";
 // @import "src/app/main/apps/chat/chat.theme";
 // @import "src/app/main/apps/contacts/contacts.theme";
-@import "src/app/main/apps/dashboards/project/project.theme";
+@import "src/app/main/dashboards/project/project.theme";
 // @import "src/app/main/apps/e-commerce/orders/orders.theme";
 // @import "src/app/main/apps/e-commerce/products/products.theme";
 // @import "src/app/main/apps/file-manager/file-manager.theme";
@@ -94,7 +94,7 @@ $typography: mat-typography-config(
 // @import "src/app/main/apps/scrumboard/scrumboard.theme";
 // @import "src/app/main/apps/todo/todo.theme";
 
-@import "src/app/main/pages/authentication/login/login.theme";
+@import "src/app/main/login/login.theme";
 @import "src/app/main/pages/authentication/register/register.theme";
 @import "src/app/main/pages/authentication/reset-password/reset-password.theme";
 @import "src/app/main/pages/authentication/lock/lock.theme";

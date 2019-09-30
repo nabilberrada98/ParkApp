@@ -14,7 +14,7 @@ import { fuseAnimations } from '@fuse/animations';
 export class LoginComponent implements OnInit
 {
     loginForm: FormGroup;
-
+    config: any;
     /**
      * Constructor
      *
@@ -27,18 +27,15 @@ export class LoginComponent implements OnInit
     )
     {
         // Configure the layout
-        this._fuseConfigService.config = {
+        this._fuseConfigService.config={
             layout: {
-                navbar   : {
+                navbar: {
                     hidden: true
                 },
-                toolbar  : {
+                toolbar: {
                     hidden: true
                 },
-                footer   : {
-                    hidden: true
-                },
-                sidepanel: {
+                footer: {
                     hidden: true
                 }
             }
@@ -54,9 +51,14 @@ export class LoginComponent implements OnInit
      */
     ngOnInit(): void
     {
+        this._fuseConfigService.config
+            .subscribe((config) => {
+                this.config = config;
+            });
         this.loginForm = this._formBuilder.group({
             email   : ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
         });
+        
     }
 }

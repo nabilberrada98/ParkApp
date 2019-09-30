@@ -3,7 +3,6 @@ import { FuseNavigation } from '@fuse/types';
 export const navigation: FuseNavigation[] = [
     
     // Applications :
-    
     {
         id       : 'applications',
         title    : 'Applications',
@@ -20,13 +19,13 @@ export const navigation: FuseNavigation[] = [
                         id   : 'analytics',
                         title: 'Analytics',
                         type : 'item',
-                        url  : '/apps/dashboards/analytics'
+                        url  : '/dashboards/analytics'
                     },
                     {
                         id   : 'project',
                         title: 'Project',
                         type : 'item',
-                        url  : '/apps/dashboards/project'
+                        url  : '/dashboards/project'
                     }
                 ]
             },
@@ -35,7 +34,7 @@ export const navigation: FuseNavigation[] = [
                 title    : 'Gestion d\'utilisateurs',
                 type     : 'item',
                 icon     : 'account_box',
-                url      : '/apps/administration/gstuser'
+                url      : '/administration/gstuser'
             }
         ]
     }
