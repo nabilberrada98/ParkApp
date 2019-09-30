@@ -5,19 +5,18 @@ let ReservationSchema = mongoose.Schema({
     startTime: Date,
     endTime: Date,
     prix: Number,
-    user: {
+    locataire : {
         type: Schema.Types.ObjectId,
         ref: "user"
     },
-    places: [{
+    place: {
         type: Schema.Types.ObjectId,
         ref: "place"
-    }]
-
+    }
 });
 
 
-let Reservation = module.exports = mongoose.model('reservation', ReservationSchema);
+let Reservation = module.exports = mongoose.model('Reservation', ReservationSchema);
 
 // Reservation.createCollection().then(function(collection) {
 //     console.log('Reservation is created!');

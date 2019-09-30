@@ -6,7 +6,7 @@ let VehiculeSupporteSchema = mongoose.Schema({
 });
 
 
-let VehiculeSupporte = module.exports = mongoose.model('vehiculesupporte', VehiculeSupporteSchema);
+let VehiculeSupporte = module.exports = mongoose.model('Vehiculesupporte', VehiculeSupporteSchema);
 
 // VehiculeSupporte.createCollection().then(function(collection) {
 //     console.log('VehiculeSupporte is created!');

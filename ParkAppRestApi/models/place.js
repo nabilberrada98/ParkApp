@@ -6,26 +6,35 @@ let PlaceSchema = mongoose.Schema({
     disponibilite: JSON,
     numero: Number,
     etage: Number,
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "user"
-    },
-    images: [{
-        type: Schema.Types.ObjectId,
-        ref: "image"
-    }],
     vehicule: {
         type: Schema.Types.ObjectId,
-        ref: "vehiculesupporte"
+        ref: "Vehiculesupporte"
     },
     parking: {
         type: Schema.Types.ObjectId,
-        ref: "parking"
+        ref: "Parking"
     }
-
 });
 
-let Place = module.exports = mongoose.model('place', PlaceSchema);
+PlaceSchema.virtual('images',{
+    ref : 'Image',
+    localField : '_id',
+    foreignField : 'place'
+});
+
+PlaceSchema.virtual('reservations',{
+    ref : 'Reservation',
+    localField : '_id',
+    foreignField : 'place'
+});
+
+PlaceSchema.virtual('locations',{
+    ref : 'Location',
+    localField : '_id',
+    foreignField : 'place'
+});
+
+let Place = module.exports = mongoose.model('Place', PlaceSchema);
 
 // Place.createCollection().then(function(collection) {
 //     console.log('Place is created!');

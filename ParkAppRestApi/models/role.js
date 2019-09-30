@@ -2,10 +2,14 @@ const mongoose = require('mongoose');
 
 let RoleSchema = mongoose.Schema({
     name: String,
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "user"
+    }
 });
 
 
-let Role = module.exports = mongoose.model('role', RoleSchema);
+let Role = module.exports = mongoose.model('Role', RoleSchema);
 
 // Role.createCollection().then(function(collection) {
 //     Role.create({

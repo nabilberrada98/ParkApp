@@ -11,7 +11,7 @@ let SessionSchema = mongoose.Schema({
 });
 
 
-let Session = module.exports = mongoose.model('session', SessionSchema);
+let Session = module.exports = mongoose.model('Session', SessionSchema);
 
 // Session.createCollection().then(function(collection) {
 //     console.log('Session is created!');

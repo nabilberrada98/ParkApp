@@ -7,12 +7,19 @@ let LocalisationSchema = mongoose.Schema({
     lng: String,
     ville: {
         type: Schema.Types.ObjectId,
-        ref: "ville"
-    },
+        ref: "Ville"
+    }
+});
+
+PlaceSchema.virtual('libelle',{
+    ref : 'Libelle',
+    localField : '_id',
+    foreignField : 'loc',
+    justOne: true
 });
 
 
-let Localisation = module.exports = mongoose.model('localisation', LocalisationSchema);
+let Localisation = module.exports = mongoose.model('Localisation', LocalisationSchema);
 
 // Localisation.createCollection().then(function(collection) {
 //     console.log('localisation is created!');

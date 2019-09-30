@@ -5,12 +5,12 @@ let VilleSchema = mongoose.Schema({
     nom: String,
     region: {
         type: Schema.Types.ObjectId,
-        ref: "region"
+        ref: "Region"
     }
 });
 
 
-let Ville = mongoose.model('ville', VilleSchema);
+let Ville = mongoose.model('Ville', VilleSchema);
 
 // Ville.createCollection().then(function(collection) {
 //     console.log('Ville is created!');

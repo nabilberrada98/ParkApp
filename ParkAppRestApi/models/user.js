@@ -23,14 +23,26 @@ let UserSchema = new Schema({
     },
     password: String,
     isBanned: Boolean,
-    role: {
-        type: Schema.Types.ObjectId,
-        ref: "role"
-    }
-
 }, { timestamps: true });
 
- 
+PlaceSchema.virtual('roles',{
+    ref : 'Role',
+    localField : '_id',
+    foreignField : 'user'
+}); 
+
+PlaceSchema.virtual('reservations',{
+    ref : 'Reservation',
+    localField : '_id',
+    foreignField : 'user'
+}); 
+
+PlaceSchema.virtual('libelle',{
+    ref : 'Libelle',
+    localField : '_id',
+    foreignField : 'localisation'
+});
+
 UserSchema.pre('save', async (next) => {
 
     console.log("=============================== preSave =====================");
@@ -66,7 +78,7 @@ UserSchema.pre('save', async (next) => {
 
 
 
-let User = mongoose.model('user', UserSchema);
+let User = mongoose.model('User', UserSchema);
 
 // User.createCollection().then(function(collection) {
 //   console.log('User is created!');

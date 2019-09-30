@@ -5,18 +5,18 @@ let LocationSchema = mongoose.Schema({
     prix: Number,
     status: Boolean,
     type: String,
-    user: [{
+    user : {
         type: Schema.Types.ObjectId,
-        ref: "user"
-    }],
-    place: [{
+        ref: "User"
+    },
+    place: {
         type: Schema.Types.ObjectId,
-        ref: "place"
-    }]
+        ref: "Place"
+    }
 });
 
 
-let Location = module.exports = mongoose.model('location', LocationSchema);
+let Location = module.exports = mongoose.model('Location', LocationSchema);
 
 // Location.createCollection().then(function(collection) {
 //     console.log('Location is created!');
