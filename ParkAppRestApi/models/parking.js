@@ -5,9 +5,9 @@ let ParkingSchema = mongoose.Schema({
     heureFermeture: String,
     heureOuverture: String,
     intitule: String,
-    etages : [{
+    places:[{
         type: Schema.Types.ObjectId,
-        ref: "etage"
+        ref: "place"
     }],
     loc: {
         type: Schema.Types.ObjectId,

@@ -5,13 +5,10 @@ let PlaceSchema = mongoose.Schema({
     description: String,
     disponibilite: JSON,
     numero: Number,
+    etage: Number,
     user: {
         type: Schema.Types.ObjectId,
         ref: "user"
-    },
-    etage: {
-        type: Schema.Types.ObjectId,
-        ref: "etage"
     },
     images: [{
         type: Schema.Types.ObjectId,
@@ -20,6 +17,10 @@ let PlaceSchema = mongoose.Schema({
     vehicule: {
         type: Schema.Types.ObjectId,
         ref: "vehiculesupporte"
+    },
+    parking: {
+        type: Schema.Types.ObjectId,
+        ref: "parking"
     }
 
 });
