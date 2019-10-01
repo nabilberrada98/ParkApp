@@ -11,7 +11,7 @@ let LocalisationSchema = mongoose.Schema({
     }
 });
 
-PlaceSchema.virtual('libelle',{
+LocalisationSchema.virtual('libelle',{
     ref : 'Libelle',
     localField : '_id',
     foreignField : 'loc',

@@ -2,7 +2,6 @@ const Place = require("../models/place");
 const Location = require("../models/location");
 const Image = require("../models/image");
 const vehSup = require("../models/vehiculesSupporte");
-const Etage = require("../models/etage");
 
 
 
@@ -69,13 +68,8 @@ module.exports = {
 
     storePlace: async (req, res, next) => {
         const newPlace = new Place(req.body);
-        const newEtage = await Etage({numero: req.body.etage});
         const newVehicule = await vehSup({ libelle: req.body.vehicule });
         let images = req.body.images;
-
-        await newEtage.save();
-        newPlace.etage = newEtage;
-        
         await newVehicule.save();
         newPlace.vehicule = newVehicule
 

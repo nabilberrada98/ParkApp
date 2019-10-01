@@ -25,19 +25,19 @@ let UserSchema = new Schema({
     isBanned: Boolean,
 }, { timestamps: true });
 
-PlaceSchema.virtual('roles',{
+UserSchema.virtual('roles',{
     ref : 'Role',
     localField : '_id',
     foreignField : 'user'
 }); 
 
-PlaceSchema.virtual('reservations',{
+UserSchema.virtual('reservations',{
     ref : 'Reservation',
     localField : '_id',
     foreignField : 'user'
 }); 
 
-PlaceSchema.virtual('libelle',{
+UserSchema.virtual('libelle',{
     ref : 'Libelle',
     localField : '_id',
     foreignField : 'localisation'
