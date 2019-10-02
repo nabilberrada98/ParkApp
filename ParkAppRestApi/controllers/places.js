@@ -39,7 +39,7 @@ module.exports = {
             res.status(201).json(place);
         }catch(e){
             req.files.forEach(function(file){
-                unlinkAsync(__basedir + '/resources/static/assets/uploads/places/' + file.name);
+                unlinkAsync(__basedir + '/resources/static/assets/uploads/places/' + file.filename);
             })
         }
 
