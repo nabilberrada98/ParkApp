@@ -65,10 +65,8 @@ module.exports = {
     },
 
     accessToken: async (req, res, next) => {
-        const token = req.headers['x-access-token'];
-        let userId = jwt.decode(token, config.secret).id;
+        let userId = req.user._id;
         const user = await User.findById(userId);
-
         res.status(200).json(user);
     }
 
