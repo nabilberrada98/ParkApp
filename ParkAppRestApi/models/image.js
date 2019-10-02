@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 
 let ImagesSchema = mongoose.Schema({
     path: String,
-    place : {
+    place: {
         type: Schema.Types.ObjectId,
-        ref: "Place"
+        ref: "place"
     }
 });
 
 
-let Image = module.exports = mongoose.model('Image', ImagesSchema);
+let Image = module.exports = mongoose.model('image', ImagesSchema);
 
 // Image.createCollection().then(function(collection) {
 //     console.log('Image is created!');

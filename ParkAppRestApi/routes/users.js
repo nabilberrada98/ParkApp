@@ -8,12 +8,12 @@ const upload = require("../config/upload");
 router
     .get("/",  UsersController.index)
     .post("/", UsersController.storeUser)
-    .post("/avatar", upload.single("file"), UsersController.avatar)
+    .post("/avatar", upload.single("file"), UsersController.avatar);
 
 router
     .get("/:userId", UsersController.getUser)
     .put("/:userId", UsersController.editUser)
-    .patch("/:userId", UsersController.editUser)
+    .patch("/:userId", UsersController.editUser);
 
 
 module.exports = router;

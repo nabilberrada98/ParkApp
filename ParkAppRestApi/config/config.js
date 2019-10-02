@@ -13,8 +13,11 @@ CONFIG.db_user         = process.env.DB_USER       || 'root';
 CONFIG.db_password     = process.env.DB_PASSWORD   || 'db-password';
 
 CONFIG.secret = 'grokonez-super-secret-key';
+CONFIG.salt = 8;
 
 CONFIG.jwt_encryption  = process.env.JWT_ENCRYPTION || 'jwt_please_change';
 CONFIG.jwt_expiration  = process.env.JWT_EXPIRATION || '10000';
+
+CONFIG.host = "localhost";
 
 module.exports = CONFIG;

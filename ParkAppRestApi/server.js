@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const pe = require('parse-error');
 const cors = require('cors');
 require("./config/connection");
-
+const mongoose = require("mongoose");
 
 
 const app = express();
@@ -14,6 +14,18 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 
+
+app.use(session({
+	name: "alpha",
+	resave: false,
+	saveUninitialized: true,
+	secret: require("./config/config").secret,
+	cookie:{
+		maxAge: 1000 * 60 * 60 * 2,
+		sameSite: true,
+		//secure: true
+	}
+}));
 
 var localsSession = function(req, res, next){ 
 	res.locals.session = req.session;
@@ -32,14 +44,16 @@ app.use("/places", express.static("resources/static/assets/uploads/places"));
 const users = require("./routes/users");
 const places = require("./routes/places");
 const reservations = require("./routes/reservations");
+const parking = require("./routes/parking");
 const auth = require("./routes/auth");
 
-const authJwt = require("./helpers/verifyJwtToken");
+const authJwt = require("./middleware/auth");
 
 // Setup routes and handle errors
-app.use('/api/users', [authJwt.verifyToken], users);
-app.use("/api/places", [authJwt.verifyToken], places);
-app.use("/api/reservations", [authJwt.verifyToken], reservations);
+app.use('/api/users', authJwt, users);
+app.use("/api/places", authJwt, places);
+app.use("/api/parkings", parking);
+app.use("/api/reservations", authJwt, reservations);
 app.use("/api/auth", auth);
 
 

@@ -5,15 +5,16 @@ let LibelleSchema = mongoose.Schema({
     libelle: String,
     user: {
         type: Schema.Types.ObjectId,
-        ref: "User"
+        ref: "user"
     },
-    localisation : {
+    loc: {
         type: Schema.Types.ObjectId,
-        ref: "Localisation"
+        ref: "localisation"
     }
 });
 
-let Libelle = module.exports = mongoose.model('Libelle', LibelleSchema);
+
+let Libelle = module.exports = mongoose.model('libelle', LibelleSchema);
 
 // Libelle.createCollection().then(function(collection) {
 //     console.log('Libelle is created!');

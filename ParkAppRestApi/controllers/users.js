@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Role = require("../models/role");
+const config = require("../config/config");
 const jwt = require('jsonwebtoken');
 
 module.exports = {
@@ -13,7 +14,7 @@ module.exports = {
         const newUser = new User(req.body);
         
         let roleName = String(req.body.role);
-        const role = await Role.find({name: roleName});
+        const role = await Role.find({name: roleName})
         
         if(role.length === 1){
             newUser.role = role[0];
@@ -22,7 +23,7 @@ module.exports = {
         }else{
             res.status(404).json({success: false, message: `this role ( ${roleName} ) doesn't exists !!`});
         }
-
+ 
     },
 
     getUser: async (req, res, next) => {
@@ -50,9 +51,8 @@ module.exports = {
 
     avatar: async (req, res) => {
         const file = req.file;
-        const token = jwt.decode(req.headers["x-access-token"], 8);
-        let userId = +token.id;
-        const url = "http://localhost:3000/users/" + file.filename;
+        let userId = req.user._id;
+        const url = config.host + ":" + config.port + "/users/" + file.filename;
         await User.findByIdAndUpdate(userId, { avatar: url })
         res.status(200).json("test");
     }

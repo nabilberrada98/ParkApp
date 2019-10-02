@@ -9,15 +9,16 @@ module.exports = {
 
     login: async (req, res, next) => {
         const user = await User.findOne({ email: req.body.email });
-        
-        if(user === null) return res.status(404).send({ message: "Error !!" });
+    
+
+        if(user === null) return res.status(404).send({ reason: 'Utilisateur introuvable.' });
 
         const role = await Role.findById(user.role);
-            
-        // var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-        // if (!passwordIsValid) {
-        //     return res.status(401).send({ auth: false, accessToken: null, reason: 'Invalide Password!' });
-        // }
+
+        var passwordIsValid = await bcrypt.compareSync(req.body.password, user.password);
+        if (!passwordIsValid) {
+            return res.status(401).send({ auth: false, accessToken: null, reason: 'Invalide Password!' });
+        }
 
         var token = jwt.sign({ id: user.id, roleId: user.role, roleName: role.name }, config.secret, {
             expiresIn: 86400, // expires in 24 hours
@@ -26,12 +27,12 @@ module.exports = {
         let currentUser = { ...user }._doc;
         currentUser.token = token;
 
-        if(req.session.users && req.session.users.length >= 1){
+        if(req.session && req.session.users && req.session.users.length >= 1){
 
             const users = req.session.users;
 
             try{
-                const index = users.findIndex((u) => u.id === currentUser.id);
+                const index = users.findIndex((u) => u.id === currentUser._id);
                 if(index === -1){
                     req.session.users.push(currentUser);
                 }else{
@@ -44,8 +45,6 @@ module.exports = {
         }else{
             req.session.users = [currentUser];
         }
-
-        console.log("Users : ", req.session.users);
 
         res.status(200).send({
             auth: true,

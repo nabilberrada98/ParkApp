@@ -1,8 +1,9 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
+const User = require("../models/user");
 
 
-const authJwt = (req, res, next) => {
+const authJwt = async (req, res, next) => {
 	const token = req.headers['x-access-token'];
 	const users = req.session.users;
 
@@ -22,8 +23,9 @@ const authJwt = (req, res, next) => {
 		});
 		
 		if(userExist){
-			res.user=user;
-			req.token=token;
+			const user = users.filter( (u) => u._id === userId)[0];
+			req.user = user;
+			req.token = token;
 		}else{
 			return res.status(498).send({ 
 				status: 498, 
@@ -57,8 +59,5 @@ const authJwt = (req, res, next) => {
 	});
 }
 
-
-// const authJwt = {};
-// authJwt.verifyToken = verifyToken;
 
 module.exports = authJwt;

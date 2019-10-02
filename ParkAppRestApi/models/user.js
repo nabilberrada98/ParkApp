@@ -23,46 +23,39 @@ let UserSchema = new Schema({
     },
     password: String,
     isBanned: Boolean,
-}, { timestamps: true });
 
-UserSchema.virtual('roles',{
-    ref : 'Role',
-    localField : '_id',
-    foreignField : 'user'
-}); 
+    role: {
+        type: Schema.Types.ObjectId,
+        ref: "role"
+    }
+    
+}, { timestamps: true, toJSON: { virtuals: true } });
+
 
 UserSchema.virtual('reservations',{
-    ref : 'Reservation',
+    ref : 'reservation',
     localField : '_id',
     foreignField : 'user'
-}); 
+});
 
-UserSchema.virtual('libelle',{
-    ref : 'Libelle',
+UserSchema.virtual('location',{
+    ref : 'location',
     localField : '_id',
-    foreignField : 'localisation'
+    foreignField : 'user'
 });
 
-UserSchema.pre('save', async (next) => {
 
-    console.log("=============================== preSave =====================");
+UserSchema.pre('save', async function (next) {
 
-    // if (this.isModified('password') || this.isNew) {
-    //   let err, salt, hash;
-  
-    //   hash = bcrypt.hashSync(this.password, 8);
-
-    //   this.password = hash;
-    //   // if (err) {
-    //   //   TE(err.message, true);
-    //   // }
-    // } else {
-    //   return next();
-    // }
+    if (this.isModified('password') || this.isNew) {
+      this.password = await bcrypt.hash(this.password, 8);
+    }else{
+      return next();
+    }
 
 });
 
-// UserSchema.methods.comparePassword = async (pw) => {
+// UserSchema.methods.comparePassword = async function(pw){
 //   let err, pass;
 
 //   if (!this.password) {
@@ -78,7 +71,7 @@ UserSchema.pre('save', async (next) => {
 
 
 
-let User = mongoose.model('User', UserSchema);
+let User = mongoose.model('user', UserSchema);
 
 // User.createCollection().then(function(collection) {
 //   console.log('User is created!');
