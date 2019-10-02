@@ -45,6 +45,7 @@ const users = require("./routes/users");
 const places = require("./routes/places");
 const reservations = require("./routes/reservations");
 const parking = require("./routes/parking");
+const locations = require("./routes/locations");
 const auth = require("./routes/auth");
 
 const authJwt = require("./middleware/auth");
@@ -54,6 +55,7 @@ app.use('/api/users', authJwt, users);
 app.use("/api/places", authJwt, places);
 app.use("/api/parkings", parking);
 app.use("/api/reservations", authJwt, reservations);
+app.use("/api/locations", authJwt, locations );
 app.use("/api/auth", auth);
 
 

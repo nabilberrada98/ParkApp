@@ -7,7 +7,8 @@ let LocationSchema = mongoose.Schema({
     type: String,
     locataire: {
         type: Schema.Types.ObjectId,
-        ref: "user"
+        ref: "user",
+        required: true,
     },
     place: {
         type: Schema.Types.ObjectId,
