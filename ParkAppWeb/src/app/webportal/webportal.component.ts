@@ -12,8 +12,6 @@ export class WebportalComponent implements AfterViewInit  {
     
   constructor() {
    }
-
-
    ngAfterViewInit() {
       // loading templates js after dom render
       $.getScript("/assets/js/bootstrap.min.js", function () {
@@ -30,6 +28,7 @@ export class WebportalComponent implements AfterViewInit  {
       });
       $.getScript("/assets/js/scripts.js", function () {
       });
+      //document.getElementsByTagName('body')[0].style.overflow="visible";
     }
 
 }
