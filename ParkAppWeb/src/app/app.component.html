@@ -3,5 +3,7 @@
 <!-- / PROGRESS BAR -->
 
 <!-- VERTICAL LAYOUT 1 -->
-    <vertical-layout-1></vertical-layout-1>
+<vertical-layout-1 *ngIf="!displayPortal"></vertical-layout-1>
 <!-- / VERTICAL LAYOUT 1 -->
+
+<app-webportal *ngIf="displayPortal"></app-webportal>

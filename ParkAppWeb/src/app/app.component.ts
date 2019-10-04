@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy
 {
     fuseConfig: any;
     navigation: any;
-
+    displayPortal : boolean;
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -44,6 +44,7 @@ export class AppComponent implements OnInit, OnDestroy
         private _platform: Platform
     )
     {
+        this.displayPortal=true;
         // Get default navigation
         this.navigation = navigation;
 
@@ -78,6 +79,7 @@ export class AppComponent implements OnInit, OnDestroy
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((config) => {
                 this.fuseConfig = config;
+                this.fuseConfig.set
 
                 // Color theme - Use normal for loop for IE11 compatibility
                 for ( let i = 0; i < this.document.body.classList.length; i++ )

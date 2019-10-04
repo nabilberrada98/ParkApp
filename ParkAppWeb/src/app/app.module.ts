@@ -19,6 +19,7 @@ import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
 import { FakeDbService } from './fake-db/fake-db.service';
+import { WebportalComponent } from './webportal/webportal.component';
 
 const appRoutes: Routes = [
     {
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        WebportalComponent,
     ],
     imports     : [
         BrowserModule,
