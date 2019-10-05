@@ -19,16 +19,18 @@ import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
 import { FakeDbService } from './fake-db/fake-db.service';
-import { WebportalComponent } from './webportal/webportal.component';
-
 const appRoutes: Routes = [
+    {
+        path        : '**',
+        loadChildren: './main/webportal/webportal.module#PortalModule'
+    },
     {
         path        : 'login',
         loadChildren: './main/login/login.module#LoginModule'
     },
     {
         path        : 'dashboards/analytics',
-        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule'
+        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
     },
     {
         path        : 'dashboards/project',
@@ -43,7 +45,6 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        WebportalComponent,
     ],
     imports     : [
         BrowserModule,

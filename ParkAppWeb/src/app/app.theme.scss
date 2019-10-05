@@ -82,7 +82,7 @@ $typography: mat-typography-config(
 // @import "src/app/layout/components/chat-panel/chat-panel.theme";
 // @import "src/app/layout/components/toolbar/toolbar.theme";
 
-//@import "src/app/main/apps/academy/academy.theme";
+@import "src/app/main/webportal/webportal.theme";
 //@import "src/app/main/apps/calendar/calendar.theme";
 // @import "src/app/main/apps/chat/chat.theme";
 // @import "src/app/main/apps/contacts/contacts.theme";
@@ -105,7 +105,7 @@ $typography: mat-typography-config(
     //@include toolbar-theme($theme);
 
     // Apps
-    // @include academy-theme($theme);
+    @include academy-theme($theme);
     // @include calendar-theme($theme);
     // @include chat-theme($theme);
     // @include contacts-theme($theme);
