@@ -2,6 +2,8 @@ import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfigService } from '@fuse/services/config.service';
 import * as $ from 'jquery';
+import { MatDialog } from '@angular/material';
+import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
 @Component({
   selector: 'app-webportal',
   templateUrl: './webportal.component.html',
@@ -14,7 +16,8 @@ import * as $ from 'jquery';
 
 export class WebportalComponent implements OnInit {
   config: any;
-  constructor(private _fuseConfigService: FuseConfigService)
+  constructor(private _fuseConfigService: FuseConfigService,
+    public dialog: MatDialog)
 {
     // Configure the layout
     this._fuseConfigService.config={
@@ -30,6 +33,11 @@ export class WebportalComponent implements OnInit {
             }
         }
     };
+}
+
+
+registerDialog(){
+    const dialogRef = this.dialog.open(RegisterDialogComponent);
 }
  /**
      * On init
