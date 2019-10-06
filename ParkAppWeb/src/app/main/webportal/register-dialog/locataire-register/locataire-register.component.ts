@@ -19,7 +19,10 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
 
     form: FormGroup;
     coordinates: any;
-    markers: markers[] = [];
+    markers: Marker[] = [];
+    zoom: number = 8;
+    lat: number = 33.9718626;
+    lng: number = -6.8695921;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -33,6 +36,7 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
+
         this.initForm();
     }
 
@@ -77,23 +81,19 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
 
     }
 
-    zoom: number = 8;
-    // initial center position for the map
-    lat: number = 33.9718626;
-    lng: number = -6.8695921;
 
     clickedMarker(label: string, index: number) {
-        console.log(`clicked the marker: ${label || index}`)
+        console.log(`clicked the marker: ${label || index}`);
     }
     
     mapClicked($event: MouseEvent) {
         console.log("coordinations : ", $event.coords);
         this.markers = [];
-        this.markers.push({ lat: $event.coords.lat, lng: $event.coords.lng })
+        this.markers.push({ lat: $event.coords.lat, lng: $event.coords.lng });
         this.getGeoInfo($event.coords);
     }
     
-    markerDragEnd(m: marker, $event: MouseEvent) {
+    markerDragEnd(m: Marker, $event: MouseEvent) {
         console.log('dragEnd', m, $event);
     }
 
@@ -102,26 +102,19 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
             let data = response.data;
             let city = data.plus_code.compound_code.split(" ")[1].split(",")[0];
             let region = data.results[data.results.length - 2].formatted_address.split(",")[0];
-            let temp = Object.assign({ ville: { nom: city, region: { nom: region }  }  }, this.markers[0])
+            let temp = Object.assign({ ville: { nom: city, region: { nom: region }  }  }, this.markers[0]);
             this.markers[0] = temp;
             console.log(this.markers);
         }).catch((error) => {
             console.log(error);
         });
-    };
+    }
 
 }
 
 
-interface marker {
+interface Marker {
     lat: number;
     lng: number;
-    ville: {
-        nom: string,
-        region: {
-            nom: string
-        }
-    }
+    label?: string;
 }
-
-
