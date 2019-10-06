@@ -1,7 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { MatDialogClose } from '@angular/material';
 import axios from 'axios';
+import { Login } from '../../../api/AuthInstance.js';
 
 @Component({
   selector: 'app-login-dialog',
@@ -10,16 +11,36 @@ import axios from 'axios';
 })
 export class LoginDialogComponent implements OnInit {
 
-    constructor(){
+    form: FormGroup;
+
+    constructor(private formBuilder: FormBuilder) {
     }
 
     ngOnInit(): void {
+        this.initForm();
     }
     
-
-    onSubmit(): void {
+    initForm(): void{
+        this.form = this.formBuilder.group({
+            email : ['', Validators.required],
+            password  : ['', Validators.required],
+        });
     }
 
+    onSubmit(): void {
+        const data = this.form.value;
+        this.handleLogin(data);
+    }
+
+    handleLogin(data): void{
+        Login(data).then( (obj) => {
+            console.log(obj);
+            //obj.login.authorities = obj.authorities;
+            // sessionStorage.setItem("currentUser", obj.login);
+            // sessionStorage.setItem("token", obj.login.token);
+        })
+        .catch( (err) => console.log(err) );
+    }
 
 }
 
