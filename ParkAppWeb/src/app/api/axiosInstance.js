@@ -1,12 +1,6 @@
 import axios from "axios"
 import {ACCESS_TOKEN} from "./strings";
 
-
-// export const access_token = () => {
-//   const token = sessionStorage.getItem(ACCESS_TOKEN);
-//   return token;
-// };
-
 export const getHeaders = (uri, method, data = {}) => {
   console.log("[AxiosInstance] -> getHeaders() : ");
   const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hcGkvbG9naW4iLCJpYXQiOjE1NjAxNTkxNzgsImV4cCI6MTU2MTY3MTE3OCwibmJmIjoxNTYwMTU5MTc4LCJqdGkiOiJxZWt3RHQzeWhFOTR2SW1jIn0.kc5cvKCuYit_ri276zu0myf_BtbyWWSHaIEy9CAlDWo";
@@ -17,7 +11,7 @@ export const getHeaders = (uri, method, data = {}) => {
     method: method,
     data: handleData,
     headers: {
-        'Authorization': "bearer " + token,
+        'x-access-token': token,
         'Content-Type': 'application/json'
     }
   };
@@ -25,8 +19,6 @@ export const getHeaders = (uri, method, data = {}) => {
 
 
 export const PromiseHandler = (method, uri, data = {}) => {
-  console.log("[AxiosInstance] -> PromiseHandler() : ");
-  console.log("data : ", data);
   return new Promise( async (resolve, reject) => {
     await axios(getHeaders(uri, method, data))
     .then(response => resolve(response.data) )

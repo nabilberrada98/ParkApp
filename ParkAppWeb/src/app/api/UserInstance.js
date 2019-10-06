@@ -1,18 +1,12 @@
 import axios from "axios"
 import { getItem, storeItem, updateItem, deleteItem} from "./axiosInstance";
 
-
-// export const getAllMyLocals = () => {
-//   console.log("[LocalInstance] -> getAllMyLocals() : ");
-//   return getItem("/locals/me");
-// }
-
 export const getAllUsers = () => {
   return getItem("/api/users");
 }
 
 export const storeUser = (data) => {
-  const uri = "/api/users/add";
+  const uri = "/api/users";
   return storeItem(uri, data);
 }
 
