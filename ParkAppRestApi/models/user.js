@@ -22,9 +22,12 @@ let UserSchema = new Schema({
         }),]
     },
     password: String,
-    isBanned: Boolean,
-
+    isBanned: {
+      type : Boolean,
+      default : false
+    },
     role: {
+        required : true,
         type: Schema.Types.ObjectId,
         ref: "role"
     }
