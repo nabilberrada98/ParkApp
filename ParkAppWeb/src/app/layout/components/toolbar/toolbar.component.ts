@@ -6,6 +6,8 @@ import * as _ from 'lodash';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { navigation } from 'app/navigation/navigation';
+import { AuthService } from 'app/services/auth.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
     selector     : 'toolbar',
@@ -18,6 +20,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
 {
     hiddenNavbar: boolean;
     navigation: any;
+    user;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -32,12 +35,18 @@ export class ToolbarComponent implements OnInit, OnDestroy
     constructor(
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
+        private authService: AuthService,
+        private userService: UserService
     )
     {
         // Set the defaults
         this.navigation = navigation;
         // Set the private defaults
         this._unsubscribeAll = new Subject();
+
+        const data = this.userService.getCurrentUser()[0];
+        this.user = data ? data : {};        
+
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -90,6 +99,14 @@ export class ToolbarComponent implements OnInit, OnDestroy
     {
         // Do your search here...
         console.log(value);
+    }
+
+    handleLogout(): void{
+        this.authService.logout();
+    }
+
+    fullName(): string{
+        return this.user.nom + " " + this.user.prenom;
     }
 
 }

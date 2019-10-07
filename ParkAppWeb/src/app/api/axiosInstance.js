@@ -1,12 +1,6 @@
 import axios from "axios"
 import {ACCESS_TOKEN} from "./strings";
 
-
-// export const access_token = () => {
-//   const token = sessionStorage.getItem(ACCESS_TOKEN);
-//   return token;
-// };
-
 export const getHeaders = (uri, method, data = {}) => {
   console.log("[AxiosInstance] -> getHeaders() : ");
   const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjMsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hcGkvbG9naW4iLCJpYXQiOjE1NjAxNTkxNzgsImV4cCI6MTU2MTY3MTE3OCwibmJmIjoxNTYwMTU5MTc4LCJqdGkiOiJxZWt3RHQzeWhFOTR2SW1jIn0.kc5cvKCuYit_ri276zu0myf_BtbyWWSHaIEy9CAlDWo";
@@ -17,18 +11,31 @@ export const getHeaders = (uri, method, data = {}) => {
     method: method,
     data: handleData,
     headers: {
-        'Authorization': "bearer " + token,
+        'x-access-token': token,
         'Content-Type': 'application/json'
     }
   };
 };
 
+export const getCustomHeader = (uri, method, data = {}) => {
+    console.log("[AxiosInstance] -> getHeaders() : ");
+    const handleData = (data !== null && Object.keys(data).length > 1) ? data : {} ;
+    console.log("handleData : ", handleData);
+    return {
+      url: uri,
+      method: method,
+      data: handleData,
+      headers: {
+          'Content-Type': 'application/json'
+      }
+    };
+};
 
-export const PromiseHandler = (method, uri, data = {}) => {
-  console.log("[AxiosInstance] -> PromiseHandler() : ");
-  console.log("data : ", data);
-  return new Promise( async (resolve, reject) => {
-    await axios(getHeaders(uri, method, data))
+
+export const PromiseHandler = (method, uri, data = {}, isAuth = false) => {
+    const header = isAuth ? getCustomHeader(uri, method, data) : getHeaders(uri, method, data);
+    return new Promise( async (resolve, reject) => {
+    await axios(header)
     .then(response => resolve(response.data) )
     .then( res  => console.log("response : ",res.data))
     .catch(err => reject(err))
@@ -51,3 +58,10 @@ export const deleteItem = (uri) => {
   return PromiseHandler("DELETE", uri);
 }
 
+export const userLogin = (uri, data) => {
+    return PromiseHandler("POST", uri, data, true);
+}
+
+export const userLogout = (uri) => {
+    return PromiseHandler("GET", uri);
+}

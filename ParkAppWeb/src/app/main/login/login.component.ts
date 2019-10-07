@@ -3,6 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
+import { Login } from "../../api/controllers/AuthInstance.js";
+import { UserService } from '../../services/user.service';
+import { AuthService } from 'app/services/auth.service.js';
+
 
 @Component({
     selector     : 'login',
@@ -23,11 +27,12 @@ export class LoginComponent implements OnInit
      */
     constructor(
         private _fuseConfigService: FuseConfigService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
+        private authService: AuthService
     )
     {
         // Configure the layout
-        this._fuseConfigService.config={
+        this._fuseConfigService.config = {
             layout: {
                 navbar: {
                     hidden: true
@@ -55,10 +60,34 @@ export class LoginComponent implements OnInit
             .subscribe((config) => {
                 this.config = config;
             });
+
+        this.initForm();
+        
+    }
+
+    onSubmit(): void {
+        const data = this.loginForm.value;
+        this.handleLogin(data);
+    }
+
+    initForm(): void{
         this.loginForm = this._formBuilder.group({
             email   : ['', [Validators.required, Validators.email]],
             password: ['', Validators.required]
         });
-        
     }
+
+    handleLogin(data): void {
+        this.authService.login(data);
+        // Login(data).then( (obj) => {
+        //     console.log(obj);
+        //     //obj.login.authorities = obj.authorities;
+        //     // sessionStorage.setItem("currentUser", obj.login);
+        //     // sessionStorage.setItem("token", obj.login.token);
+        // })
+        // .catch( (err) => console.log(err) );
+    }
+
+
+    
 }
