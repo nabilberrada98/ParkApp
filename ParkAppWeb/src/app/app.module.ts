@@ -21,34 +21,43 @@ import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
 import { FakeDbService } from './fake-db/fake-db.service';
+import { AuthService } from './services/auth.service';
+import { UserService } from './services/user.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { AnalyticsDashboardComponent } from './main/dashboards/analytics/analytics.component';
+
+
 const appRoutes: Routes = [
-    {
-        path        : '**',
-        loadChildren: './main/webportal/webportal.module#PortalModule'
-    },
+    // {
+    //     path        : '**',
+    //     loadChildren: './main/webportal/webportal.module#PortalModule'
+    // },
     {
         path        : 'login',
         loadChildren: './main/login/login.module#LoginModule'
     },
     {
-        path        : 'dashboards/analytics',
-        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
+        path        : 'administration/gstuser',
+        loadChildren: './main/administration/gstuser/gstuser.module#UsersModule',
+        canActivate: [AuthGuardService]
     },
     {
         path        : 'dashboards/project',
-        loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule'
+        loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule',
+        canActivate: [AuthGuardService]
     },
     {
-        path        : 'administration/gstuser',
-        loadChildren: './main/administration/gstuser/gstuser.module#UsersModule'
-    }
+        path        : '',
+        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
+        canActivate: [AuthGuardService]
+    },
 ];
 
 @NgModule({
     declarations: [
         AppComponent,
     ],
-    imports     : [
+    imports: [
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
@@ -74,6 +83,8 @@ const appRoutes: Routes = [
         FuseSidebarModule,
         FuseThemeOptionsModule,
 
+
+
         // App modules
         LayoutModule,
         AppStoreModule,
@@ -81,7 +92,11 @@ const appRoutes: Routes = [
 
 
     ],
-    bootstrap   : [
+    providers: [
+        AuthService,
+        UserService
+    ],
+    bootstrap: [
         AppComponent
     ]
 })

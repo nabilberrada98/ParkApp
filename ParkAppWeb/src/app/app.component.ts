@@ -44,7 +44,7 @@ export class AppComponent implements OnInit, OnDestroy
         private _platform: Platform
     )
     {
-        this.displayPortal=true;
+        this.displayPortal=false;
         // Get default navigation
         this.navigation = navigation;
 

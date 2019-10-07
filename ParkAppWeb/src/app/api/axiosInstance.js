@@ -33,7 +33,7 @@ export const getCustomHeader = (uri, method, data = {}) => {
 
 
 export const PromiseHandler = (method, uri, data = {}, isAuth = false) => {
-    const header = isAuth ? getHeader(uri, method, data) : getHeaders(uri, method, data);
+    const header = isAuth ? getCustomHeader(uri, method, data) : getHeaders(uri, method, data);
     return new Promise( async (resolve, reject) => {
     await axios(header)
     .then(response => resolve(response.data) )
