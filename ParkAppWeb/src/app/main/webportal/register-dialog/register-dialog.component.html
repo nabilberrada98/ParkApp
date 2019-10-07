@@ -6,7 +6,7 @@
             <mat-icon >directions_car</mat-icon>
             Locataire
           </ng-template>
-          <locataire-register></locataire-register>
+          <locataire-register #locataire></locataire-register>
         </mat-tab>
         <mat-tab>
           <ng-template mat-tab-label>
@@ -15,7 +15,7 @@
           </ng-template>
           <proprio-register></proprio-register>
         </mat-tab>
-      </mat-tab-group>
+    </mat-tab-group>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close [mat-dialog-close]="true">Annuler</button>

@@ -9,6 +9,9 @@ import { WebportalComponent } from './webportal.component';
 import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
 import { ProprioRegisterComponent } from './register-dialog/proprio-register/proprio-register.component';
 import { LocataireRegisterComponent } from './register-dialog/locataire-register/locataire-register.component';
+import { AgmCoreModule } from '@agm/core';
+import { LoginDialogComponent } from "./login-dialog/login-dialog.component";
+
 
 const routes = [
     {
@@ -23,6 +26,7 @@ const routes = [
         RegisterDialogComponent,
         ProprioRegisterComponent,
         LocataireRegisterComponent,
+        LoginDialogComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
@@ -37,10 +41,17 @@ const routes = [
         MatButtonModule,
         MatDialogModule,
         FuseSharedModule,
-        FuseSidebarModule
+        FuseSidebarModule,
+
+        // Google Map
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyAAFz7wsoEsvZOY24eqBigX57ZdcUT-RbA'
+        })
+
     ],
     entryComponents : [
-        RegisterDialogComponent
+        RegisterDialogComponent,
+        LoginDialogComponent
     ]
 })
 export class PortalModule

@@ -1,3 +1,89 @@
-<p>
-  locataire-register works!
-</p>
+
+<div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="column">
+
+    <form #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)" class="p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
+            fxFlex="1 0 auto" name="form" [formGroup]="form">
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$" required>
+                <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                <mat-error>Email est Requis!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                <mat-label>Telephone</mat-label>
+                <input matInput formControlName="phone" required>
+                <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                <mat-error>Le Telephone est Requis!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                <mat-label>Libelle</mat-label>
+                <input matInput formControlName="libelle" required>
+                <mat-icon matSuffix class="secondary-text">address</mat-icon>
+                <mat-error>Libelle est Requis!</mat-error>
+            </mat-form-field>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                <mat-label>Nom</mat-label>
+                <input matInput formControlName="nom" required>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <mat-error>Le Nom est Requis!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                <mat-label>Prénom</mat-label>
+                <input matInput formControlName="prenom" required>
+                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                <mat-error>Le Prénom est Requis!</mat-error>
+            </mat-form-field>
+
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-form-field appearance="outline" fxFlex="100" class="pl-4">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" required>
+                <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                <mat-error>Le Mote de Passe est Requis!</mat-error>
+            </mat-form-field>
+
+        </div>
+ 
+        <agm-map
+        [latitude]="lat"
+        [longitude]="lng"
+        [zoom]="zoom"
+        [disableDefaultUI]="false"
+        [zoomControl]="false"
+        (mapClick)="mapClicked($event)">
+        
+            <agm-marker
+                *ngFor="let m of markers; let i = index"
+                (markerClick)="clickedMarker(m.label, i)"
+                [latitude]="m.lat"
+                [longitude]="m.lng"
+                [label]="m.label"
+                (dragEnd)="markerDragEnd(m, $event)">
+                
+                <agm-info-window>
+                    <strong>InfoWindow content</strong>
+                </agm-info-window>
+                
+            </agm-marker>
+        
+        </agm-map>
+
+
+    </form>
+
+</div>
+

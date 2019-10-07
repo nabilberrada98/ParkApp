@@ -35,36 +35,12 @@
                     </mat-error>
                 </mat-form-field>
 
-                <div class="remember-forgot-password" fxLayout="row" fxLayout.xs="column"
-                     fxLayoutAlign="space-between center">
-                    <mat-checkbox class="remember-me" aria-label="Remember Me">
-                        Sauvegarder la session
-                    </mat-checkbox>
-                </div>
-
-                <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+                <button type="submit" (click)="onSubmit()" mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
                         [disabled]="loginForm.invalid">
                     Se Connecter
                 </button>
 
             </form>
-
-            <div class="separator">
-                <span class="text">Ou</span>
-            </div>
-
-            <button mat-raised-button class="google">
-                Se Connecter avec Google
-            </button>
-
-            <button mat-raised-button class="facebook">
-                Se Connecter avec Facebook
-            </button>
-
-            <div class="register" fxLayout="column" fxLayoutAlign="center center">
-                <span class="text">Vous n'avez pas de compte ?</span>
-                <a class="link" [routerLink]="'/pages/auth/register'">Créer un compte</a>
-            </div>
 
         </div>
 

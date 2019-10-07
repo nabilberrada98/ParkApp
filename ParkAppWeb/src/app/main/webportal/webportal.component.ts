@@ -4,6 +4,8 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import * as $ from 'jquery';
 import { MatDialog } from '@angular/material';
 import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
+
 @Component({
   selector: 'app-webportal',
   templateUrl: './webportal.component.html',
@@ -36,9 +38,15 @@ export class WebportalComponent implements OnInit {
 }
 
 
-registerDialog(){
-    const dialogRef = this.dialog.open(RegisterDialogComponent);
-}
+    registerDialog(){
+        const dialogRef = this.dialog.open(RegisterDialogComponent);
+    }
+
+    loginDialog(){
+        this.dialog.open(LoginDialogComponent); 
+    }
+
+
  /**
      * On init
      */

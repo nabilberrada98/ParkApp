@@ -1,5 +1,5 @@
 import axios from "axios"
-import { getItem, storeItem, updateItem, deleteItem} from "./axiosInstance";
+import { getItem, storeItem, updateItem, deleteItem} from "../axiosInstance";
 
 export const getAllUsers = () => {
   return getItem("/api/users");
