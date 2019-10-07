@@ -65,6 +65,6 @@ export class ProprioRegisterComponent implements OnInit,OnDestroy {
 
 
     SaveProprio(obj){
-      let dataToPost = {...obj, role : ""};
+      let dataToPost = {...obj, role : "Propriétaire"};
     }
 }

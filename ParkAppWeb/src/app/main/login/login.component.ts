@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { fuseAnimations } from '@fuse/animations';
-import { Login } from "../../api/controllers/AuthInstance.js";
-import { UserService } from '../../services/user.service';
 import { AuthService } from 'app/services/auth.service.js';
 
 
