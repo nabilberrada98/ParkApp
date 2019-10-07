@@ -15,7 +15,7 @@
         <link href="assets/icons/meteocons/style.css" rel="stylesheet">
         <link href="assets/icons/material-icons/outline/style.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700" rel="stylesheet">
-
+        
         <!-- FUSE Splash Screen CSS -->
         <style type="text/css">
             #fuse-splash-screen {
@@ -180,17 +180,13 @@
         <!-- / FUSE Splash Screen CSS -->
     </head>
 
-    <body>
-
+    <body data-spy="scroll" data-target=".fixed-top" style="margin:0 !important">
         <!-- FUSE Splash Screen -->
         <fuse-splash-screen id="fuse-splash-screen">
-
             <div class="center">
-
                 <div class="logo">
                     <img width="128" src="assets/images/logos/logoApp.png">
                 </div>
-
                 <!-- Material Design Spinner -->
                 <div class="spinner-wrapper">
                     <div class="spinner">
@@ -214,6 +210,8 @@
 
         <app></app>
 
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/js/swiper.min.js"></script>
     </body>
 
 </html>
