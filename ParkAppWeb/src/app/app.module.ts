@@ -37,11 +37,11 @@ const appRoutes: Routes = [
         loadChildren: './main/administration/gstuser/gstuser.module#UsersModule',
         canActivate: [AuthGuardService]
     },
-    // {
-    //     path        : 'dashboard',
-    //     loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule',
-    //     canActivate: [AuthGuardService]
-    // },
+    {
+        path        : 'project',
+        loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule',
+        canActivate: [AuthGuardService]
+    },
     {
         path        : 'dashboard',
         loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
