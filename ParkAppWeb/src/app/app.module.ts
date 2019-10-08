@@ -5,8 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatButtonModule, MatIconModule } from '@angular/material';
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { TranslateModule } from '@ngx-translate/core';
 import 'hammerjs';
 
 import { FuseModule } from '@fuse/fuse.module';
@@ -20,21 +18,21 @@ import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
 import { LayoutModule } from 'app/layout/layout.module';
-import { FakeDbService } from './fake-db/fake-db.service';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { AuthGuardService } from './services/auth-guard.service';
-import { AnalyticsDashboardComponent } from './main/dashboards/analytics/analytics.component';
 
 
 const appRoutes: Routes = [
-    // {
-    //     path        : '**',
-    //     loadChildren: './main/webportal/webportal.module#PortalModule'
-    // },
     {
-        path        : 'login',
-        loadChildren: './main/login/login.module#LoginModule'
+        path        : 'dashboard/analytics',
+        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
+        canActivate: [AuthGuardService]
+    },
+    {
+        path        : 'locations',
+        loadChildren: './main/Locations/Location.module#LocationsModule',
+        canActivate: [AuthGuardService]
     },
     {
         path        : 'administration/gstuser',
@@ -48,9 +46,8 @@ const appRoutes: Routes = [
     },
     {
         path        : '',
-        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
-        canActivate: [AuthGuardService]
-    },
+        loadChildren: './main/webportal/webportal.module#PortalModule'
+    }
 ];
 
 @NgModule({
@@ -62,13 +59,6 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         HttpClientModule,
         RouterModule.forRoot(appRoutes),
-
-        TranslateModule.forRoot(),
-
-        InMemoryWebApiModule.forRoot(FakeDbService, {
-            delay             : 0,
-            passThruUnknownUrl: true
-        }),
         // Material moment date module
         MatMomentDateModule,
 

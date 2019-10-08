@@ -9,8 +9,6 @@ module.exports = {
 
     login: async (req, res, next) => {
         const user = await User.findOne({ email: req.body.email });
-    
-
         if(user === null) return res.status(404).send({ reason: 'Utilisateur introuvable.' });
 
         const role = await Role.findById(user.role);

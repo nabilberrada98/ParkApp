@@ -35,7 +35,6 @@ module.exports = {
             const newPlace = new Place({...req.body, user: req.user.id}); 
             await uploadMedias(req.files, newPlace._id)
             const place = await newPlace.save();
-
             res.status(201).json(place);
         }catch(e){
             req.files.forEach(function(file){

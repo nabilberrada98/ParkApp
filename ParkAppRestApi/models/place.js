@@ -6,11 +6,6 @@ let PlaceSchema = mongoose.Schema({
     disponibilite: JSON,
     numero: Number,
     etage: Number,
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "user",
-        required: true,
-    },
     vehicule: {
         type: JSON,
         required: true,
@@ -23,6 +18,12 @@ let PlaceSchema = mongoose.Schema({
 
 PlaceSchema.virtual('images',{
     ref : 'image',
+    localField : '_id',
+    foreignField : 'place'
+});
+
+PlaceSchema.virtual('locations',{
+    ref : 'location',
     localField : '_id',
     foreignField : 'place'
 });

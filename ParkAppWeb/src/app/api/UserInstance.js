@@ -1,4 +1,3 @@
-import axios from "axios"
 import { getItem, storeItem, updateItem, deleteItem} from "./axiosInstance";
 
 export const getAllUsers = () => {

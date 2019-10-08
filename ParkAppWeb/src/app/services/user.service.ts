@@ -20,6 +20,17 @@ export class UserService {
         // .catch( (err) => console.log(err) );
     }
 
+    storeUser(user) : boolean{
+        return storeUser(user).then((data)=>{
+            sessionStorage.setItem("currentUser", JSON.stringify(data));
+            sessionStorage.setItem("token", JSON.stringify(data.token));
+            return true;
+        }).catch((err) => {
+            return false;
+        });
+    }
+
+
     delete(): void {
         sessionStorage.removeItem("returnUrl");
         sessionStorage.removeItem("currentUser");
