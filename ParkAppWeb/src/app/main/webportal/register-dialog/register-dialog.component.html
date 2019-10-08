@@ -18,6 +18,5 @@
     </mat-tab-group>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Annuler</button>
-  <button mat-button type="submit" (click)="onSubmit()" mat-dialog-close [disabled]="false" cdkFocusInitial>Créer le compte</button>
+  <button mat-button mat-dialog-close [mat-dialog-close]="true">Annuler</button>
 </mat-dialog-actions>

@@ -1,0 +1,45 @@
+[
+	{
+		"model": "Region",
+		"documents": [
+			[
+                {
+                    "nom" : "Tanger - Tétouan - Al Hoceima"
+                },
+                {
+                    "nom" : "Oriental"
+                },
+                {
+                    "nom" : "Fès - Meknès"
+                },
+                {
+                    "nom" : "Rabat - Salé - Kénitra"
+                },
+                {
+                    "nom": "Béni Mellal -Khénifra"
+                },
+                {
+                    "nom": "Casablanca - Settat"
+                },
+                {
+                    "nom": "Marrakech - Safi"
+                },
+                {
+                    "nom": "Drâa ‐ Tafilalet"
+                },
+                {
+                    "nom": "Sous-Massa"
+                },
+                {
+                    "nom": "Guelmim - Oued Noun"
+                },
+                {
+                    "nom": "Laâyoune ‐ Saguia Al Hamra"
+                },
+                {
+                    "nom": "Ed Dakhla ‐ Oued Ed Dahab"
+                }
+            ]
+		]
+    }
+]

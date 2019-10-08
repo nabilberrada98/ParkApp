@@ -1,0 +1,21 @@
+<<<<<<< HEAD
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+# System Files
+.DS_Store
+Thumbs.db
+=======
+# OSX
+#
+.DS_Store
+
+
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+>>>>>>> d0b4f6a9f8e9cf550362804a7d8ff87c131d55be
