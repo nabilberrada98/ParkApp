@@ -28,10 +28,6 @@ import { AnalyticsDashboardComponent } from './main/dashboards/analytics/analyti
 
 
 const appRoutes: Routes = [
-    // {
-    //     path        : '**',
-    //     loadChildren: './main/webportal/webportal.module#PortalModule'
-    // },
     {
         path        : 'login',
         loadChildren: './main/login/login.module#LoginModule'
@@ -41,15 +37,19 @@ const appRoutes: Routes = [
         loadChildren: './main/administration/gstuser/gstuser.module#UsersModule',
         canActivate: [AuthGuardService]
     },
+    // {
+    //     path        : 'dashboard',
+    //     loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule',
+    //     canActivate: [AuthGuardService]
+    // },
     {
-        path        : 'dashboards/project',
-        loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule',
+        path        : 'dashboard',
+        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
         canActivate: [AuthGuardService]
     },
     {
-        path        : '',
-        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
-        canActivate: [AuthGuardService]
+        path        : '**',
+        loadChildren: './main/webportal/webportal.module#PortalModule'
     },
 ];
 

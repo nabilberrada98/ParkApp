@@ -10,6 +10,8 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 
 import { navigation } from 'app/navigation/navigation';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
 
 @Component({
     selector   : 'app',
@@ -41,7 +43,9 @@ export class AppComponent implements OnInit, OnDestroy
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
         private _fuseSplashScreenService: FuseSplashScreenService,
-        private _platform: Platform
+        private _platform: Platform,
+        private router: Router,
+        private authService: AuthService
     )
     {
         this.displayPortal=false;
@@ -68,6 +72,12 @@ export class AppComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
+
+    ngAfterViewInit(): void {
+        if(sessionStorage.length === 3 && this.authService.user.length === 1 && ( window.location.pathname === "/" || window.location.pathname === "/login" ) ){
+            this.router.navigate(['dashboard']);
+        }
+    }
 
     /**
      * On init
