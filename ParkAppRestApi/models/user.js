@@ -41,6 +41,13 @@ UserSchema.virtual('reservations',{
     foreignField : 'user'
 });
 
+UserSchema.virtual('libelles',{
+  ref : 'libelle',
+  localField : '_id',
+  foreignField : 'user'
+});
+
+
 UserSchema.virtual('location',{
     ref : 'location',
     localField : '_id',

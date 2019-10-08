@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let LocalisationSchema = mongoose.Schema({
-    address: String,
     lat: String,
     lng: String,
     ville: {

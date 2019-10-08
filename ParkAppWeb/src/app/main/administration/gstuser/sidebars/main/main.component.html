@@ -1,0 +1,54 @@
+<div class="sidebar-content">
+
+    <div class="card">
+
+        <!-- SIDEBAR HEADER -->
+        <div class="header p-24" fxLayout="row" fxLayoutAlign="start center">
+
+            <!-- USER -->
+            <img [src]="user.avatar" class="avatar mr-16" [alt]="user.name"/>
+            <span class="h5">{{user.name}}</span>
+            <!-- / USER -->
+
+        </div>
+        <!-- / SIDEBAR HEADER -->
+
+        <!-- SIDEBAR CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+
+            <div class="nav material2">
+
+                <div class="nav-item" aria-label="inbox">
+                    <a class="nav-link" matRipple (click)="changeFilter('all')"
+                       [ngClass]="{'active accent':filterBy ==='all'}">
+                        <span class="title">Tous les utilisateurs</span>
+                    </a>
+                </div>
+
+                <div class="nav-item" (click)="changeFilter('Administrateur')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='Administrateur'}">
+                        <div class="title">Administrateurs seulement</div>
+                    </a>
+                </div>
+
+                <div class="nav-item" (click)="changeFilter('Locataire')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='Locataire'}">
+                        <div class="title">Locataires seulement</div>
+                    </a>
+                </div>
+
+                <div class="nav-item" (click)="changeFilter('Propriétaire')">
+                    <a class="nav-link" matRipple [ngClass]="{'active accent':filterBy ==='Propriétaire'}">
+                        <div class="title">Propriétaires seulement</div>
+                    </a>
+                </div>
+
+                
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- / SIDEBAR CONTENT -->

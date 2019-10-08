@@ -1,0 +1,69 @@
+
+<div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+
+    <!-- REACTIVE FORM EXAMPLE -->
+
+    <form #formDirective="ngForm" (ngSubmit)="SaveProprio(formDirective)" class="p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
+            fxFlex="1 0 auto" name="form" [formGroup]="form">
+
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                            <mat-label>Nom</mat-label>
+                            <input matInput formControlName="nom" required>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <mat-error>Le Nom de Famille est Requis!</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>Prénom</mat-label>
+                        <input matInput formControlName="prenom" required>
+                        <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                        <mat-error>Le Prénom est Requis!</mat-error>
+                    </mat-form-field>
+        
+            </div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-form-field appearance="outline" fxFlex="100">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" 
+                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$"
+                required>
+                <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                <mat-error>Email est Invalide !</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="outline" fxFlex="100">
+                <mat-label>Télephone</mat-label>
+                <input matInput formControlName="phone" type="phone"
+                required>
+                <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                <mat-error>Telephone est requis!</mat-error>
+            </mat-form-field>
+    
+        </div>
+
+        <div fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                <mat-label>Mot de passe</mat-label>
+                <input type="password" matInput formControlName="password" required>
+                <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                <mat-error>Le Mot de Passe est Requis ou plus court que 6 caractère !</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                <mat-label>Confirmation Mot de passe</mat-label>
+                <input type="password" matInput formControlName="confirmPass" required>
+                <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                <mat-error>Le Mot de Passe est Requis ou plus court que 6 caractère !</mat-error>
+            </mat-form-field>
+        </div>
+
+        <button mat-flat-button [disabled]="form.invalid" color="accent">Confirmer Inscription</button>
+    </form>
+
+</div>
+

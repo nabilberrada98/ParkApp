@@ -1,0 +1,173 @@
+<div id="academy-courses" class="page-layout simple">
+    <mat-toolbar style="background: #1e2129 !important" class="p-0 mat-elevation-z1">
+        <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+            <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+                <img height="50" width="50" src="assets/images/logos/logoApp.png" />
+            </div>
+        </div>
+        <div fxFlex fxFill fxLayout="row" fxLayoutAlign="end center">
+            <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
+                <a mat-button href="#home" color="accent" class="page-scroll">Acceuil</a>
+                <div class="toolbar-separator" color="accent"></div>
+                <a mat-button href="#features" color="accent" class="page-scroll">Fonctionnalités</a>
+                <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
+                <a mat-button href="#stats" color="accent" class="page-scroll">Statistiques</a>
+                <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
+                <a mat-button href="#contacts" color="accent" class="page-scroll">Contact</a>
+            </div>
+        </div>
+    </mat-toolbar>
+
+    <!-- HEADER -->
+    <div class="header accent p-24 p-sm-24" id="Home" style="height: 500px;" fxLayoutAlign="center center">
+        <div class="hero-text container" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap fxLayoutGap="18%">
+            <div fxFlex="42%">
+                <h1 [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', y: '25px' }
+                    }" class="animated FadeIn">
+                    <strong>La</strong> Solution de parking pour
+                    <span id="js-rotating" style="color: darkturquoise; font-weight: bold">LOCATAIRE,
+                        PROPRIÉTAIRE</span>
+                </h1>
+                <h3 [@animate]="{
+                        value: '*',
+                        params: { delay: '100ms', y: '25px' }
+                    }">
+                    Comparez ,réservez ,louez le parking idéal pret de chez-vous
+                    GRATUITEMENT !
+                </h3>
+                <button mat-flat-button color="accent" (click)="loginDialog()" >Se Connecter</button>
+                &nbsp;
+                <button mat-flat-button color="accent" (click)="registerDialog()">Créer un compte</button>
+            </div>
+            <div fxFlex="40%">
+                <img class="img-fluid" src="assets/images/portal/maquette-admin.png" alt="alternative" />
+            </div>
+        </div>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24" id="features">
+        <div fxLayout="column" fxLayoutAlign="center">
+            <h2 class="accent" [@animate]="{
+                    value: '*',
+                    params: { delay: '300ms', y: '50px' }
+                }" style="text-align: center; font-size: 24px;padding : 10px; border-radius: 15px;">
+                Vous allez aimer ParkApp
+            </h2>
+
+            <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10%"
+                [@animateStagger]="{ value: '50' }">
+                <div class="fuse-card" [@animate]="{ value: '*', params: { y: '100%' } }" style="text-align: center">
+                    <img src="assets/portalRes/econom.png" style="padding-top: 20px" />
+                    <div class="p-16">
+                        <div class="h1">Faites des économies</div>
+                    </div>
+
+                    <div class="p-16 pt-0 line-height-1.75">
+                        ParkApp négocie pour vous les meilleurs tarifs. Réservez
+                        votre place et économisez jusqu’à 60% grâce à nos offres
+                        spéciales !
+                    </div>
+                </div>
+                <div class="fuse-card" [@animate]="{ value: '*', params: { y: '100%' } }" style="text-align: center">
+                    <img src="assets/portalRes/time.png" style="padding-top: 20px" />
+                    <div class="p-16">
+                        <div class="h1">Gagnez du temps</div>
+                    </div>
+
+                    <div class="p-16 pt-0 line-height-1.75">
+                        Ne perdez plus votre temps à chercher une place. Avec
+                        Onepark, vous la trouvez et la réservez en quelques
+                        clics.
+                    </div>
+                </div>
+                <div class="fuse-card" [@animate]="{ value: '*', params: { y: '100%' } }" style="text-align: center">
+                    <img src="assets/portalRes/multi.png" style="padding-top: 20px" />
+                    <div class="p-16">
+                        <div class="h1">Restez serein !</div>
+                    </div>
+
+                    <div class="p-16 pt-0 line-height-1.75">
+                        Notre support client est disponible du lundi au vendredi
+                        de 9h à 13h et de 14h à 19h et le samedi de 10h à 13h et
+                        de 14h à 18h par téléphone, e-mail ou sur les réseaux
+                        sociaux.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+
+    <div class="header accent p-24 p-sm-24 counter" id="stats" style="height: 300px;" fxLayoutAlign="center center">
+        <div id="counter">
+            <div class="cell">
+                <div class="counter-value number-count" data-count="231">
+                    231
+                </div>
+                <p class="counter-info">Utilisateurs satisfaits</p>
+            </div>
+            <div class="cell">
+                <div class="counter-value number-count" data-count="70">70</div>
+                <p class="counter-info">Propriétaire Actif</p>
+            </div>
+            <div class="cell">
+                <div class="counter-value number-count" data-count="36">26</div>
+                <p class="counter-info">Bonne Renue</p>
+            </div>
+            <div class="cell">
+                <div class="counter-value number-count" data-count="127">
+                    127
+                </div>
+                <p class="counter-info">Locataire Actif</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" id="contacts">
+            <div fxLayout="column" fxLayoutAlign="center">
+                <h2 class="accent" [@animate]="{
+                        value: '*',
+                        params: { delay: '300ms', y: '50px' }
+                    }" style="text-align: center; font-size: 24px;padding : 10px; border-radius: 15px;">
+                    Contactez nous :
+                </h2>
+                <div class="row" fxLayout="column" class="p-24 p-sm-24" fxLayoutAlign="center center">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Nom et prénom</mat-label>
+                                <input matInput required placeholder="Saisir ici">
+                                <mat-icon matSuffix>face</mat-icon>
+                            </mat-form-field>           
+                            <mat-form-field appearance="fill">
+                                <mat-label>Adresse Mail</mat-label>
+                                <input matInput required placeholder="Saisir ici">
+                                <mat-icon matSuffix>alternate_email</mat-icon>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>Message</mat-label>
+                                <textarea rows="4" matInput placeholder="Votre message"></textarea>
+                                <mat-icon matSuffix>mail</mat-icon>
+                            </mat-form-field>
+                            <button mat-flat-button color="accent">Envoyer le message</button>
+                        <!-- end of contact form -->
+    
+                    </div> <!-- end of col -->
+                </div> <!-- end of row -->
+        </div>
+
+    <div class="header accent" style="height: 100px;" fxLayoutAlign="center center">
+            <div fxLayout="row" fxLayoutGap="20%" fxLayoutAlign="center center">
+                    <div fxFlex="40%">
+                        <h4>A propos de ParkApp</h4>
+                        <p>Développé par deux entrepreneur pret a vous servir</p>
+                    </div> <!-- end of col -->
+                    <div fxFlex="40%">
+                            <h4>@CopyRight</h4>
+                            <p>Younes Enhari & Nabil Berrada</p>
+                    </div> <!-- end of col -->
+                </div>    
+    </div>
+</div>
