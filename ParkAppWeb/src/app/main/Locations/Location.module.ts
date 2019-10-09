@@ -26,7 +26,7 @@ const routes: Routes = [
         path: "**",
         component: LocationsComponent,
         resolve: {
-            users: LocationsService
+            locations : LocationsService
         }
     }
 ];

@@ -4,7 +4,6 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
 import {Location} from './Location.model';
 import { FuseUtils } from '@fuse/utils';
-
 @Injectable()
 export class LocationsService implements Resolve<any>
 {

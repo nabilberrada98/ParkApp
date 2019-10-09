@@ -4,7 +4,6 @@ const bodyParser = require('body-parser');
 const pe = require('parse-error');
 const cors = require('cors');
 require("./config/connection");
-const mongoose = require("mongoose");
 
 
 const app = express();
@@ -52,12 +51,12 @@ const authJwt = require("./middleware/auth");
 
 // Setup routes and handle errors
 app.use('/api/users', users);
-app.use("/api/places", authJwt, places);
+app.use("/api/places", places);
 app.use("/api/parkings",authJwt, parking);
 app.use("/api/reservations", authJwt, reservations);
-app.use("/api/locations", authJwt, locations );
+//add auth later
+app.use("/api/locations", locations );
 app.use("/api/auth", auth);
-
 
 // Catch 404 and forward to errors handler
 app.use((req, res, next) => {
@@ -73,8 +72,9 @@ app.use((err, req, res, next) => {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  //res.status(err.status || 500);
+  res.status(500).send(err.message);
+ // res.render('error');
 });
 
 const port = app.get("port") || 3000;

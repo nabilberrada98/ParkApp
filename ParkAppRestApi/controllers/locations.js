@@ -1,10 +1,17 @@
-const Location = require("../models/location");
+const Locations = require("../models/location");
 
 module.exports = {
 
     index: async (req, res, next) => {
-        const locations = await Locations.find({});
-        res.status(200).json(locations);
+        const locationslist = await Locations.find({}).populate({ 
+            path: 'place',
+            populate: {
+              path: 'parking',
+              model: 'parking'
+            } 
+         }).exec();
+        //locationslist.populate('place').exec();
+        res.status(200).json(locationslist);
     },
 
     getById: async (req, res, next) => {
@@ -23,13 +30,13 @@ module.exports = {
 
     edit: async (req, res, next) => {
         const { locId } = req.params;
-        const user = await Location.findByIdAndUpdate(locId, req.body, { message: "user has been edited successfully !!"});
+        const user = await Locations.findByIdAndUpdate(locId, req.body, { message: "user has been edited successfully !!"});
         res.status(200).send(user);  
     },
 
     destory: async (req, res, next) => {
         const { locId } = req.params;
-        await Location.findByIdAndDelete(locId);
+        await Locations.findByIdAndDelete(locId);
         res.status(200).send({message: "the Location, has been deleted successfully"});
     }
 

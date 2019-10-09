@@ -21,7 +21,6 @@ export class LocationsListComponent implements OnInit, OnDestroy
 {
     @ViewChild('dialogContent')
     dialogContent: TemplateRef<any>;
-
     locations: any;
     location: any;
     dataSource: FilesDataSource | null;
