@@ -24,7 +24,7 @@
 
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
                 <mat-label>Nom</mat-label>
                 <input matInput formControlName="nom" required>
                 <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
@@ -88,7 +88,9 @@
                         
                         </agm-map>
 
-                        <div class="p-16" fxLayout="row" fxLayoutAlign="start center">
+                        <app-table (sendLibelle)="addLibelle($event)" (sendRow)="customFunc($event)" #table></app-table>
+
+                        <!-- <div class="p-16" fxLayout="row" fxLayoutAlign="start center">
                             <div class="ml-24" fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" >
                                 <div class="text-bold" >Test</div>
                                 <mat-form-field>
@@ -101,7 +103,7 @@
                                 </mat-form-field>
                                 <button mat-raised-button type="submit" [disabled]="false" (click)="addLibelle()" color="accent"   ></button>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
 
@@ -109,12 +111,16 @@
                 <!-- / PREVIEW -->
         </div>
 
+        <br/>
 
-        <button mat-raised-button type="submit" [disabled]="false" (click)="onSubmit()" color="accent">
-            Submit
-        </button>
+        <div fxLayoutAlign="start center" style="width:100%;"  >
+            <button style="margin: 0 auto;" fxFlex="50" mat-raised-button type="submit" [disabled]="false" (click)="onSubmit()" color="accent">
+                Submit
+            </button>
+        </div>
 
     </form>
+
 
 </div>
 

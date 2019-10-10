@@ -11,6 +11,9 @@ import { ProprioRegisterComponent } from './register-dialog/proprio-register/pro
 import { LocataireRegisterComponent } from './register-dialog/locataire-register/locataire-register.component';
 import { AgmCoreModule } from '@agm/core';
 import { LoginDialogComponent } from "./login-dialog/login-dialog.component";
+import { TableComponent } from './register-dialog/locataire-register/table/table.component';
+ 
+
 
 
 const routes = [
@@ -26,10 +29,11 @@ const routes = [
         RegisterDialogComponent,
         ProprioRegisterComponent,
         LocataireRegisterComponent,
-        LoginDialogComponent
+        TableComponent,
+        LoginDialogComponent,
     ],
     imports     : [
-        RouterModule.forChild(routes),
+    RouterModule.forChild(routes),
 
         MatButtonModule,
         MatFormFieldModule,
@@ -46,7 +50,8 @@ const routes = [
         // Google Map
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyAAFz7wsoEsvZOY24eqBigX57ZdcUT-RbA'
-        })
+        }),
+
 
     ],
     entryComponents : [

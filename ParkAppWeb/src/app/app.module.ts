@@ -13,7 +13,7 @@ import { FuseProgressBarModule, FuseSidebarModule, FuseThemeOptionsModule } from
 
 import { fuseConfig } from 'app/fuse-config';
 
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from '@agm/core'; 
 
 import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
@@ -73,6 +73,7 @@ const appRoutes: Routes = [
         LayoutModule,
         AppStoreModule,
 
+         
 
 
     ],
