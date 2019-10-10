@@ -10,6 +10,9 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 
 import { navigation } from 'app/navigation/navigation';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
+import _ from 'lodash';
 
 @Component({
     selector   : 'app',
@@ -21,7 +24,8 @@ export class AppComponent implements OnInit, OnDestroy
 {
     fuseConfig: any;
     navigation: any;
-    displayPortal : boolean;
+    urls = [];
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -41,10 +45,11 @@ export class AppComponent implements OnInit, OnDestroy
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
         private _fuseSplashScreenService: FuseSplashScreenService,
-        private _platform: Platform
+        private _platform: Platform,
+        private router: Router,
+        private authService: AuthService
     )
     {
-        this.displayPortal=false;
         // Get default navigation
         this.navigation = navigation;
 
@@ -68,6 +73,37 @@ export class AppComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
+
+    // tslint:disable-next-line:use-life-cycle-interface
+    ngAfterViewInit(): void {
+
+        this.getUrls();
+
+        if (sessionStorage.length === 3 && this.authService.user.length === 1 && !this.urls.includes(window.location.pathname) ){
+            this.router.navigate(['dashboard']);
+        }
+    }
+
+    getUrls(): void{
+        navigation.find( (child) => { 
+            const sub = child.children;
+            if(_.isArray(sub)){ 
+                this.subChilds(sub);
+            } else { console.log("has not !!"); }  
+        });
+
+    }
+
+    subChilds(sub): void {
+        sub.find( (subChild) => { 
+            if(_.isArray(subChild.children)) {
+                this.subChilds(subChild.children);
+            }
+            if(subChild.url){ 
+                this.urls.push(subChild.url);
+            } 
+        });
+    }
 
     /**
      * On init

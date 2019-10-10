@@ -18,16 +18,6 @@ export class AuthGuardService implements CanActivate {
         return false;
     }
     return true;
-    
-    // return this.auth.user$.pipe(
-    //   map(user => {
-    //     if (user) {
-    //       return true;
-    //     }
-    //     this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-    //     return false;
-    //   })
-    // );
   }
 
 }

@@ -110,6 +110,10 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
         });
     }
 
+    addLibelle(){
+        
+    }
+
 }
 
 

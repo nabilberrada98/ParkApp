@@ -38,16 +38,10 @@ const appRoutes: Routes = [
         path        : 'administration/gstuser',
         loadChildren: './main/administration/gstuser/gstuser.module#UsersModule',
         canActivate: [AuthGuardService]
-    },
-    // {
-    //     path        : 'dashboards/project',
-    //     loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule',
-    //     canActivate: [AuthGuardService]
-    // },
-    {
-        path        : '',
+    },{
+        path        : '**',
         loadChildren: './main/webportal/webportal.module#PortalModule'
-    }
+    },
 ];
 
 @NgModule({

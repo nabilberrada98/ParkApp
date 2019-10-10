@@ -28,7 +28,7 @@ export class AuthService {
             result.login.authorities = result.authorities;
             this.userService.save(result.login);
             const route = sessionStorage.getItem('returnUrl');
-            window.location.href = '/';
+            window.location.href = '/dashboard';
             //this.router.navigate(["/"]);
         })
         .catch( (err) => console.log(err) );
