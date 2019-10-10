@@ -20,18 +20,11 @@
                 <mat-error>Le Telephone est Requis!</mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
-                <mat-label>Libelle</mat-label>
-                <input matInput formControlName="libelle" required>
-                <mat-icon matSuffix class="secondary-text">address</mat-icon>
-                <mat-error>Libelle est Requis!</mat-error>
-            </mat-form-field>
-
         </div>
 
         <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
 
-            <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+            <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
                 <mat-label>Nom</mat-label>
                 <input matInput formControlName="nom" required>
                 <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
@@ -57,33 +50,77 @@
             </mat-form-field>
 
         </div>
- 
-        <agm-map
-        [latitude]="lat"
-        [longitude]="lng"
-        [zoom]="zoom"
-        [disableDefaultUI]="false"
-        [zoomControl]="false"
-        (mapClick)="mapClicked($event)">
-        
-            <agm-marker
-                *ngFor="let m of markers; let i = index"
-                (markerClick)="clickedMarker(m.label, i)"
-                [latitude]="m.lat"
-                [longitude]="m.lng"
-                [label]="m.label"
-                (dragEnd)="markerDragEnd(m, $event)">
-                
-                <agm-info-window>
-                    <strong>InfoWindow content</strong>
-                </agm-info-window>
-                
-            </agm-marker>
-        
-        </agm-map>
 
+        <div class="card" fxLayout="row wrap" fxFlex="1 0 auto">
+
+                <!-- PREVIEW -->
+                <div class="card-preview" fxFlex="100">
+
+                    <div class="fuse-card" fxFlex="100">
+
+                        <div class="p-16" fxLayout="row" fxLayoutAlign="start center">
+                            <div class="ml-24" fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" >
+                                <div class="text-bold" style="margin: 0 auto !important;" >Votre Emplacement</div>
+                            </div>
+                        </div>
+
+                        <agm-map
+                        [latitude]="lat"
+                        [longitude]="lng"
+                        [zoom]="zoom"
+                        [disableDefaultUI]="false"
+                        [zoomControl]="false"
+                        (mapClick)="mapClicked($event)">
+                        
+                            <agm-marker
+                                *ngFor="let m of markers; let i = index"
+                                (markerClick)="clickedMarker(m.label, i)"
+                                [latitude]="m.lat"
+                                [longitude]="m.lng"
+                                [label]="m.label"
+                                (dragEnd)="markerDragEnd(m, $event)">
+                                
+                                <agm-info-window>
+                                    <strong>InfoWindow content</strong>
+                                </agm-info-window>
+                                
+                            </agm-marker>
+                        
+                        </agm-map>
+
+                        <app-table (sendLibelle)="addLibelle($event)" (sendRow)="customFunc($event)" #table></app-table>
+
+                        <!-- <div class="p-16" fxLayout="row" fxLayoutAlign="start center">
+                            <div class="ml-24" fxLayout="row wrap" fxLayoutAlign="start center" fxFlex="1 0 auto" >
+                                <div class="text-bold" >Test</div>
+                                <mat-form-field>
+                                    <mat-label>Choisis votre libelle</mat-label>
+                                    <select matNativeControl required>
+                                        <option value="" selected></option>
+                                        <option value="work">Work</option>
+                                        <option value="test">test</option>
+                                    </select>
+                                </mat-form-field>
+                                <button mat-raised-button type="submit" [disabled]="false" (click)="addLibelle()" color="accent"   ></button>
+                            </div>
+                        </div> -->
+
+                    </div>
+
+                </div>
+                <!-- / PREVIEW -->
+        </div>
+
+        <br/>
+
+        <div fxLayoutAlign="start center" style="width:100%;"  >
+            <button style="margin: 0 auto;" fxFlex="50" mat-raised-button type="submit" [disabled]="false" (click)="onSubmit()" color="accent">
+                Submit
+            </button>
+        </div>
 
     </form>
+
 
 </div>
 

@@ -19,13 +19,13 @@ export const navigation: FuseNavigation[] = [
                         id   : 'analytics',
                         title: 'Analytics',
                         type : 'item',
-                        url  : '/dashboards/analytics'
+                        url  : '/dashboard'
                     },
                     {
                         id   : 'project',
                         title: 'Project',
                         type : 'item',
-                        url  : '/dashboards/project'
+                        url  : '/project'
                     }
                 ]
             },

@@ -15,7 +15,7 @@ import { FuseProgressBarModule, FuseSidebarModule, FuseThemeOptionsModule } from
 
 import { fuseConfig } from 'app/fuse-config';
 
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule } from '@agm/core'; 
 
 import { AppComponent } from 'app/app.component';
 import { AppStoreModule } from 'app/store/store.module';
@@ -28,10 +28,6 @@ import { AnalyticsDashboardComponent } from './main/dashboards/analytics/analyti
 
 
 const appRoutes: Routes = [
-    // {
-    //     path        : '**',
-    //     loadChildren: './main/webportal/webportal.module#PortalModule'
-    // },
     {
         path        : 'login',
         loadChildren: './main/login/login.module#LoginModule'
@@ -42,14 +38,18 @@ const appRoutes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
-        path        : 'dashboards/project',
+        path        : 'project',
         loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule',
         canActivate: [AuthGuardService]
     },
     {
-        path        : '',
+        path        : 'dashboard',
         loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
         canActivate: [AuthGuardService]
+    },
+    {
+        path        : '**',
+        loadChildren: './main/webportal/webportal.module#PortalModule'
     },
 ];
 
@@ -89,6 +89,7 @@ const appRoutes: Routes = [
         LayoutModule,
         AppStoreModule,
 
+         
 
 
     ],

@@ -1,10 +1,12 @@
-import { Component, OnInit, ElementRef, Input, OnDestroy, Optional, Self, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnDestroy, Optional, Self, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, ControlValueAccessor, NgControl, FormGroupDirective} from '@angular/forms';
 import {MatFormFieldControl} from '@angular/material/form-field';
 import {Subject, Observable} from 'rxjs';
-import { MouseEvent } from '@agm/core';
 import axios from "axios";
+import { MouseEvent } from '@agm/core';
 import { storeUser } from "../../../../api/UserInstance";
+import { TableComponent } from './table/table.component';
+
 
 
 @Component({
@@ -14,15 +16,22 @@ import { storeUser } from "../../../../api/UserInstance";
 })
 export class LocataireRegisterComponent implements OnInit, OnDestroy {
 
+    @ViewChild('table') private table: TableComponent;
     @Input() isSaved: Boolean;
     @Output() eventChanged: EventEmitter<number> = new EventEmitter();
 
     form: FormGroup;
     coordinates: any;
     markers: Marker[] = [];
-    zoom: number = 8;
+    zoom: number = 15;
     lat: number = 33.9718626;
     lng: number = -6.8695921;
+    newRow: any;
+    city: string;
+    region: string;
+    temp: string;
+    libelles = [];
+
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -36,7 +45,6 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
-
         this.initForm();
     }
 
@@ -50,12 +58,24 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
 
     onSubmit(): void{
         const data = this.form.value;
-        const libelle = Object.assign({ nom: data.libelle }, { loc: this.markers[0] });
-        data.libelle = libelle;
-        
+
+        data.libelles = this.handleLibelles();
+
         console.log(data);
 
         //this.store(data);
+    }
+
+    handleLibelles(){
+        const libelleData = [];
+        this.libelles.find( (val, i) => {
+            if(val){
+                let marker = this.markers[i];
+                let libelle = this.libelles[i];
+                libelleData.push( Object.assign({ nom: libelle }, { loc: marker }) );
+            }
+        });
+        return libelleData;
     }
 
     store(user){
@@ -86,28 +106,45 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
         console.log(`clicked the marker: ${label || index}`);
     }
     
-    mapClicked($event: MouseEvent) {
-        console.log("coordinations : ", $event.coords);
-        this.markers = [];
-        this.markers.push({ lat: $event.coords.lat, lng: $event.coords.lng });
-        this.getGeoInfo($event.coords);
+    mapClicked($event: MouseEvent): void {
+        console.log('coordinations : ', $event.coords);
+        let obj = { lat: $event.coords.lat, lng: $event.coords.lng };
+        this.markers.push($event.coords);
+        this.handleGeoInfo($event.coords);
     }
-    
+
     markerDragEnd(m: Marker, $event: MouseEvent) {
         console.log('dragEnd', m, $event);
     }
 
-    getGeoInfo = async (data) => {
+    handleGeoInfo = async (data) => {
         await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${data.lat}, ${data.lng}&key=AIzaSyAAFz7wsoEsvZOY24eqBigX57ZdcUT-RbA`).then((response) => {
             let data = response.data;
-            let city = data.plus_code.compound_code.split(" ")[1].split(",")[0];
-            let region = data.results[data.results.length - 2].formatted_address.split(",")[0];
-            let temp = Object.assign({ ville: { nom: city, region: { nom: region }  }  }, this.markers[0]);
-            this.markers[0] = temp;
-            console.log(this.markers);
+            let currentMarkerPosition = data.results[0].formatted_address.split(",")[0];
+            console.log(currentMarkerPosition, data.results);
+            this.city = data.plus_code.compound_code.split(" ")[1].split(",")[0];
+            this.region = data.results[data.results.length - 2].formatted_address.split(",")[0];
+            this.table.addRow({ city: this.city, rehion: this.region, position: currentMarkerPosition });
+            this.getGeoInfo();
         }).catch((error) => {
             console.log(error);
         });
+    }
+
+    getGeoInfo = async () => {
+        let lastest = this.markers[this.markers.length - 1];
+        const temp = Object.assign({ ville: { nom: this.city, region: { nom: this.region }  }  }, lastest);
+        lastest = temp;
+        console.log(this.markers);
+    }
+
+    customFunc(index){
+        this.markers.splice(index, 1);
+        this.libelles.splice(index, 1);
+    }
+
+    addLibelle({libelle, index}){
+        this.libelles[index] = libelle;
     }
 
 }
