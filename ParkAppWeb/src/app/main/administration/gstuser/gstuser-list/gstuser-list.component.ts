@@ -8,8 +8,8 @@ import { takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
 
-import { UserService } from '../User.service';
 import { UsersFormDialogComponent } from './../gstuser-form/gstuser-form.component';
+import { UserService } from 'app/services/user.service';
 
 @Component({
     selector     : 'users-list',
@@ -64,7 +64,6 @@ export class UsersListComponent implements OnInit, OnDestroy
         this._userService.onUsersChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(users => {
-                console.log(users);
                 this.users = users;
                 this.checkboxes = {};
                 users.map(user => {
@@ -160,7 +159,7 @@ export class UsersListComponent implements OnInit, OnDestroy
             disableClose: false
         });
 
-        this.confirmDialogRef.componentInstance.confirmMessage = 'Are you sure you want to delete?';
+        this.confirmDialogRef.componentInstance.confirmMessage = 'Etes vous sure ?';
 
         this.confirmDialogRef.afterClosed().subscribe(result => {
             if ( result )

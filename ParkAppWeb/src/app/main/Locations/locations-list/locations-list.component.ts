@@ -7,7 +7,6 @@ import { takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-import { LocationsFormDialogComponent } from '../locations-form/locations-form.component';
 import { LocationsService } from './../Location.service';
 
 @Component({
@@ -114,42 +113,42 @@ export class LocationsListComponent implements OnInit, OnDestroy
 
     editlocation(location): void
     {
-        this.dialogRef = this._matDialog.open(LocationsFormDialogComponent, {
-            panelClass: 'locations-form-dialog',
-            data      : {
-                location,
-                action : 'edit'
-            }
-        });
+        // this.dialogRef = this._matDialog.open(LocationsFormDialogComponent, {
+        //     panelClass: 'locations-form-dialog',
+        //     data      : {
+        //         location,
+        //         action : 'edit'
+        //     }
+        // });
 
-        this.dialogRef.afterClosed()
-            .subscribe(response => {
-                if ( !response )
-                {
-                    return;
-                }
-                const actionType: string = response[0];
-                const formData: FormGroup = response[1];
-                switch ( actionType )
-                {
-                    /**
-                     * Save
-                     */
-                    case 'save':
+        // this.dialogRef.afterClosed()
+        //     .subscribe(response => {
+        //         if ( !response )
+        //         {
+        //             return;
+        //         }
+        //         const actionType: string = response[0];
+        //         const formData: FormGroup = response[1];
+        //         switch ( actionType )
+        //         {
+        //             /**
+        //              * Save
+        //              */
+        //             case 'save':
 
-                        this._locationservice.updateLocation(formData.getRawValue());
+        //                 this._locationservice.updateLocation(formData.getRawValue());
 
-                        break;
-                    /**
-                     * Delete
-                     */
-                    case 'delete':
+        //                 break;
+        //             /**
+        //              * Delete
+        //              */
+        //             case 'delete':
 
-                        this.deletelocation(location);
+        //                 this.deletelocation(location);
 
-                        break;
-                }
-            });
+        //                 break;
+        //         }
+        //     });
     }
 
     deletelocation(location): void

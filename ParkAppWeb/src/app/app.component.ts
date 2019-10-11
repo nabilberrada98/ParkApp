@@ -12,7 +12,7 @@ import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 import { navigation } from 'app/navigation/navigation';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
-import _ from 'lodash';
+import * as _ from 'lodash';
 
 @Component({
     selector   : 'app',
@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, OnDestroy
 
         this.getUrls();
 
-        if (sessionStorage.length === 3 && this.authService.user.length === 1 && !this.urls.includes(window.location.pathname) ){
+        if (sessionStorage.length === 3 && (!this.authService.user) && !this.urls.includes(window.location.pathname) ){
             this.router.navigate(['dashboard']);
         }
     }
@@ -89,7 +89,8 @@ export class AppComponent implements OnInit, OnDestroy
             const sub = child.children;
             if(_.isArray(sub)){ 
                 this.subChilds(sub);
-            } else { console.log("has not !!"); }  
+            } else { console.log("has not !!"); }
+            return true;  
         });
 
     }
@@ -102,6 +103,7 @@ export class AppComponent implements OnInit, OnDestroy
             if(subChild.url){ 
                 this.urls.push(subChild.url);
             } 
+            return true;
         });
     }
 

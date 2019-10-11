@@ -7,7 +7,6 @@ import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
-import { LocationsFormDialogComponent } from './locations-form/locations-form.component';
 import { LocationsService } from './Location.service';
 
 @Component({
@@ -87,25 +86,18 @@ export class LocationsComponent implements OnInit, OnDestroy
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
 
-    newLocation(): void
-    {
-        this.dialogRef = this._matDialog.open(LocationsFormDialogComponent, {
-            panelClass: 'locations-form-dialog',
-            data      : {
-                action: 'new'
-            }
-        });
+    // newLocation(): void
+    // {
+    //     this.dialogRef.afterClosed()
+    //         .subscribe((response: FormGroup) => {
+    //             if ( !response )
+    //             {
+    //                 return;
+    //             }
 
-        this.dialogRef.afterClosed()
-            .subscribe((response: FormGroup) => {
-                if ( !response )
-                {
-                    return;
-                }
-
-                this._locationService.updateLocation(response.getRawValue());
-            });
-    }
+    //             this._locationService.updateLocation(response.getRawValue());
+    //         });
+    // }
 
     /**
      * Toggle the sidebar

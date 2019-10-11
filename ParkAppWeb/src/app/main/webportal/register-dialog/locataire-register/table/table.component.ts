@@ -50,6 +50,7 @@ export class TableComponent implements OnInit {
                     val.libelle = value;
                     console.log("valeur : ",val);
                     this.sendLibelle.emit(val);
+                    return true;
                 }
             });
         

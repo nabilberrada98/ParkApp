@@ -8,6 +8,7 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { navigation } from 'app/navigation/navigation';
 import { AuthService } from 'app/services/auth.service';
 import { UserService } from '../../../services/user.service';
+import { User } from 'app/api/models/user';
 
 @Component({
     selector     : 'toolbar',
@@ -20,7 +21,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
 {
     hiddenNavbar: boolean;
     navigation: any;
-    user;
+    user : User;
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -35,17 +36,13 @@ export class ToolbarComponent implements OnInit, OnDestroy
         private _fuseConfigService: FuseConfigService,
         private _fuseSidebarService: FuseSidebarService,
         private authService: AuthService,
-        private userService: UserService
     )
     {
         // Set the defaults
         this.navigation = navigation;
         // Set the private defaults
         this._unsubscribeAll = new Subject();
-
-        const data = this.userService.getCurrentUser()[0];
-        this.user = data ? data : {};        
-
+        this.user = this.authService.user;        
     }
 
     // -----------------------------------------------------------------------------------------------------

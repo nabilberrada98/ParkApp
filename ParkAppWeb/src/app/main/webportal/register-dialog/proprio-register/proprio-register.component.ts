@@ -68,13 +68,11 @@ export class ProprioRegisterComponent implements OnInit,OnDestroy {
 
 
     SaveProprio(obj){
-      console.log(obj);
       let dataToPost = {...obj.value, role : "proprietaire"};
       let res = this._userService.storeUser(dataToPost);
-      console.log(res);
       if(res){
           this.router.navigate(["/"]);
-      };
+      }
     }
 
 }

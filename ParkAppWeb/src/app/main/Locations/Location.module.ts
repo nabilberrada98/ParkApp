@@ -19,7 +19,7 @@ import { LocationsService } from "./Location.service";
 import { LocationsListComponent } from "./locations-list/locations-list.component";
 import { LocationsSelectedBarComponent } from "./selected-bar/selected-bar.component";
 import { LocationsMainSidebarComponent } from "./sidebars/main/main.component";
-import { LocationsFormDialogComponent } from "./locations-form/locations-form.component";
+import { LocationAddComponent } from './location-add/location-add.component';
 
 const routes: Routes = [
     {
@@ -37,7 +37,8 @@ const routes: Routes = [
         LocationsListComponent,
         LocationsSelectedBarComponent,
         LocationsMainSidebarComponent,
-        LocationsFormDialogComponent
+        LocationAddComponent,
+        LocationAddComponent
     ],
     imports: [
         RouterModule.forChild(routes),
@@ -47,7 +48,7 @@ const routes: Routes = [
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        MatMenuModule,
+        MatMenuModule, 
         MatRippleModule,
         MatTableModule,
         MatToolbarModule,
@@ -57,6 +58,6 @@ const routes: Routes = [
         FuseSidebarModule
     ],
     providers: [LocationsService],
-    entryComponents: [LocationsFormDialogComponent]
+    entryComponents: [LocationsListComponent]
 })
 export class LocationsModule {}

@@ -3,10 +3,11 @@ const Role = require("../models/role");
 const config = require("../config/config");
 const jwt = require('jsonwebtoken');
 const Auth = require('../controllers/auth');
+
 module.exports = {
 
     index: async (req, res, next) => {
-        const users = await User.find({});
+        const users = await User.find({}).populate("role").exec();
         res.status(200).json(users);
     },
 

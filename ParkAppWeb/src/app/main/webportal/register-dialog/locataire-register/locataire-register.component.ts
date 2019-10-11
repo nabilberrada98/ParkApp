@@ -4,7 +4,7 @@ import {MatFormFieldControl} from '@angular/material/form-field';
 import {Subject, Observable} from 'rxjs';
 import axios from "axios";
 import { MouseEvent } from '@agm/core';
-import { storeUser } from "../../../../api/UserInstance";
+import { storeUser } from "../../../../api/controllers/UserInstance.js";
 import { TableComponent } from './table/table.component';
 
 
@@ -74,6 +74,7 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
                 let libelle = this.libelles[i];
                 libelleData.push( Object.assign({ nom: libelle }, { loc: marker }) );
             }
+            return true;
         });
         return libelleData;
     }

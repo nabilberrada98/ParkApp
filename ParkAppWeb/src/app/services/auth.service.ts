@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { User } from '../api/models/user';
 import { Login, Logout } from "../api/controllers/AuthInstance.js";
@@ -11,7 +9,7 @@ import { Login, Logout } from "../api/controllers/AuthInstance.js";
 })
 export class AuthService {
 
-    user = []; //<User>;
+    user:User; //<User>;
 
     constructor(
         private route: ActivatedRoute,
@@ -23,23 +21,21 @@ export class AuthService {
     login(data): void {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
         sessionStorage.setItem('returnUrl', returnUrl);
-
         Login(data).then( (result) => {
             result.login.authorities = result.authorities;
-            this.userService.save(result.login);
+            this.userService.save(result.login,result.token);
             const route = sessionStorage.getItem('returnUrl');
             window.location.href = '/dashboard';
-            //this.router.navigate(["/"]);
         })
         .catch( (err) => console.log(err) );
 
     }
 
     logout(): void {
-        Logout().then( () => {
+        Logout().then( (data) => {
             this.userService.delete();
             //window.location.href = '/login';
-            this.router.navigate(['/login']);
+            this.router.navigate(['/']);
         })
         .catch( (err) => console.log(err) );
     }
