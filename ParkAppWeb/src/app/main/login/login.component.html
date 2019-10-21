@@ -1,0 +1,49 @@
+<div id="login" fxLayout="column">
+
+    <div id="login-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="login-form" [@animate]="{value:'*',params:{duration:'400ms',y:'100px'}}">
+
+            <div class="logo" style="margin-top: 0px !important">
+                <img src="assets/images/logos/logoApp.png">
+            </div>
+
+            <div class="title">Connectez-vous a votre compte</div>
+
+            <form name="loginForm" [formGroup]="loginForm" novalidate>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                    <mat-error *ngIf="loginForm.get('email').hasError('required')">
+                        Email est requis
+                    </mat-error>
+                    <mat-error
+                        *ngIf="!loginForm.get('email').hasError('required') &&
+                                loginForm.get('email').hasError('email')">
+                        Veuillez entrer une adresse email valide
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Mot de passe</mat-label>
+                    <input matInput type="password" formControlName="password">
+                    <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                    <mat-error>
+                        Mot de passe requis
+                    </mat-error>
+                </mat-form-field>
+
+                <button type="submit" (click)="onSubmit()" mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+                        [disabled]="loginForm.invalid">
+                    Se Connecter
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

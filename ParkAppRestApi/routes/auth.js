@@ -5,8 +5,7 @@ const authJwt = require("../middleware/auth");
 
 router
     .post("/login", AuthController.login)
-    .get("/logout", AuthController.logout);
-    //.get("/access-token", authJwt, AuthController.accessToken);
-
+    .get("/logout", AuthController.logout)
+    .get("/access-token", authJwt, AuthController.accessToken);
 
 module.exports = router;

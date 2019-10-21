@@ -4,25 +4,29 @@ const Schema = mongoose.Schema;
 let PlaceSchema = mongoose.Schema({
     description: String,
     disponibilite: JSON,
-    numero: Number,
+    numero: String,
     etage: Number,
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "user",
-        required: true,
+    type : Number,
+    vehicules : [Number],
+    isInParking : {
+        type : Boolean,
+        default : false
     },
-    vehicule: {
-        type: JSON,
-        required: true,
+    heureFermetureParking: String,
+    heureOuvertureParking: String,
+    isCameraEquiped : {
+        type : Boolean,
+        default : false
     },
-    parking: {
+    images : [String],
+    localisation : {
         type: Schema.Types.ObjectId,
-        ref: "parking"
+        ref: "localisation"
     }
 });
 
-PlaceSchema.virtual('images',{
-    ref : 'image',
+PlaceSchema.virtual('locations',{
+    ref : 'location',
     localField : '_id',
     foreignField : 'place'
 });
@@ -39,5 +43,15 @@ PlaceSchema.virtual('reservations',{
 let Place = module.exports = mongoose.model('place', PlaceSchema);
 
 // Place.createCollection().then(function(collection) {
+//     Place.create({
+//                 description : "une nouvelle place ensoleillé",
+//                 numero : "K220",
+//                 etage : 0,
+//                 vehicule : ["Citadine"],
+//                 isInParking : true,
+//                 heureOuvertureParking : "06:00h",
+//                 heureFermetureParking : "23:00h",
+//                 type : 0
+//             });
 //     console.log('Place is created!');
 // });

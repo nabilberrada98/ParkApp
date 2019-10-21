@@ -1,0 +1,87 @@
+<mat-table #table [dataSource]="dataSource"
+           [@animateStagger]="{value:'50'}">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let location">
+            <mat-checkbox [(ngModel)]="checkboxes[location._id]" (ngModelChange)="onSelectedChange(location._id)"
+                          (click)="$event.stopPropagation()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <!-- NumPlace Column -->
+    <ng-container matColumnDef="NumPlace">
+        <mat-header-cell *matHeaderCellDef>Numéro Place</mat-header-cell>
+        <mat-cell *matCellDef="let location">
+            <p class="text-truncate font-weight-600">{{location.place.numero}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Etage Column -->
+    <ng-container matColumnDef="Etage">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Etage</mat-header-cell>
+        <mat-cell *matCellDef="let location" fxHide fxShow.gt-sm>
+            <p class="email text-truncate">
+                {{location.place.etage}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- parking Column -->
+    <ng-container matColumnDef="Prix">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Prix de location</mat-header-cell>
+        <mat-cell *matCellDef="let location" fxHide fxShow.gt-md>
+                {{location.prix}}
+        </mat-cell>
+    </ng-container>
+
+    <!-- Etat Column -->
+    <ng-container matColumnDef="Parking">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Dans un parking</mat-header-cell>
+        <mat-cell *matCellDef="let location" fxHide fxShow.gt-md>
+            <p [matTooltip]="location.place.isInParking?('Ouverture a :'+location.place.heureOuvertureParking+' Fermeture a :'+location.place.heureFermetureParking) :''">
+                    {{location.place.isInParking ?"Oui :":"Nom"}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Etat Column -->
+    <ng-container matColumnDef="Etat">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Est louable</mat-header-cell>
+        <mat-cell *matCellDef="let location" fxHide fxShow.gt-md>
+                <mat-icon *ngIf="!location.status" style="color: darkred">block</mat-icon>
+                <mat-icon *ngIf="location.status" style="color: darkgreen">done_outline</mat-icon>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="Buttons">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let location">
+            <div fxFlex="row" fxLayoutAlign="end center">
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="Plus"
+                        (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="remove" (click)="deletelocation(location)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Supprimer</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let location; columns: displayedColumns;"
+             class="Location"
+             (click)="editlocation(location)"
+             [ngClass]="{'accent-50':checkboxes[location._id]}"
+             matRipple
+             [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+</mat-table>
+
+

@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Créer votre compte</h2>
+<mat-dialog-content>
+    <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon >directions_car</mat-icon>
+            Locataire
+          </ng-template>
+          <locataire-register #locataire></locataire-register>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon>account_circle</mat-icon>
+            Propriétaire
+          </ng-template>
+          <proprio-register></proprio-register>
+        </mat-tab>
+    </mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close [mat-dialog-close]="true">Annuler</button>
+</mat-dialog-actions>

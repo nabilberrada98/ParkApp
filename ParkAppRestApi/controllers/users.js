@@ -2,24 +2,23 @@ const User = require("../models/user");
 const Role = require("../models/role");
 const config = require("../config/config");
 const jwt = require('jsonwebtoken');
+const Auth = require('../controllers/auth');
 
 module.exports = {
 
     index: async (req, res, next) => {
-        const users = await User.find({});
+        const users = await User.find({}).populate("role").exec();
         res.status(200).json(users);
     },
 
     storeUser: async (req, res, next) => {
         const newUser = new User(req.body);
-        
-        let roleName = String(req.body.role);
+        let roleName = String(req.body.role).toLowerCase();
         const role = await Role.find({name: roleName})
-        
         if(role.length === 1){
             newUser.role = role[0];
-            const user = await newUser.save();
-            res.status(201).json(user);
+            await newUser.save();
+            Auth.login(req,res,next);
         }else{
             res.status(404).json({success: false, message: `this role ( ${roleName} ) doesn't exists !!`});
         }
@@ -27,13 +26,16 @@ module.exports = {
     },
 
     getUser: async (req, res, next) => {
-        const { userId } = req.params;
-        const user = await User.findById(userId);
+        const { _id } = req.params;
+        const user = await User.findById(_id);
         res.status(200).json(user);
     },
 
     editUser: async (req, res, next) => {
+        console.log('here');
+        console.log(req.params);
         const { userId } = req.params;
+        
         const user = await User.findByIdAndUpdate(userId, req.body, {"message": "user has been edited successfully !!"});
         res.status(200).json(user);
     },
