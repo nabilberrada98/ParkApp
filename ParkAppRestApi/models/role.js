@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 let RoleSchema = mongoose.Schema({
-    name: String,
+    name : String,
 });
 
 
@@ -9,15 +9,15 @@ let Role = module.exports = mongoose.model('role', RoleSchema);
 
 // Role.createCollection().then(function(collection) {
 //     Role.create({
-//         name: "Locataire"
+//         name: "locataire"
 //     });
 
 //     Role.create({
-//         name: "Admin"
+//         name: "admin"
 //     });
 
 //     Role.create({
-//         name: "Proprietaire"
+//         name: "proprietaire"
 //     });
 
 //     console.log('Role is created!');

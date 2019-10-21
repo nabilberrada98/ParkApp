@@ -9,8 +9,6 @@ module.exports = {
 
     login: async (req, res, next) => {
         const user = await User.findOne({ email: req.body.email });
-    
-
         if(user === null) return res.status(404).send({ reason: 'Utilisateur introuvable.' });
 
         const role = await Role.findById(user.role);
@@ -23,32 +21,12 @@ module.exports = {
         var token = jwt.sign({ id: user.id, roleId: user.role, roleName: role.name }, config.secret, {
             expiresIn: 86400, // expires in 24 hours
         });
-
-        let currentUser = { ...user }._doc;
-        currentUser.token = token;
-
-        if(req.session && req.session.users && req.session.users.length >= 1){
-
-            const users = req.session.users;
-
-            try{
-                const index = users.findIndex((u) => u.id === currentUser._id);
-                if(index === -1){
-                    req.session.users.push(currentUser);
-                }else{
-                    users[index] = currentUser;
-                }
-            }catch(e){
-                req.session.users.push(currentUser);
-            }
-
-        }else{
-            req.session.users = [currentUser];
-        }
-
+        user.tokens = user.tokens.concat({token});
+        user.save();
         res.status(200).send({
+            token,
             auth: true,
-            login: currentUser,
+            login: user,
             authorities: role.name
         });
     },
@@ -65,9 +43,10 @@ module.exports = {
     },
 
     accessToken: async (req, res, next) => {
-        let userId = req.user._id;
-        const user = await User.findById(userId);
-        res.status(200).json(user);
+        let token = req.token;
+        const user = jwt.verify(token, config.secret);
+        const currentUser = await User.findById(user.id);
+        res.status(200).json(currentUser);
     }
 
 

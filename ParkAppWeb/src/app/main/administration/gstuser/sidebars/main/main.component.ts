@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { UserService } from '../../User.service';
+import { UserService } from 'app/services/user.service';
 
 @Component({
     selector   : 'users-main-sidebar',

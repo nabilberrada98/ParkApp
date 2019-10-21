@@ -3,6 +3,7 @@ const Location = require("../models/location");
 const Image = require("../models/image");
 const vehSup = require("../models/vehiculesSupporte");
 const config = require("../config/config");
+const Ville = require("../models/ville");
 
 
 uploadMedias = async (files, placeId) => {
@@ -35,7 +36,6 @@ module.exports = {
             const newPlace = new Place({...req.body, user: req.user.id}); 
             await uploadMedias(req.files, newPlace._id)
             const place = await newPlace.save();
-
             res.status(201).json(place);
         }catch(e){
             req.files.forEach(function(file){
@@ -64,7 +64,37 @@ module.exports = {
         res.status(200).json(place);
     },
 
+    getAllCities: async (req, res, next) => {
+        const cities = await Ville.find({});
+        res.status(200).json(cities);
+    },
 
+    getRangePrices: async (req, res, next) => {
+        const arr = await Location.aggregate([{ 
+            "$group": { 
+                "_id": null, 
+                "max": { "$max": "$price" },  
+                "min": { "$min": "$price" }
+            } 
+        }]);
+
+        res.status(200).json(arr);
+    },
+
+    fillterPlaces: async (req, res, next) => {
+        const { ville, prix, dateStart, dateEnd } = req.body;
+        
+        const places = await Locations.find({
+            
+        }).populate({ 
+            path: 'place',
+            populate: {
+              path: 'parking',
+              model: 'parking'
+            } 
+        }).exec();
+    
+    }
 
 
 }

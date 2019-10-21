@@ -9,12 +9,7 @@ import axios from 'axios';
   styleUrls: ['./register-dialog.component.scss'],
 })
 export class RegisterDialogComponent{
-
-    @ViewChild('locataire') locataire:LocataireRegisterComponent;
-    isOpen: Boolean;
-
     constructor(){
-        this.isOpen = false;
     }
 
     ngOnInit(): void {
@@ -29,11 +24,6 @@ export class RegisterDialogComponent{
             console.log(error);
         });
     };
-
-
-    onSubmit(): void {
-        this.locataire.onSubmit();
-    }
 
 
 }

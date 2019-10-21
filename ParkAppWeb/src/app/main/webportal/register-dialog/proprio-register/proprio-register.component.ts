@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { UserService } from './../../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'proprio-register',
@@ -12,7 +14,8 @@ export class ProprioRegisterComponent implements OnInit,OnDestroy {
   form: FormGroup;
   private _unsubscribeAll: Subject<any>;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: FormBuilder,private _userService : UserService
+    ,private router: Router) {
     this._unsubscribeAll = new Subject();
    }
    
@@ -65,6 +68,11 @@ export class ProprioRegisterComponent implements OnInit,OnDestroy {
 
 
     SaveProprio(obj){
-      let dataToPost = {...obj, role : "Propriétaire"};
+      let dataToPost = {...obj.value, role : "proprietaire"};
+      let res = this._userService.storeUser(dataToPost);
+      if(res){
+          this.router.navigate(["/"]);
+      }
     }
+
 }

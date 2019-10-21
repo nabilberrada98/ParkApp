@@ -4,8 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { FuseConfirmDialogComponent } from '@fuse/components/confirm-dialog/confirm-dialog.component';
-
-import { UserService } from '../User.service';
+import { UserService } from 'app/services/user.service';
 
 @Component({
     selector   : 'selected-bar',

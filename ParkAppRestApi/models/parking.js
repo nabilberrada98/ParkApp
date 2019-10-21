@@ -1,14 +1,9 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 let ParkingSchema = mongoose.Schema({
     heureFermeture: String,
     heureOuverture: String,
-    intitule: String,
-    loc: {
-        type: Schema.Types.ObjectId,
-        ref: "localisation"
-    }
+    intitule: String
 });
 
 ParkingSchema.virtual('places',{
@@ -20,6 +15,11 @@ ParkingSchema.virtual('places',{
 let Parking = module.exports = mongoose.model('parking', ParkingSchema);
 
 // Parking.createCollection().then(function(collection) {
+//     Parking.create({
+//         heureOuverture : "08:00 AM",
+//         heureFermeture : "12:00 PM",
+//         intitule : "Parking aeroport mohammed 5"
+//     })
 //     console.log('Parking is created!');
 // });
 

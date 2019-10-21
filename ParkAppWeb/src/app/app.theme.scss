@@ -82,11 +82,14 @@ $typography: mat-typography-config(
 // @import "src/app/layout/components/chat-panel/chat-panel.theme";
 // @import "src/app/layout/components/toolbar/toolbar.theme";
 
+@import "src/app/main/Places/places.theme";
+
 @import "src/app/main/webportal/webportal.theme";
+
 //@import "src/app/main/apps/calendar/calendar.theme";
 // @import "src/app/main/apps/chat/chat.theme";
 // @import "src/app/main/apps/contacts/contacts.theme";
-@import "src/app/main/dashboards/project/project.theme";
+// @import "src/app/main/dashboards/project/project.theme";
 // @import "src/app/main/apps/e-commerce/orders/orders.theme";
 // @import "src/app/main/apps/e-commerce/products/products.theme";
 // @import "src/app/main/apps/file-manager/file-manager.theme";
@@ -109,7 +112,7 @@ $typography: mat-typography-config(
     // @include calendar-theme($theme);
     // @include chat-theme($theme);
     // @include contacts-theme($theme);
-    @include dashboards-project-theme($theme);
+    // @include dashboards-project-theme($theme);
     // @include e-commerce-orders-theme($theme);
     // @include e-commerce-products-theme($theme);
     // @include file-manager-theme($theme);

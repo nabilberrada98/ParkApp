@@ -4,16 +4,15 @@ const UsersController = require("../controllers/users.js");
 const upload = require("../config/upload");
 
 //const { validateParam, schemas } = require("../helpers/routeHelpers");
-
+const authJwt = require("../middleware/auth");
 router
-    .get("/",  UsersController.index)
+    .get("/",authJwt, UsersController.index)
     .post("/", UsersController.storeUser)
-    .post("/avatar", upload.single("file"), UsersController.avatar);
+    .post("/avatar",authJwt,upload.single("file"), UsersController.avatar);
 
 router
-    .get("/:userId", UsersController.getUser)
-    .put("/:userId", UsersController.editUser)
-    .patch("/:userId", UsersController.editUser);
-
+    .get("/:userId",authJwt, UsersController.getUser)
+    .put("/:userId", authJwt,UsersController.editUser)
+    .patch("/:userId", authJwt,UsersController.editUser);
 
 module.exports = router;

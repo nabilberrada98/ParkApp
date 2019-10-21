@@ -22,6 +22,10 @@ let UserSchema = new Schema({
         }),]
     },
     password: String,
+    avatar : {
+      type : String,
+      default : 'assets/images/avatars/profile.jpg'
+    },
     isBanned: {
       type : Boolean,
       default : false
@@ -30,10 +34,22 @@ let UserSchema = new Schema({
         required : true,
         type: Schema.Types.ObjectId,
         ref: "role"
-    }
-    
+    },
+    tokens : [{
+        token : {
+            type : String,
+            required : true
+        }
+    }]
 }, { timestamps: true, toJSON: { virtuals: true } });
 
+
+UserSchema.methods.toJSON= function(){
+  const user = this.toObject();
+  delete user.password;
+  delete user.tokens;
+  return user;
+}
 
 UserSchema.virtual('reservations',{
     ref : 'reservation',
