@@ -13,7 +13,6 @@ import { navigation } from 'app/navigation/navigation';
 import { Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
 import * as _ from 'lodash';
-import jwt from "jsonwebtoken";
 
 @Component({
     selector   : 'app',

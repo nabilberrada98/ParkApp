@@ -10,10 +10,8 @@ import { PlacesService } from './places.service';
 import { PlacesComponent } from './places.component';
 import { PlacesListComponent } from './places-list/places-list.component';
 import { PagerService } from './pager.service';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { Ng5SliderModule } from 'ng5-slider';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { ExampleViewerComponent } from './example-viewer/example-viewer';
@@ -43,7 +41,6 @@ const routes = [
         MatMenuModule,
         MatSelectModule,
         MatSlideToggleModule,
-        NgbModule,
         Ng5SliderModule,
         NgMultiSelectDropDownModule.forRoot(),
         //MDBBootstrapModule.forRoot(),
