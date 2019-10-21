@@ -35,6 +35,13 @@ export const navigation : FuseNavigation[] = [
                 type     : 'item',
                 icon     : 'account_box',
                 url      : '/administration/gstuser'
+            },
+            {
+                id       : 'places',
+                title    : 'Gestion d\'places',
+                type     : 'item',
+                icon     : 'account_box',
+                url      : '/places'
             }
         ]
     }

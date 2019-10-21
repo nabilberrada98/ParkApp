@@ -12,7 +12,7 @@ export class User
     constructor(user)
     {
         {
-            this.id = user.id || undefined;
+            this.id = user.id || user._id || undefined;
             this.nom = user.nom || '';
             this.prenom = user.prenom || '';
             this.avatar = user.avatar || 'assets/images/avatars/profile.jpg';

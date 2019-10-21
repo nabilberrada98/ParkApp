@@ -11,8 +11,8 @@ import { LocationsService } from './Location.service';
 
 @Component({
     selector     : 'locations',
-    templateUrl  : './locations.component.html',
-    styleUrls    : ['./locations.component.scss'],
+    templateUrl  : './Locations.component.html',
+    styleUrls    : ['./Locations.component.scss'],
     encapsulation: ViewEncapsulation.None,
     animations   : fuseAnimations
 })

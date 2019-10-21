@@ -212,10 +212,10 @@ export class UserService {
 
     getCurrentUser(): User {
         const user = JSON.parse(sessionStorage.getItem("currentUser"));
-        return user?new User({...user,role : user.authorities}):undefined;
+        return user ? new User({...user, role : user.authorities}) : undefined;
     }
 
-    async storeUser(user) : Promise<boolean>{
+    async storeUser(user): Promise<boolean>{
         await storeUService(user).then((data)=>{
             return true;
         });

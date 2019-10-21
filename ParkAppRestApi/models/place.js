@@ -14,7 +14,7 @@ let PlaceSchema = mongoose.Schema({
     parking: {
         type: Schema.Types.ObjectId,
         ref: "parking"
-    }
+    },
 });
 
 PlaceSchema.virtual('images',{

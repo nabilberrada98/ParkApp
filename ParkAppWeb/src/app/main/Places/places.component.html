@@ -1,0 +1,56 @@
+<div id="academy-courses" class="page-layout simple">
+    
+    <!-- HEADER -->
+    <div class="header accent p-24 h-160" fxLayout="row" fxLayoutAlign="space-between center">
+
+        <div fxLayout="column" fxLayoutAlign="center start">
+            <div fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text s-18">home</mat-icon>
+                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
+                <span class="secondary-text">User Interface</span>
+            </div>
+            <div class="h2 mt-16">Cards</div>
+        </div>
+
+        <div>
+            <mat-slide-toggle color="primary" >
+                View Source
+            </mat-slide-toggle>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <div style="max-width: 960px" >
+
+        <example-viewer  ></example-viewer>
+        
+    </div>
+
+
+    <app-places-list></app-places-list>
+
+
+    <div class="simple-pagination" *ngIf="pager.pages && pager.pages.length" >
+
+        <button [ngClass]="{disabled:pager.currentPage === 1}" mat-button class="pagination-item active"  mat-button class="pagination-item disabled" 
+                aria-label="Go to previous page">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+
+        <div *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" >
+            <button class="pagination-item" (click)="setPage(page)"  mat-button >
+                <span>{{page}}</span>
+            </button>
+        </div>
+
+        <button mat-button class="pagination-item" aria-label="Go to next page" (click)="setPage(pager.currentPage + 1)" >
+            <mat-icon>chevron_right</mat-icon>
+        </button>
+
+    </div>
+
+
+    <br>
+
+</div>
