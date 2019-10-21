@@ -1,4 +1,4 @@
-import { userLogout, userLogin} from "../axiosInstance";
+import { userLogout, userLogin, getItem } from "../axiosInstance";
 
 
 export const Login = (data) => {
@@ -7,4 +7,8 @@ export const Login = (data) => {
 
 export const Logout = () => {
     return userLogout("/api/auth/logout");
+}
+
+export const accessToken = () => {
+    return getItem("/api/auth/access-token");
 }

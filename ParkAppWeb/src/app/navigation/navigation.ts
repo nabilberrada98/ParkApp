@@ -37,6 +37,7 @@ export const navigation : FuseNavigation[] = [
                 url      : '/administration/gstuser'
             },
             {
+<<<<<<< HEAD
                 id       : 'gstloc',
                 title    : 'Gestion Locations',
                 type     : 'collapsable',
@@ -55,6 +56,13 @@ export const navigation : FuseNavigation[] = [
                         url  : '/locations/ajouter'
                     }
                 ]
+=======
+                id       : 'places',
+                title    : 'Gestion d\'places',
+                type     : 'item',
+                icon     : 'account_box',
+                url      : '/places'
+>>>>>>> 2ef23fbe91cfd7fee957a76050ea525c94a68f27
             }
         ]
     }

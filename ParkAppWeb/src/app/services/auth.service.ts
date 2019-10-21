@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './user.service';
 import { User } from '../api/models/user';
-import { Login, Logout } from "../api/controllers/AuthInstance.js";
+import { Login, Logout, accessToken } from "../api/controllers/AuthInstance.js";
+import axios from "axios";
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,21 @@ export class AuthService {
             this.router.navigate(['/']);
         })
         .catch( (err) => console.log(err) );
+    }
+
+    isLogin(): Promise<boolean> {
+
+        return new Promise( (resolve, reject) => {
+            accessToken().catch( (error) => {
+                const data = error.response.data;
+                if (data.message && data.message === 'TOKEN_EXPIRED'){
+                    this.logout();
+                    resolve(false);
+                }
+                resolve(true);
+            });
+        });
+
     }
 
 //   get appUser$(): Observable<User> {

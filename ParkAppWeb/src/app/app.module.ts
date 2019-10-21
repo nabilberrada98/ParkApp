@@ -22,10 +22,10 @@ import { AuthGuardService } from './services/auth-guard.service';
 
 
 const appRoutes: Routes = [
-    {
-        path        : 'login',
-        loadChildren: './main/login/login.module#LoginModule'
-    },
+    // {
+    //     path        : 'login',
+    //     loadChildren: './main/login/login.module#LoginModule'
+    // },
     {
         path        : 'administration/gstuser',
         loadChildren: './main/administration/gstuser/gstuser.module#UsersModule',

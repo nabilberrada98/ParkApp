@@ -43,9 +43,10 @@ module.exports = {
     },
 
     accessToken: async (req, res, next) => {
-        let userId = req.user._id;
-        const user = await User.findById(userId);
-        res.status(200).json(user);
+        let token = req.token;
+        const user = jwt.verify(token, config.secret);
+        const currentUser = await User.findById(user.id);
+        res.status(200).json(currentUser);
     }
 
 

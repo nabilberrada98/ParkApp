@@ -107,7 +107,8 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": [],
+                        "scripts": [
+                        ],
                         "assets": [
                             "src/favicon.ico",
                             "src/assets"
