@@ -3,7 +3,12 @@ var session = require('express-session');
 const bodyParser = require('body-parser');
 const pe = require('parse-error');
 const cors = require('cors');
+// const Ville= require('./models/ville');
 require("./config/connection");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 66c9800873956da247e4b7fadfda2a43e41773c1
 const app = express();
 
 app.use(bodyParser.json({limit: '30mb'}));
@@ -38,7 +43,6 @@ app.use("/places", express.static("resources/static/assets/uploads/places"));
 
 //
 const users = require("./routes/users");
-const places = require("./routes/places");
 const reservations = require("./routes/reservations");
 const locations = require("./routes/locations");
 const auth = require("./routes/auth");
@@ -47,7 +51,10 @@ const authJwt = require("./middleware/auth");
 
 // Setup routes and handle errors
 app.use('/api/users', users);
+<<<<<<< HEAD
 app.use("/api/places", authJwt, places);
+=======
+>>>>>>> 66c9800873956da247e4b7fadfda2a43e41773c1
 app.use("/api/reservations", authJwt, reservations);
 //add auth later
 app.use("/api/locations",authJwt, locations );
