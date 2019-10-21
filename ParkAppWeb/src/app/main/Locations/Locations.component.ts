@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { FormControl } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 
 import { fuseAnimations } from '@fuse/animations';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
-
-import { LocationsService } from './Location.service';
+import { LocationsService } from 'app/services/Location.service';
 
 @Component({
     selector     : 'locations',
@@ -35,8 +33,7 @@ export class LocationsComponent implements OnInit, OnDestroy
      */
     constructor(
         private _locationService: LocationsService,
-        private _fuseSidebarService: FuseSidebarService,
-        private _matDialog: MatDialog
+        private _fuseSidebarService: FuseSidebarService
     )
     {
         // Set the defaults

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { BehaviorSubject, Observable, Subject, from } from 'rxjs';
-import {Location} from './Location.model';
+import { BehaviorSubject, Observable, Subject} from 'rxjs';
 import { FuseUtils } from '@fuse/utils';
+import { Location } from './../api/models/Location.model';
+import {getAllLocations,storeLocation,updateLocation,deleteLocation} from '../api/controllers/LocationInstance.js';
 @Injectable()
 export class LocationsService implements Resolve<any>
 {
@@ -12,7 +13,6 @@ export class LocationsService implements Resolve<any>
     onLocationDataChanged: BehaviorSubject<any>;
     onSearchTextChanged: Subject<any>;
     onFilterChanged: Subject<any>;
-
     locations: Location[];
     location : any;
     selectedLocations: string[] = [];
@@ -50,12 +50,7 @@ export class LocationsService implements Resolve<any>
      */
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any
     {
-        return new Promise((resolve, reject) => {
-
-            Promise.all([
-                this.getLocations()
-            ]).then(
-                ([files]) => {
+        return  this.getLocations().then((data) => {
                     this.onSearchTextChanged.subscribe(searchText => {
                         this.searchText = searchText;
                         this.getLocations();
@@ -65,20 +60,12 @@ export class LocationsService implements Resolve<any>
                         this.filterBy = filter;
                         this.getLocations();
                     });
-
-                    resolve();
-
-                },
-                reject
-            );
-        });
+                });
     }
 
     getLocations(): Promise<any>
     {
-        return new Promise((resolve, reject) => {
-                this._httpClient.get('api/locations')
-                    .subscribe((response: any) => {
+        return getAllLocations().then((response)=>{
                         this.locations = response;
                         if ( this.filterBy === 'Active' )
                         {
@@ -98,17 +85,13 @@ export class LocationsService implements Resolve<any>
                         {
                             this.locations = FuseUtils.filterArrayByString(this.locations, this.searchText);
                         }
-
-                        this.locations = this.locations.map(loc => {
-                            return new Location(loc);
-                        });
-                        console.log('from service get locations');
-                        console.log(this.locations);
+                        // console.log('here');
+                        // this.locations = this.locations.map(loc => {
+                        //     return new Location(loc);
+                        // });
+                        // console.log('here');
                         this.onLocationsChanged.next(this.locations);
-                        resolve(this.locations);
-                    }, reject);
-            }
-        );
+            });
     }
 
     toggleSelectedLocation(id): void
@@ -170,31 +153,9 @@ export class LocationsService implements Resolve<any>
 
     updateLocation(location): Promise<any>
     {
-        return new Promise((resolve, reject) => {
-
-            this._httpClient.post('api/locations/' + location._id, {...location})
-                .subscribe(response => {
+        return updateLocation(location._id,{...location}).then(response => {
                     this.getLocations();
-                    resolve(response);
-                });
-        });
-    }
-
-    /**
-     * Update location data
-     *
-     * @param locationData
-     * @returns {Promise<any>}
-     */
-    updateLocationData(locationData): Promise<any>
-    {
-        return new Promise((resolve, reject) => {
-            this._httpClient.post('api/locations/' + this.location.id, {...locationData})
-                .subscribe(response => {
-                    this.getLocations();
-                    resolve(response);
-                });
-        });
+            });
     }
 
     deselectLocations(): void
@@ -226,4 +187,9 @@ export class LocationsService implements Resolve<any>
         this.deselectLocations();
     }
 
+    storeLocation(formData,files): Promise<any>{
+        return storeLocation(JSON.stringify(formData),files).then(response => {
+            this.getLocations();
+        });
+    }
 }

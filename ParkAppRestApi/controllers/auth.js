@@ -22,7 +22,7 @@ module.exports = {
             expiresIn: 86400, // expires in 24 hours
         });
         user.tokens = user.tokens.concat({token});
-        user.save();
+        await user.save();
         res.status(200).send({
             token,
             auth: true,

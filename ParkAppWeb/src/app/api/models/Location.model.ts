@@ -5,7 +5,7 @@ export class Location
     _id : string;
     prix : number;
     status: boolean;
-    type: string;
+    type: number;
     locataire: string;
     place : Place;
     constructor(Location)

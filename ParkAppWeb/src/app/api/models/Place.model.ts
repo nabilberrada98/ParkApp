@@ -4,8 +4,10 @@ export class Place
     disponibilite: JSON;
     numero: number;
     etage: number;
-    vehicule: JSON;
-    parking: string;
+    vehicules : [];
+    isInParking : boolean;
+    heureFermetureParking: string;
+    heureOuvertureParking: string;
     images : [];
     constructor(place)
     {
@@ -14,8 +16,10 @@ export class Place
             this.disponibilite = place.disponibilite;
             this.numero = place.numero || '';
             this.etage = place.etage || 0;
-            this.vehicule = place.isBanned || ['Citadine'];
-            this.parking = place.parking;
+            this.vehicules = place.vehicules || ['Citadine'];
+            this.isInParking = place.parking;
+            this.heureFermetureParking=place.heureFermetureParking;
+            this.heureOuvertureParking =place.heureOuvertureParking;
             this.images = place.images || [];
         }
     }

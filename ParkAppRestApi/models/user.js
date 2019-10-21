@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const validate = require('mongoose-validator');
 const { TE, to } = require('../services/util.service');
-
+const Location = require('./location');
+const Reservation =require('./reservation');
 let UserSchema = new Schema({
     nom: String,
     prenom: String,
@@ -80,6 +81,14 @@ UserSchema.pre('save', async function (next) {
     }
 
 });
+
+UserSchema.pre('remove', async function (next){
+  //this is the user
+  console.log('deleting it Locations and reservations');
+  await Location.deleteMany({locataire : this._id});
+  await Reservation.deleteMany({locataire : this._id});
+  next();
+})
 
 // UserSchema.methods.comparePassword = async function(pw){
 //   let err, pass;

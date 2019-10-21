@@ -32,18 +32,16 @@
     <ng-container matColumnDef="Prix">
         <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Prix de location</mat-header-cell>
         <mat-cell *matCellDef="let location" fxHide fxShow.gt-md>
-            <p class="phone text-truncate">
                 {{location.prix}}
-            </p>
         </mat-cell>
     </ng-container>
 
     <!-- Etat Column -->
     <ng-container matColumnDef="Parking">
-        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Parking</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Dans un parking</mat-header-cell>
         <mat-cell *matCellDef="let location" fxHide fxShow.gt-md>
-            <p class="phone text-truncate">
-                {{location.place.parking.intitule}}
+            <p [matTooltip]="location.place.isInParking?('Ouverture a :'+location.place.heureOuvertureParking+' Fermeture a :'+location.place.heureFermetureParking) :''">
+                    {{location.place.isInParking ?"Oui :":"Nom"}}
             </p>
         </mat-cell>
     </ng-container>
@@ -52,8 +50,8 @@
     <ng-container matColumnDef="Etat">
         <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Est louable</mat-header-cell>
         <mat-cell *matCellDef="let location" fxHide fxShow.gt-md>
-                <mat-icon *ngIf="location.satus" style="color: darkred">block</mat-icon>
-                <mat-icon *ngIf="!location.status" style="color: darkgreen">done_outline</mat-icon>
+                <mat-icon *ngIf="!location.status" style="color: darkred">block</mat-icon>
+                <mat-icon *ngIf="location.status" style="color: darkgreen">done_outline</mat-icon>
         </mat-cell>
     </ng-container>
 

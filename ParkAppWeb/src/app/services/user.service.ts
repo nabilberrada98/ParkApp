@@ -120,11 +120,11 @@ export class UserService {
         });
     }
 
-    toggleSelectedUser(id): void
+    toggleSelectedUser(_id): void
     {
         if ( this.selectedUsers.length > 0 )
         {
-            const index = this.selectedUsers.indexOf(id);
+            const index = this.selectedUsers.indexOf(_id);
 
             if ( index !== -1 )
             {
@@ -139,7 +139,7 @@ export class UserService {
         }
 
         // If we don't have it, push as selected
-        this.selectedUsers.push(id);
+        this.selectedUsers.push(_id);
 
         // Trigger the next event
         this.onSelectedUsersChanged.next(this.selectedUsers);
@@ -168,7 +168,7 @@ export class UserService {
         {
             this.selectedUsers = [];
             this.users.map(user => {
-                this.selectedUsers.push(user.id);
+                this.selectedUsers.push(user._id);
             });
         }
         // Trigger the next event
@@ -177,7 +177,7 @@ export class UserService {
 
     updateUser(user): Promise<any>
     {
-        return updUserS(user.id, {...user}).then(data => {
+        return updUserS(user._id, {...user}).then(data => {
                     this.getUsers();
                 });
     }
@@ -201,7 +201,7 @@ export class UserService {
         for ( const userId of this.selectedUsers )
         {
             const user = this.users.find(user => {
-                return user.id === userId;
+                return user._id === userId;
             });
             const Index = this.users.indexOf(user);
             this.users.splice(Index, 1);

@@ -13,6 +13,7 @@ router
 router
     .get("/:userId",authJwt, UsersController.getUser)
     .put("/:userId", authJwt,UsersController.editUser)
-    .patch("/:userId", authJwt,UsersController.editUser);
+    .patch("/:userId", authJwt,UsersController.editUser)
+    .delete("/:userId", authJwt,UsersController.deleteUser);
 
 module.exports = router;

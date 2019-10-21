@@ -4,7 +4,7 @@
     <ng-container matColumnDef="checkbox">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let user">
-            <mat-checkbox [(ngModel)]="checkboxes[user.id]" (ngModelChange)="onSelectedChange(user.id)"
+            <mat-checkbox [(ngModel)]="checkboxes[user._id]" (ngModelChange)="onSelectedChange(user._id)"
                           (click)="$event.stopPropagation()">
             </mat-checkbox>
         </mat-cell>
@@ -42,7 +42,7 @@
         <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Téléphone</mat-header-cell>
         <mat-cell *matCellDef="let user" fxHide fxShow.gt-md>
             <p class="phone text-truncate">
-                {{user.NumTel}}
+                {{user.phone}}
             </p>
         </mat-cell>
     </ng-container>
@@ -79,7 +79,7 @@
     <mat-row *matRowDef="let user; columns: displayedColumns;"
              class="User"
              (click)="editUser(user)"
-             [ngClass]="{'accent-50':checkboxes[user.id]}"
+             [ngClass]="{'accent-50':checkboxes[user._id]}"
              matRipple
              [@animate]="{value:'*',params:{y:'100%'}}">
     </mat-row>

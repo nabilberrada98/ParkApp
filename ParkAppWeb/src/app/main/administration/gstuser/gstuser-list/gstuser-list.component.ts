@@ -67,21 +67,21 @@ export class UsersListComponent implements OnInit, OnDestroy
                 this.users = users;
                 this.checkboxes = {};
                 users.map(user => {
-                    this.checkboxes[user.id] = false;
+                    this.checkboxes[user._id] = false;
                 });
             });
 
         this._userService.onSelectedUsersChanged
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe(selectedUsers => {
-                for ( const id in this.checkboxes )
+                for ( const _id in this.checkboxes )
                 {
-                    if ( !this.checkboxes.hasOwnProperty(id) )
+                    if ( !this.checkboxes.hasOwnProperty(_id) )
                     {
                         continue;
                     }
 
-                    this.checkboxes[id] = selectedUsers.includes(id);
+                    this.checkboxes[_id] = selectedUsers.includes(_id);
                 }
                 this.selectedUsers = selectedUsers;
             });

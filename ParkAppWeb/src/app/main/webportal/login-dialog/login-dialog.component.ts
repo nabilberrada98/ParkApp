@@ -1,7 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-
-import { Login } from '../../../api/AuthInstance.js';
+import {Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AuthService } from 'app/services/auth.service.js';
 
 @Component({

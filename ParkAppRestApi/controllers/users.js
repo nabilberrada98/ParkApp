@@ -26,13 +26,16 @@ module.exports = {
     },
 
     getUser: async (req, res, next) => {
-        const { userId } = req.params;
-        const user = await User.findById(userId);
+        const { _id } = req.params;
+        const user = await User.findById(_id);
         res.status(200).json(user);
     },
 
     editUser: async (req, res, next) => {
+        console.log('here');
+        console.log(req.params);
         const { userId } = req.params;
+        
         const user = await User.findByIdAndUpdate(userId, req.body, {"message": "user has been edited successfully !!"});
         res.status(200).json(user);
     },

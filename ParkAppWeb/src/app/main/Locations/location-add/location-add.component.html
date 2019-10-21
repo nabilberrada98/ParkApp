@@ -1,161 +1,223 @@
-<div class="h1 pt-32">
-  Ajouter une location
-</div>
+<div class="page-layout simple" style="margin : 20px" fxLayout="column">
+    <div class="h1 pt-32">
+        Ajouter une location
+    </div>
 
-<p class="pb-32">
-  Cette interface vas vous permettre de mettre vos places en location  
-</p>
+    <p class="pb-32">
+        Cette interface vas vous permettre de mettre vos places en location
+    </p>
 
-<div class="horizontal-stepper-wrapper">
+    <div class="horizontal-stepper-wrapper">
 
-  <!-- HORIZONTAL STEPPER EXAMPLE -->
-  <mat-horizontal-stepper class="mat-elevation-z4" [linear]="true">
+        <!-- HORIZONTAL STEPPER EXAMPLE -->
+        <mat-horizontal-stepper class="mat-elevation-z4" [linear]="true">
+            <mat-step [stepControl]="horizontalStepperStep1">
+                <form fxLayout="column" [formGroup]="horizontalStepperStep1">
 
-      <mat-step [stepControl]="horizontalStepperStep1">
+                    <ng-template matStepLabel>Informations sur la place</ng-template>
 
-          <form fxLayout="column" [formGroup]="horizontalStepperStep1">
+                    <div fxFlex="1 0 auto" fxLayout="column">
 
-              <ng-template matStepLabel>Informations sur la place</ng-template>
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Numéro de la place</mat-label>
+                            <input matInput formControlName="numero">
+                            <span matSuffix>(optionnel)</span>
+                        </mat-form-field>
 
-              <div fxFlex="1 0 auto" fxLayout="column">
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Niveau (étage)</mat-label>
+                            <mat-select formControlName="etage" required>
+                                <mat-option *ngFor="let number of [0,1,2,3,4,5,6,7,8,9,10]" [value]="number">
+                                    {{number}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="1 0 auto" fxLayout="column">
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Type de la place</mat-label>
+                            <mat-select formControlName="type" required >
+                                <mat-option value=0>
+                                    <img width="50" height="50" src="assets/types/crenau.jpg">
+                                    Crénau
+                                </mat-option>
+                                <mat-option value=1>
+                                    <img width="50" height="50" src="assets/types/bataille.jpg">
+                                    Bataille
+                                </mat-option>
+                                <mat-option value=2>
+                                    <img width="50" height="50" src="assets/types/epi.jpg">
+                                    Epi
+                                </mat-option>
+                                <mat-option value=3>
+                                    <img width="50" height="50" src="assets/types/garage.png">
+                                    Garage
+                                </mat-option>
+                            </mat-select>
+                            <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
+                        </mat-form-field>
 
-                  <mat-form-field appearance="outline" fxFlex="100">
-                      <mat-label>Numéro de la place</mat-label>
-                      <input matInput formControlName="NumPLace">
-                  </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Véhicules supportés</mat-label>
+                            <mat-select formControlName="vehicules" [(value)]="selected" [ngClass]="selected" multiple>
+                                <mat-option value=0>
+                                    <img width="50" height="50" src="assets/cars/sedan.png">
+                                    Citadine
+                                </mat-option>
+                                <mat-option value=2>
+                                        <img width="50" height="50" src="assets/cars/decapotable.png">
+                                        Décapotable
+                                    </mat-option>
+                                <mat-option value=1>
+                                    <img width="50" height="50" src="assets/cars/truck.png">
+                                    Camion
+                                </mat-option>
+                                <mat-option value=3>
+                                    <img width="50" height="50" src="assets/cars/moto.png">
+                                    Moto
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="1 0 auto" fxLayout="row">
+                            <mat-checkbox #checkParking formControlName="isInParking">Est situé dans un parking ?</mat-checkbox>
+                    </div>
+                    <div fxFlex="1 0 auto" fxLayout="row" *ngIf="checkParking.checked">
+                        <mat-form-field appearance="outline" fxFlex="50">
+                            <mat-label>Heure d'ouverture du parking</mat-label>
+                            <input formControlName="heureOuvertureParking" matInput type="number">
+                            <span matSuffix>:00 H</span>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" fxFlex="50">
+                            <mat-label>Heure de fermeture du parking</mat-label>
+                            <input formControlName="heureFermetureParking" matInput type="number">
+                            <span matSuffix>:00 H</span>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="1 0 auto" fxLayout="row">
+                            <mat-checkbox formControlName="isCameraEquiped">Place dispose une caméra de surveillance ?</mat-checkbox>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button mat-raised-button matStepperNext type="button" color="accent">
+                            Suivant
+                        </button>
+                    </div>
 
-                  <mat-form-field appearance="outline" fxFlex="100">
-                    <mat-label>Country</mat-label>
-                    <mat-select formControlName="country" required>
-                        <mat-option [value]="'United States of America'">
-                            United States of America
-                        </mat-option>
-                        <mat-option [value]="'United Kingdom'">
-                            United Kingdom
-                        </mat-option>
-                        <mat-option [value]="'Russia'">
-                            Russia
-                        </mat-option>
-                        <mat-option [value]="'China'">
-                            China
-                        </mat-option>
-                        <mat-option [value]="'Japan'">
-                            Japan
-                        </mat-option>
-                        <mat-option [value]="'Turkey'">
-                            Turkey
-                        </mat-option>
-                    </mat-select>
-                    <mat-icon matSuffix class="secondary-text">outlined_flag</mat-icon>
-                    <mat-error>Country is required!</mat-error>
-                </mat-form-field>
+                </form>
 
-              </div>
+            </mat-step>
 
-              <div fxLayout="row" fxLayoutAlign="center center">
-                  <button mat-raised-button matStepperNext type="button" color="accent">
-                      Next
-                  </button>
-              </div>
+            <mat-step [stepControl]="horizontalStepperStep2">
 
-          </form>
+                <form fxLayout="column" [formGroup]="horizontalStepperStep2">
 
-      </mat-step>
+                    <ng-template matStepLabel>Informations sur la location</ng-template>
 
-      <mat-step [stepControl]="horizontalStepperStep2">
+                    <div fxFlex="1 0 auto" fxLayout="row">
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Type de Location</mat-label>
+                            <mat-select formControlName="type">
+                                <mat-option value=0>
+                                    Journalière
+                                </mat-option>
+                                <mat-option value=1>
+                                    Mensuelle
+                                </mat-option>
+                                <mat-option value=2>
+                                    Annuelle
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="1 0 auto" fxLayout="row">
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Prix de location</mat-label>
+                            <input formControlName="prix" matInput type="number">
+                            <span matPrefix>MAD&nbsp;&nbsp;</span>
+                            <span matSuffix>.00</span>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="1 0 auto" fxLayout="row">
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Description de l'offre</mat-label>
+                            <textarea rows="3" formControlName="description" matInput placeholder="Je met en location cette magnifique place doté de ..."></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="1 0 auto" style="margin-bottom: 15px !important;" fxLayout="column">
+                        <p class="pb-32">
+                            Veuillez sélectionner la localisation de la place
+                        </p>
+                        <agm-map [latitude]="lat" [scrollwheel]="null" [longitude]="lng" [zoom]="15" [disableDefaultUI]="false"
+                            [zoomControl]="true" (mapClick)="mapClicked($event)" mar>
+                            <agm-marker [latitude]="lat" [longitude]="lng" [label]="Place"
+                                (dragEnd)="markerDragEnd(m, $event)">
+                                <agm-info-window>
+                                    <strong>InfoWindow content</strong>
+                                </agm-info-window>
 
-          <form fxLayout="column" [formGroup]="horizontalStepperStep2">
+                            </agm-marker>
 
-              <ng-template matStepLabel>Fill out your address</ng-template>
+                        </agm-map>
+                    </div>
 
-              <div fxFlex="1 0 auto" fxLayout="row">
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Précédent
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent">
+                            Suivant
+                        </button>
+                    </div>
 
-                  <mat-form-field appearance="outline" fxFlex="100">
-                      <mat-label>Address</mat-label>
-                      <textarea matInput formControlName="address" required>
-                          1600 Amphitheatre Pkwy
-                      </textarea>
-                      <mat-error>Address is required!</mat-error>
-                  </mat-form-field>
+                </form>
 
-              </div>
+            </mat-step>
 
-              <div fxLayout="row" fxLayoutAlign="center center">
-                  <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
-                      Previous
-                  </button>
-                  <button mat-raised-button matStepperNext type="button" color="accent">
-                      Next
-                  </button>
-              </div>
+            <mat-step [stepControl]="horizontalStepperStep3">
 
-          </form>
+                <form fxLayout="column" [formGroup]="horizontalStepperStep3">
+                    <ng-template matStepLabel>Photos</ng-template>
+                    <div fxFlex="1 0 auto" fxLayout="column">
+                        <h3>Photos de la place :</h3>
+                        <input-file formControlName="images"></input-file>
+                        <mat-error *ngIf="horizontalStepperStep3.invalid">Veuillez sélectionner au moins une image.</mat-error>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="center center">
+                        <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                            Précédent
+                        </button>
+                        <button mat-raised-button matStepperNext type="button" color="accent">
+                            Suivant
+                        </button>
+                    </div>
 
-      </mat-step>
+                </form>
 
-      <mat-step [stepControl]="horizontalStepperStep3">
+            </mat-step>
 
-          <form fxLayout="column" [formGroup]="horizontalStepperStep3">
+            <mat-step>
+                <ng-template matStepLabel>Fini</ng-template>
 
-              <ng-template matStepLabel>Fill out your address</ng-template>
+                <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
+                    Merci, vous avez compléter toutes les étapes, n'hésitez pas a réviser les étapes prédente avant de
+                    sauvegarder la location
+                </div>
 
-              <div fxFlex="1 0 auto" fxLayout="column">
+                <div fxLayout="row" fxLayoutAlign="center center">
+                    <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                        Précédent
+                    </button>
+                    <button mat-raised-button type="button" color="primary" (click)="finishHorizontalStepper()">
+                        Sauvegarder
+                    </button>
+                </div>
 
-                  <mat-form-field appearance="outline" fxFlex="100">
-                      <mat-label>City</mat-label>
-                      <input matInput formControlName="city" required>
-                      <mat-error>City is required!</mat-error>
-                  </mat-form-field>
+            </mat-step>
 
-                  <mat-form-field appearance="outline" fxFlex="100">
-                      <mat-label>State</mat-label>
-                      <input matInput formControlName="state" required>
-                      <mat-error>State is required!</mat-error>
-                  </mat-form-field>
+        </mat-horizontal-stepper>
+        <!-- / HORIZONTAL STEPPER EXAMPLE -->
 
-                  <mat-form-field appearance="outline" fxFlex="100">
-                      <mat-label>Postal Code</mat-label>
-                      <input matInput #postalCode2 formControlName="postalCode"
-                             maxlength="5" required>
-                      <mat-hint align="end">{{postalCode2.value.length}} / 5</mat-hint>
-                      <mat-error>Postal Code is required!</mat-error>
-                  </mat-form-field>
-
-              </div>
-
-              <div fxLayout="row" fxLayoutAlign="center center">
-                  <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
-                      Previous
-                  </button>
-                  <button mat-raised-button matStepperNext type="button" color="accent">
-                      Next
-                  </button>
-              </div>
-
-          </form>
-
-      </mat-step>
-
-      <mat-step>
-
-          <ng-template matStepLabel>Done</ng-template>
-
-          <div class="h2 m-16" fxLayout="row" fxLayoutAlign="center center">
-              Thank your for filling out our form.
-          </div>
-
-          <div fxLayout="row" fxLayoutAlign="center center">
-              <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
-                  Previous
-              </button>
-              <button mat-raised-button type="button" color="accent" (click)="finishHorizontalStepper()">
-                  Finish
-              </button>
-          </div>
-
-      </mat-step>
-
-  </mat-horizontal-stepper>
-  <!-- / HORIZONTAL STEPPER EXAMPLE -->
+    </div>
 
 </div>

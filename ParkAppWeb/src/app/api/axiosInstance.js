@@ -1,5 +1,5 @@
 import axios from "axios"
-import {ACCESS_TOKEN, BASE_URL} from "./strings";
+import { BASE_URL} from "./strings";
 
 export const getHeaders = (uri, method, data = {}) => {
   console.log("[AxiosInstance] -> getHeaders() : ");
@@ -21,9 +21,9 @@ export const getHeaders = (uri, method, data = {}) => {
 export const getCustomHeader = (uri, method, data = {}) => {
     console.log("[AxiosInstance] -> getCustomHeader() : ");
     const handleData = (data !== null && Object.keys(data).length > 1) ? data : {} ;
-    console.log("handleData : ", handleData);
     return {
       url: uri,
+      baseURL: BASE_URL,
       method: method,
       data: handleData,
       headers: {
@@ -52,7 +52,7 @@ export const storeItem = (uri, data) => {
 }
 
 export const updateItem = (uri, data) => {
-  return PromiseHandler("POST", uri, data);
+  return PromiseHandler("PUT", uri, data);
 }
 
 export const deleteItem = (uri) => {

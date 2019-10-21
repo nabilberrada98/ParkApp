@@ -1,0 +1,95 @@
+<mat-card style="margin : 30px 8% 30px 8%; width: 84%;" class="mat-elevation-z8" [@animate]="{
+    value: '*',
+    params: { delay: '450ms', y: '50px' }
+}">
+    <ui-carousel [fade]="true" [speed]="100" style="height: 450px !important">
+        <ui-carousel-item *ngFor="let img of SelectedLocation.place.images" >
+            <img src="{{img}}" style="width: 100%;" />
+        </ui-carousel-item>
+    </ui-carousel>
+    <mat-card-content class="m-4">
+      <br>
+      <h1 class="m-0">Description de l'offre</h1>
+      <p>{{SelectedLocation.description}}</p>
+      <mat-divider></mat-divider>
+      <br>
+      <table  class="mat-elevation-z8">
+        <tr>
+          <td><strong>Numéro (Facultatif)</strong></td>
+          <td>{{SelectedLocation.place.numero}}</td>
+        </tr>
+        <tr>
+          <td><strong>Type de la place </strong></td>
+          <td>
+            <img *ngIf="SelectedLocation.place.type == 3" src="assets/types/garage.png">
+            <img *ngIf="SelectedLocation.place.type == 0" src="assets/types/crenau.jpg">
+            <img *ngIf="SelectedLocation.place.type == 1" src="assets/types/bataille.jpg">
+            <img *ngIf="SelectedLocation.place.type == 2" src="assets/types/epi.jpg">
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Véhicules Supportés </strong></td>
+          <td >
+            <img class="cars" *ngIf="SelectedLocation.place.vehicules.includes(0)" src="assets/cars/sedan.png">
+            <img class="cars" *ngIf="SelectedLocation.place.vehicules.includes(1)" src="assets/cars/decapotable.png">
+            <img class="cars" *ngIf="SelectedLocation.place.vehicules.includes(2)" src="assets/cars/truck.png">
+            <img class="cars" *ngIf="SelectedLocation.place.vehicules.includes(3)" src="assets/cars/moto.png">
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Dispose d'une caméra de surveillance </strong></td>
+          <td *ngIf="SelectedLocation.place.isCameraEquiped">Oui</td>
+          <td *ngIf="!SelectedLocation.place.isCameraEquiped">Nom</td>
+        </tr>
+        <tr *ngIf="SelectedLocation.place.isInParking">
+          <td><strong>Heure Ouverture Parking </strong></td>
+          <td>
+            {{SelectedLocation.place.heureOuvertureParking}} Heure
+          </td>
+        </tr>
+        <tr *ngIf="SelectedLocation.place.isInParking">
+          <td><strong>Heure Fermeture Parking </strong></td>
+          <td>
+            {{SelectedLocation.place.heureFermetureParking}} Heure
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Etage </strong></td>
+          <td>
+            {{SelectedLocation.place.etage}}
+          </td>
+        </tr>
+        <tr>
+            <td><strong>Localisation </strong></td>
+            <td>
+                <agm-map [latitude]="SelectedLocation.place.localisation.lat" [scrollwheel]="null" [longitude]="SelectedLocation.place.localisation.lng" [zoom]="15" [disableDefaultUI]="false"
+                [zoomControl]="true" mar>
+                <agm-marker [latitude]="SelectedLocation.place.localisation.lat" [longitude]="SelectedLocation.place.localisation.lng">
+                    <agm-info-window>
+                        <strong>Locatisation de la Place</strong>
+                    </agm-info-window>
+                </agm-marker>
+
+              </agm-map>
+            </td>
+          </tr>
+      </table>
+      <br>
+      <mat-divider></mat-divider>
+      <table>
+        <tr>
+          <td><strong>Type de location</strong></td>
+          <td *ngIf="SelectedLocation.type==0">Journalière</td>
+          <td *ngIf="SelectedLocation.type==1">Mensuelle</td>
+          <td *ngIf="SelectedLocation.type==2">Annuelle</td>
+        </tr>
+        <tr>
+            <td><strong>Prix de location</strong></td>
+            <td >{{SelectedLocation.prix | currency: 'MAD'}}</td>
+        </tr>
+      </table>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button color="accent" id="btnReserv">Reservez moi</button>
+    </mat-card-actions>
+  </mat-card>

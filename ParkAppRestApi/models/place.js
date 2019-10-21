@@ -6,21 +6,23 @@ let PlaceSchema = mongoose.Schema({
     disponibilite: JSON,
     numero: String,
     etage: Number,
-    vehicule: {
-        type: JSON,
-        required: true,
-        default : ["Citadine"]
+    type : Number,
+    vehicules : [Number],
+    isInParking : {
+        type : Boolean,
+        default : false
     },
-    parking: {
+    heureFermetureParking: String,
+    heureOuvertureParking: String,
+    isCameraEquiped : {
+        type : Boolean,
+        default : false
+    },
+    images : [String],
+    localisation : {
         type: Schema.Types.ObjectId,
-        ref: "parking"
+        ref: "localisation"
     }
-});
-
-PlaceSchema.virtual('images',{
-    ref : 'image',
-    localField : '_id',
-    foreignField : 'place'
 });
 
 PlaceSchema.virtual('locations',{
@@ -46,7 +48,10 @@ let Place = module.exports = mongoose.model('place', PlaceSchema);
 //                 numero : "K220",
 //                 etage : 0,
 //                 vehicule : ["Citadine"],
-//                 parking : "5d9d01efc9d5141f30ec2c5a"
+//                 isInParking : true,
+//                 heureOuvertureParking : "06:00h",
+//                 heureFermetureParking : "23:00h",
+//                 type : 0
 //             });
 //     console.log('Place is created!');
 // });

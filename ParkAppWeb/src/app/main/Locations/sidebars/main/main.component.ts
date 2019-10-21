@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LocationsService } from '../../Location.service';
+import { LocationsService } from '../../../../services/Location.service';
 
 @Component({
     selector   : 'locations-main-sidebar',
