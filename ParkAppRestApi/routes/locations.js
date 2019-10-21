@@ -2,9 +2,8 @@ const router = require("express-promise-router")();
 
 const LocationsController = require("../controllers/locations");
 
-
 router
-    .get("/",  LocationsController.index)
+    .get("/", LocationsController.index)
     .post("/", LocationsController.store);
 
 router

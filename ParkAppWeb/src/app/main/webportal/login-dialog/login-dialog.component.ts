@@ -1,8 +1,6 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
-import { MatDialogClose } from '@angular/material';
-import axios from 'axios';
-import { Login } from '../../../api/AuthInstance.js';
+import {Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { AuthService } from 'app/services/auth.service.js';
 
 @Component({
   selector: 'app-login-dialog',
@@ -13,7 +11,7 @@ export class LoginDialogComponent implements OnInit {
 
     form: FormGroup;
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,private authService: AuthService) {
     }
 
     ngOnInit(): void {
@@ -29,18 +27,7 @@ export class LoginDialogComponent implements OnInit {
 
     onSubmit(): void {
         const data = this.form.value;
-        this.handleLogin(data);
+        this.authService.login(data);
     }
-
-    handleLogin(data): void{
-        Login(data).then( (obj) => {
-            console.log(obj);
-            //obj.login.authorities = obj.authorities;
-            // sessionStorage.setItem("currentUser", obj.login);
-            // sessionStorage.setItem("token", obj.login.token);
-        })
-        .catch( (err) => console.log(err) );
-    }
-
 }
 

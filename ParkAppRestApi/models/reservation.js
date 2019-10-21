@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 let ReservationSchema = new Schema({
     startTime: Date,
     endTime: Date,
-    prix: Number,
     locataire: {
         type: Schema.Types.ObjectId,
         ref: "user"

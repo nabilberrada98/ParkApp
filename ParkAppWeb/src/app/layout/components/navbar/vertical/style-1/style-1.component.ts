@@ -7,7 +7,8 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseNavigationService } from '@fuse/components/navigation/navigation.service';
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
-import { UserService } from 'app/services/user.service';
+import { AuthService } from './../../../../../services/auth.service';
+import { User } from 'app/api/models/user';
 
 @Component({
     selector     : 'navbar-vertical-style-1',
@@ -19,7 +20,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
 {
     fuseConfig: any;
     navigation: any;
-    user: any;
+    user: User;
 
     // Private
     private _fusePerfectScrollbar: FusePerfectScrollbarDirective;
@@ -38,13 +39,12 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
         private _router: Router,
-        private userService: UserService
+        private authService : AuthService
     )
     {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
-        const data = this.userService.getCurrentUser()[0];
-        this.user = data ? data : {};    
+        this.user = this.authService.user;    
     }
 
     // -----------------------------------------------------------------------------------------------------

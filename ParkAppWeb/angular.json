@@ -28,6 +28,7 @@
                             "src/app/main/angular-material-elements"
                         ],
                         "styles": [
+                            "node_modules/material-design-icons/iconfont/material-icons.css",
                             "src/styles.scss"
                         ],
                         "scripts": [],
@@ -106,7 +107,8 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": [],
+                        "scripts": [
+                        ],
                         "assets": [
                             "src/favicon.ico",
                             "src/assets"

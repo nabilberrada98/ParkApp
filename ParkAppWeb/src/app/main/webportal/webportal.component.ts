@@ -22,7 +22,7 @@ export class WebportalComponent implements OnInit {
     public dialog: MatDialog)
 {
     // Configure the layout
-    this._fuseConfigService.config={
+    this._fuseConfigService.config = {
         layout: {
             navbar: {
                 hidden: true

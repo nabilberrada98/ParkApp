@@ -1,7 +1,7 @@
 import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { User } from '../User.model';
+import { User } from 'app/api/models/user';
 
 
 @Component({
@@ -59,13 +59,13 @@ export class UsersFormDialogComponent
     createUserForm(): FormGroup
     {
         return this._formBuilder.group({
-            id      : [this.user.id],
+            _id      : [this.user._id],
             nom    : [this.user.nom],
             prenom : [this.user.prenom],
             avatar  : [this.user.avatar],
             isBanned : [this.user.isBanned],
             email   : [this.user.email],
-            NumTel   : [this.user.NumTel]
+            NumTel   : [this.user.phone]
         });
     }
 }

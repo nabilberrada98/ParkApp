@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MatIconModule, MatRippleModule } from '@angular/material';
 
-import { TranslateModule } from '@ngx-translate/core';
-
 import { FuseNavigationComponent } from './navigation.component';
 import { FuseNavVerticalItemComponent } from './vertical/item/item.component';
 import { FuseNavVerticalCollapsableComponent } from './vertical/collapsable/collapsable.component';
@@ -18,9 +16,7 @@ import { FuseNavHorizontalCollapsableComponent } from './horizontal/collapsable/
         RouterModule,
 
         MatIconModule,
-        MatRippleModule,
-
-        TranslateModule.forChild()
+        MatRippleModule
     ],
     exports     : [
         FuseNavigationComponent

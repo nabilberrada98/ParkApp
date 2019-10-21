@@ -8,7 +8,7 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 
 import { UsersFormDialogComponent } from './gstuser-form/gstuser-form.component';
-import { UserService } from './User.service';
+import { UserService } from 'app/services/user.service';
 
 @Component({
     selector     : 'users',

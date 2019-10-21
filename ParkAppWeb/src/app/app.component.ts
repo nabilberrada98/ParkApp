@@ -10,6 +10,10 @@ import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { FuseSplashScreenService } from '@fuse/services/splash-screen.service';
 
 import { navigation } from 'app/navigation/navigation';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
+import * as _ from 'lodash';
+import jwt from "jsonwebtoken";
 
 @Component({
     selector   : 'app',
@@ -21,7 +25,8 @@ export class AppComponent implements OnInit, OnDestroy
 {
     fuseConfig: any;
     navigation: any;
-    displayPortal : boolean;
+    urls = [];
+
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -41,10 +46,11 @@ export class AppComponent implements OnInit, OnDestroy
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
         private _fuseSplashScreenService: FuseSplashScreenService,
-        private _platform: Platform
+        private _platform: Platform,
+        private router: Router,
+        private authService: AuthService
     )
     {
-        this.displayPortal=false;
         // Get default navigation
         this.navigation = navigation;
 
@@ -68,6 +74,46 @@ export class AppComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
+
+    // tslint:disable-next-line:use-life-cycle-interface
+    ngAfterViewInit(): void {
+    
+        this.getUrls();
+
+        this.authService.isLogin().then( (data) => {
+            if (data && sessionStorage.length === 3  && !this.isEmptyObj(this.authService.user) && !this.urls.includes(window.location.pathname) ){
+                this.router.navigate(['dashboard']);
+            }
+        });
+
+    }
+
+    isEmptyObj(obj): boolean{
+        return _.values(obj).every(_.isEmpty);
+    }
+
+    getUrls(): void{
+        navigation.find( (child) => { 
+            const sub = child.children;
+            if(_.isArray(sub)){ 
+                this.subChilds(sub);
+            } else { console.log("has not !!"); }
+            return true;  
+        });
+
+    }
+
+    subChilds(sub): void {
+        sub.find( (subChild) => { 
+            if(_.isArray(subChild.children)) {
+                this.subChilds(subChild.children);
+            }
+            if(subChild.url){ 
+                this.urls.push(subChild.url);
+            } 
+            return true;
+        });
+    }
 
     /**
      * On init

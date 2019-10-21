@@ -49,11 +49,12 @@ export class AnalyticsDashboardService implements Resolve<any>
     getWidgets(): Promise<any>
     {
         return new Promise((resolve, reject) => {
-            this._httpClient.get('api/analytics-dashboard-widgets')
-                .subscribe((response: any) => {
-                    this.widgets = response;
-                    resolve(response); 
-                }, reject);
+            // this._httpClient.get('api/analytics-dashboard-widgets')
+            //     .subscribe((response: any) => {
+            //         this.widgets = response;
+            //         resolve(response); 
+            //     }, reject);
+            resolve();
         });
     }
 }

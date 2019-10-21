@@ -3,17 +3,15 @@ var session = require('express-session');
 const bodyParser = require('body-parser');
 const pe = require('parse-error');
 const cors = require('cors');
+// const Ville= require('./models/ville');
 require("./config/connection");
-const mongoose = require("mongoose");
-
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '30mb'}));
+app.use(bodyParser.urlencoded({ extended: false}));
+
 app.use(cors());
-
-
 
 app.use(session({
 	name: "alpha",
@@ -42,22 +40,18 @@ app.use("/places", express.static("resources/static/assets/uploads/places"));
 
 //
 const users = require("./routes/users");
-const places = require("./routes/places");
 const reservations = require("./routes/reservations");
-const parking = require("./routes/parking");
 const locations = require("./routes/locations");
 const auth = require("./routes/auth");
 
 const authJwt = require("./middleware/auth");
 
 // Setup routes and handle errors
-app.use('/api/users', authJwt, users);
-app.use("/api/places", authJwt, places);
-app.use("/api/parkings", parking);
+app.use('/api/users', users);
 app.use("/api/reservations", authJwt, reservations);
-app.use("/api/locations", authJwt, locations );
+//add auth later
+app.use("/api/locations",authJwt, locations );
 app.use("/api/auth", auth);
-
 
 // Catch 404 and forward to errors handler
 app.use((req, res, next) => {
@@ -73,8 +67,9 @@ app.use((err, req, res, next) => {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  //res.status(err.status || 500);
+  res.status(500).send(err.message);
+ // res.render('error');
 });
 
 const port = app.get("port") || 3000;

@@ -1,6 +1,6 @@
 import { FuseNavigation } from '@fuse/types';
 
-export const navigation: FuseNavigation[] = [
+export const navigation : FuseNavigation[] = [
     
     // Applications :
     {
@@ -19,13 +19,13 @@ export const navigation: FuseNavigation[] = [
                         id   : 'analytics',
                         title: 'Analytics',
                         type : 'item',
-                        url  : '/dashboards/analytics'
+                        url  : '/dashboard'
                     },
                     {
                         id   : 'project',
                         title: 'Project',
                         type : 'item',
-                        url  : '/dashboards/project'
+                        url  : '/project'
                     }
                 ]
             },
@@ -35,6 +35,34 @@ export const navigation: FuseNavigation[] = [
                 type     : 'item',
                 icon     : 'account_box',
                 url      : '/administration/gstuser'
+            },
+            {
+<<<<<<< HEAD
+                id       : 'gstloc',
+                title    : 'Gestion Locations',
+                type     : 'collapsable',
+                icon     : 'dashboard',
+                children : [
+                    {
+                        id       : 'list-locations',
+                        title    : 'Liste de mes locations',
+                        type     : 'item',
+                        url      : '/locations/liste'
+                    },
+                    {
+                        id   : 'add-loc',
+                        title: 'Ajouter une Location',
+                        type : 'item',
+                        url  : '/locations/ajouter'
+                    }
+                ]
+=======
+                id       : 'places',
+                title    : 'Gestion d\'places',
+                type     : 'item',
+                icon     : 'account_box',
+                url      : '/places'
+>>>>>>> 2ef23fbe91cfd7fee957a76050ea525c94a68f27
             }
         ]
     }
