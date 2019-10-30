@@ -3,14 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './user.service';
 import { User } from '../api/models/user';
 import { Login, Logout, accessToken } from "../api/controllers/AuthInstance.js";
-import axios from "axios";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-    user:User; //<User>;
+    user:User;
 
     constructor(
         private route: ActivatedRoute,
@@ -42,7 +41,6 @@ export class AuthService {
     }
 
     isLogin(): Promise<boolean> {
-
         return new Promise( (resolve, reject) => {
             accessToken().catch( (error) => {
                 const data = error.response.data;

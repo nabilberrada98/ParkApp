@@ -52,6 +52,11 @@ const appRoutes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
+        path        : 'places',
+        loadChildren: './main/Places/places.module#PlacesModule',
+        canActivate: [AuthGuardService]
+    },
+    {
         path        : '**',
         loadChildren: './main/webportal/webportal.module#PortalModule'
     }

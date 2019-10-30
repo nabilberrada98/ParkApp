@@ -81,7 +81,7 @@
                         </mat-form-field>
                     </div>
                     <div fxFlex="1 0 auto" fxLayout="row">
-                            <mat-checkbox #checkParking formControlName="isInParking">Est situé dans un parking ?</mat-checkbox>
+                        <mat-checkbox #checkParking formControlName="isInParking">Est situé dans un parking ?</mat-checkbox>
                     </div>
                     <div fxFlex="1 0 auto" fxLayout="row" *ngIf="checkParking.checked">
                         <mat-form-field appearance="outline" fxFlex="50">
@@ -126,6 +126,34 @@
                                 </mat-option>
                                 <mat-option value=2>
                                     Annuelle
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="1 0 auto" fxLayout="row">
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Jours de la semaine Louable</mat-label>
+                            <mat-select formControlName="jourLouable" multiple>
+                                <mat-option value=1>
+                                    Lundi
+                                </mat-option>
+                                <mat-option value=2>
+                                    Mardi
+                                </mat-option>
+                                <mat-option value=3>
+                                    Mercredi
+                                </mat-option>
+                                <mat-option value=4>
+                                    Jeudi
+                                </mat-option>
+                                <mat-option value=5>
+                                    Vendredi
+                                </mat-option>
+                                <mat-option value=6>
+                                    Samedi
+                                </mat-option>
+                                <mat-option value=7>
+                                    Dimanche
                                 </mat-option>
                             </mat-select>
                         </mat-form-field>

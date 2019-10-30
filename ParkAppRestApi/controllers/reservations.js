@@ -10,24 +10,14 @@ module.exports = {
     },
 
     store: async (req, res, next) => {
-        const { places, userId } = req.body;
-        const resv = await Reservation(req.body);
-        const user = await User.findById(userId);
-        const arr = [];
-
-        resv.user = user;
-
-        places.forEach( async (placeId) => {
-            if(placeId){
-                const place = await Place.findById(placeId);
-                arr.push(place);
-            }
+        const place = await Place.findById(req.body.placeId);
+        const resv = await new Reservation({
+            startTime : req.body.startDate,
+            endTime : req.body.endDate,
+            nbrJours : req.body.nbrJours,
+            locataire : req.user,
+            place : place
         });
-
-        if(arr.length >= 1){
-            resv.places = arr;
-        }
-
         res.status(200).json(resv);      
     },
 

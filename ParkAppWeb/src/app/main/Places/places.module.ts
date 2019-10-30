@@ -14,7 +14,6 @@ import { Ng5SliderModule } from 'ng5-slider';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import { ExampleViewerComponent } from './example-viewer/example-viewer';
 
 const routes = [
     {
@@ -27,8 +26,7 @@ const routes = [
 @NgModule({
     declarations: [
         PlacesComponent,
-        PlacesListComponent,
-        ExampleViewerComponent
+        PlacesListComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
@@ -45,7 +43,6 @@ const routes = [
         NgMultiSelectDropDownModule.forRoot(),
         //MDBBootstrapModule.forRoot(),
         NgxMaterialTimepickerModule,
-        ExampleViewerComponent,
         
         MatAutocompleteModule,
         MatBadgeModule,

@@ -11,7 +11,8 @@ let ReservationSchema = new Schema({
     place: {
         type: Schema.Types.ObjectId,
         ref: "place"
-    }
+    },
+    nbrJours : Number
 
 });
 

@@ -39,7 +39,7 @@ export class WebportalComponent implements OnInit {
 
 
     registerDialog(){
-        const dialogRef = this.dialog.open(RegisterDialogComponent);
+        this.dialog.open(RegisterDialogComponent);
     }
 
     loginDialog(){

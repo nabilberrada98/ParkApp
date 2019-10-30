@@ -1,3 +1,9 @@
 @import "@fuse/scss/core";
 
 @import "app/app.theme";
+
+.notLoubleDates {
+    background-color: red;
+    color : white;
+    text-decoration: line-through;
+}
