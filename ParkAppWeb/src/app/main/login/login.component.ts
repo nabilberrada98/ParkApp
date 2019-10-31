@@ -7,7 +7,7 @@ import { AuthService } from 'app/services/auth.service.js';
 
 
 @Component({
-    selector     : 'login',
+    selector     : 'lock',
     templateUrl  : './login.component.html',
     styleUrls    : ['./login.component.scss'],
     encapsulation: ViewEncapsulation.None,
@@ -15,8 +15,10 @@ import { AuthService } from 'app/services/auth.service.js';
 })
 export class LoginComponent implements OnInit
 {
-    loginForm: FormGroup;
+    lockForm: FormGroup;
     config: any;
+    user: any;
+
     /**
      * Constructor
      *
@@ -40,7 +42,7 @@ export class LoginComponent implements OnInit
                 },
                 footer: {
                     hidden: true
-                }
+                },
             }
         };
     }
@@ -57,35 +59,34 @@ export class LoginComponent implements OnInit
         this._fuseConfigService.config
             .subscribe((config) => {
                 this.config = config;
-            });
+        });
 
-        this.initForm();
-        
+        this.user = this.authService.user;
+
+        this.lockForm = this._formBuilder.group({
+            email: [
+                {
+                    value: this.user.email,
+                    disabled: true
+                }, Validators.required
+            ],
+            password: ['', Validators.required]
+        });
+    
+
     }
 
     onSubmit(): void {
-        const data = this.loginForm.value;
+        const data = this.lockForm.getRawValue();
+        
         this.handleLogin(data);
     }
 
-    initForm(): void{
-        this.loginForm = this._formBuilder.group({
-            email   : ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required]
+    handleLogin(data): void {
+        this.authService.expiredSession().then( () => {
+            this.authService.login(data);
         });
     }
-
-    handleLogin(data): void {
-        this.authService.login(data);
-        // Login(data).then( (obj) => {
-        //     console.log(obj);
-        //     //obj.login.authorities = obj.authorities;
-        //     // sessionStorage.setItem("currentUser", obj.login);
-        //     // sessionStorage.setItem("token", obj.login.token);
-        // })
-        // .catch( (err) => console.log(err) );
-    }
-
 
     
 }

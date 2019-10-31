@@ -1,73 +1,53 @@
-<div id="academy-courses" class="page-layout simple">
+<div id="lock" fxLayout="colum" >
 
-    <!-- HEADER -->
-    <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="center center">
+    <div id="lock-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
 
-        <div class="hero-text">
-            <mat-icon class="hero-icon">school</mat-icon>
-            <h1 [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
-                WELCOME TO ACADEMY
-            </h1>
-            <h3 [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
-                Our courses will step you through the process of building a small application, or adding a new feature
-                to an existing application.
-            </h3>
-        </div>
+        <div id="lock-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
 
-    </div>
-    <!-- / HEADER -->
+            <div class="lock-form-header" fxLayout="column" fxLayoutAlign="center center"
+                 fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="start center">
 
-    <!-- CONTENT -->
-    <div class="content p-24">
-
-        <div fxLayout="column" fxLayoutAlign="center">
-
-            <div class="filters" fxLayout="column" fxLayoutAlign="center center"
-                 fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
-
-            </div>
-
-            <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
-
-                <div class="course" fxFlex="100" fxFlex.gt-xs="50"
-                     fxFlex.gt-sm="33" [@animate]="{value:'*',params:{y:'100%'}}">
-
-                    <div class="fuse-card" class="course-content" fxLayout="column" fxFlex="1 1 auto" >
-
-                        <div class="p-16" fxLayout="row" fxLayoutAlign="start center">
-                            <img class="w-40 h-40 border-radius-100" src="assets/images/avatars/Christy.jpg">
-                    
-                            <div class="ml-16">
-                                <div class="text-bold">Christy</div>
-                                <div class="h5 text-bold secondary-text">20 mins. ago</div>
-                            </div>
-                        </div>
-                    
-                        <img src="assets/images/cards/card1.jpg">
-                    
-                        <div class="p-16">
-                            <div class="h1">Kangaroo Valley Safari</div>
-                            <div class="h4 secondary-text">Free on Thursdays</div>
-                        </div>
-                    
-                        <div class="p-16 pt-0 line-height-1.75">
-                            Cards provide context and an entry point to more robust information and views, and
-                            their content and quantity can vary greatly.
-                        </div>
-                    
-                    </div>
-
+                <div class="avatar-container">
+                    <img class="avatar big" src="{{ user.avatar }}">
+                    <mat-icon class="s-32">lock</mat-icon>
                 </div>
 
-                <!-- <div class="no-courses" *ngIf="filteredCourses.length === 0">
-                    No courses found!
-                </div> -->
+                <div>
+                    <div class="title">YOUR SESSION IS LOCKED</div>
+                    <div class="subtitle">
+                        Due to inactivity, your session is locked. Enter your password to continue.
+                    </div>
+                </div>
 
             </div>
+
+            <form name="lockForm" [formGroup]="lockForm" novalidate>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="username"  >
+                    <mat-icon matSuffix class="disabled-text">account_circle</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password">
+                    <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                    <mat-error>
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+
+                <button mat-raised-button class="submit-button" color="accent"
+                        aria-label="UNLOCK" [disabled]="lockForm.invalid">
+                    UNLOCK
+                </button>
+
+            </form>
+
 
         </div>
 
     </div>
-    <!-- / CONTENT -->
 
 </div>

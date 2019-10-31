@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { PagerService } from './pager.service';
 import { Options, LabelType } from 'ng5-slider';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
+import { Subject } from 'rxjs';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { PlaceService } from 'app/services/place.service';
 
 
 @Component({
@@ -14,174 +18,168 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class PlacesComponent implements OnInit {
 
-    toppings = new FormControl();
-    toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+    @ViewChild('settingsSidenav') sidenav: any;
+    dialogRef: any;
+    hasSelectedUsers: boolean;
+    searchInput: FormControl;
 
-
-    time = new Date();
-
-    // Optional message to display below each input field
-    message = {
-      hour: 'Hour is required',
-      minute: 'Minute is required',
-      meridiem: 'Meridiem is required'
-    }
-
-    readonly = false;
-
-    required = true;
-
-
-    constructor(private pagerService: PagerService, private fb: FormBuilder){
-
-    }
-    
-    myForm:FormGroup;
-    disabled = false;
-    ShowFilter = false;
-    limitSelection = false;
-    cities = [];
-    selectedItems = [];
-    dropdownSettings: any = {};
-
-    // array of all items to be paged
-    private allItems: any[];
-
+    pagedItems: any[];
+    places = [];
     // pager object
     pager: any = {};
 
-    // paged items
-    pagedItems: any[];
+    // Private
+    private _unsubscribeAll: Subject<any>;
 
-    minValue: number = 100;
-    maxValue: number = 400;
+    /**
+     * Constructor
+     *
+     * @param {UserService} _userService
+     * @param {FuseSidebarService} _fuseSidebarService
+     * @param {MatDialog} _matDialog
+     */
+    constructor(
+        private _placeService: PlaceService,
+        private _fuseSidebarService: FuseSidebarService,
+        private pagerService: PagerService, 
+        private fb: FormBuilder,
+    ){
+        this.searchInput = new FormControl('');
 
-    options: Options = {
-      floor: 0,
-      ceil: 500,
-      translate: (value: number, label: LabelType): string => {
-        switch (label) {
-          case LabelType.Low:
-            return '<b>Min price:</b> $' + value;
-          case LabelType.High:
-            return '<b>Max price:</b> $' + value;
-          default:
-            return '$' + value;
-        }
-      }
-    };
-
-
-    onItemSelect(item: any) {
-        console.log('onItemSelect', item);
+        // Set the private defaults
+        this._unsubscribeAll = new Subject();
     }
-    onSelectAll(items: any) {
-        console.log('onSelectAll', items);
-    }
-    toogleShowFilter() {
-        this.ShowFilter = !this.ShowFilter;
-        this.dropdownSettings = Object.assign({}, this.dropdownSettings, { allowSearchFilter: this.ShowFilter });
-    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    // @ Lifecycle hooks
+    // -----------------------------------------------------------------------------------------------------
 
-    // tslint:disable-next-line:typedef
-    handleLimitSelection() {
-        if (this.limitSelection) {
-            this.dropdownSettings = Object.assign({}, this.dropdownSettings, { limitSelection: 2 });
-        } else {
-            this.dropdownSettings = Object.assign({}, this.dropdownSettings, { limitSelection: null });
-        }
-    }
+    /**
+     * On init
+     */
+    ngOnInit(): void{ 
 
-
-    ngOnInit(){
-
-        this.cities = [
-            { item_id: 1, item_text: 'New Delhi' },
-            { item_id: 2, item_text: 'Mumbai' },
-            { item_id: 3, item_text: 'Bangalore' },
-            { item_id: 4, item_text: 'Pune' },
-            { item_id: 5, item_text: 'Chennai' },
-            { item_id: 6, item_text: 'Navsari' }
-        ];
-        this.selectedItems = [{ item_id: 4, item_text: 'Pune' }, { item_id: 6, item_text: 'Navsari' }];
-        this.dropdownSettings = {
-            singleSelection: false,
-            idField: 'item_id',
-            textField: 'item_text',
-            selectAllText: 'Select All',
-            unSelectAllText: 'UnSelect All',
-            itemsShowLimit: 3,
-            allowSearchFilter: this.ShowFilter
-        };
-        this.myForm = this.fb.group({
-            city: [this.selectedItems]
-        });
-
-
-        this.allItems = [
+        this.places.push(
             {
-                "name": "Item 1"
+                id: 1,
+                prix: 20,
+                description: "place 1",
+                locataire: {
+                    "id": "5da39d87a6b37c6a141358e9",
+                    "nom" : "younes",
+                    "prenom" : "enhari",
+                    "phone" : "0622365290",
+                    "email" : "test@test.com",
+                },
+                numero: "K1",
+                etage: 0,
+                type: 0,
+                vehicules: [
+                    0,
+                    1
+                ],
+                heureOuvertureParking: 6,
+                heureFermetureParking: 23,
+                isInParking: true,
+                isCameraEquiped: true,
+                localisation: {
+                    lat: 33.9664448022247,
+                    lng: -6.872549057006836,
+                    ville: "rabat"
+                },
+                images : [
+                    "assets/places/place1.jpeg",
+                    "assets/places/place2.jpg"
+                ]
             },
             {
-                "name": "Item 2"
-            },
-            {
-                "name": "Item 3"
-            },
-            {
-                "name": "Item 4"
-            },            
-            {
-                "name": "Item 1"
-            },
-            {
-                "name": "Item 2"
-            },
-            {
-                "name": "Item 3"
-            },
-            {
-                "name": "Item 4"
-            },
-            {
-                "name": "Item 1"
-            },
-            {
-                "name": "Item 2"
-            },
-            {
-                "name": "Item 3"
-            },
-            {
-                "name": "Item 4"
+                id: 2,
+                prix: 20,
+                description: "place 2",
+                locataire: {
+                    "id": "5da39d87a6b37c6a141358e9",
+                    "nom" : "youssi",
+                    "prenom" : "azolaye",
+                    "phone" : "0622365290",
+                    "email" : "test@test.com",
+                },
+                numero: "K2",
+                etage: 0,
+                type: 0,
+                vehicules: [
+                    0,
+                    1
+                ],
+                heureOuvertureParking: 6,
+                heureFermetureParking: 23,
+                isInParking: true,
+                isCameraEquiped: true,
+                localisation: {
+                    lat: 33.9664448022247,
+                    lng: -6.872549057006836,
+                    ville: "rabat"
+                },
+                images : [
+                    "assets/places/place1.jpeg",
+                    "assets/places/place2.jpg"
+                ]
             }
-        ];
+        );
 
         // initialize to page 1
         this.setPage(1);
 
+        this.searchInput.valueChanges
+            .pipe(
+                takeUntil(this._unsubscribeAll),
+                debounceTime(300),
+                distinctUntilChanged()
+            )
+            .subscribe(searchText => {
+                console.log(searchText);
+                //this._placesService.onSearchTextChanged.next(searchText);
+            });
     }
 
-    setPage(page: number) {
+    /**
+     * On destroy
+     */
+    ngOnDestroy(): void
+    {
+        // Unsubscribe from all subscriptions
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Public methods
+    // -----------------------------------------------------------------------------------------------------
+
+ 
+
+    /**
+     * Toggle the sidebar
+     *
+     * @param name
+     */
+    toggleSidebar(name): void
+    {
+        this._fuseSidebarService.getSidebar(name).toggleOpen();
+    }
+
+
+    setPage(page: number): void {
         // get pager object from service
-        this.pager = this.pagerService.getPager(this.allItems.length, page);
+        this.pager = this.pagerService.getPager(this.places.length, page);
 
         // get current page of items
-        this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        this.pagedItems = this.places.slice(this.pager.startIndex, this.pager.endIndex + 1);
     
         console.log(this.pagedItems, this.pager);
     
-    }
-
-
-    
+    }    
+ 
 
 }
 
-class PriceRange {
-    constructor(
-      public lower: number,
-      public upper: number
-    ) {
-    }
-}
+ 

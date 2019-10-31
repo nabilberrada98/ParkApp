@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Ville = require('./ville');
-let LocalisationSchema = mongoose.Schema({
-    lat: String,
-    lng: String,
+let LocalisationSchema = mongoose.Schema({  
+    type: "Point",
+    coordinates: [ Number, Number ],
     ville: {
         type: Schema.Types.ObjectId,
         ref: "ville"
     },
 });
+
 
 LocalisationSchema.virtual('libelles',{
     ref : 'libelle',

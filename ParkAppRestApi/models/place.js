@@ -25,6 +25,15 @@ let PlaceSchema = mongoose.Schema({
     }
 });
 
+// Place.statics.getLocation = async (placeId) => {
+//     const location = { lat: String, lng: String, ville: String };
+//     const place = await Place.findById(placeId);
+//     location.lat = place.localisation.lat;
+//     location.lng = place.localisation.lng;
+//     location.ville = place.localisation.ville;
+//     //console.log("Place ");
+// };
+
 PlaceSchema.virtual('locations',{
     ref : 'location',
     localField : '_id',
@@ -37,21 +46,11 @@ PlaceSchema.virtual('reservations',{
     foreignField : 'place'
 });
 
-
-
-
 let Place = module.exports = mongoose.model('place', PlaceSchema);
 
+
 // Place.createCollection().then(function(collection) {
-//     Place.create({
-//                 description : "une nouvelle place ensoleillé",
-//                 numero : "K220",
-//                 etage : 0,
-//                 vehicule : ["Citadine"],
-//                 isInParking : true,
-//                 heureOuvertureParking : "06:00h",
-//                 heureFermetureParking : "23:00h",
-//                 type : 0
-//             });
-//     console.log('Place is created!');
+
+//     Place.createIndexes( { localisation : "2dsphere" } );
+    
 // });

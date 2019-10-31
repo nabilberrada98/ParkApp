@@ -36,13 +36,18 @@ module.exports = {
         const arr = await Location.aggregate([{ 
             "$group": { 
                 "_id": null, 
-                "max": { "$max": "$price" },  
-                "min": { "$min": "$price" }
+                "max": { "$max": "$prix" },  
+                "min": { "$min": "$prix" }
             } 
         }]);
 
-        res.status(200).json(arr);
+        const prices = arr[0];
+        delete prices._id
+
+        res.send(prices);
     },
+
+
 
     fillterPlaces: async (req, res, next) => {
         const { ville, prix, dateStart, dateEnd } = req.body;

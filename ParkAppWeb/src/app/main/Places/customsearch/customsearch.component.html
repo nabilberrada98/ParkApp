@@ -1,0 +1,65 @@
+<div  [ngSwitch]="view" class="views" (click)="$event.stopPropagation()">
+
+    <div class="view" *ngSwitchCase="'main'" [@slideInLeft]>
+
+        <!-- SIDENAV HEADER -->
+        <div class="header px-24" fxLayout="column" fxLayoutAlign="center center">
+            <div>Custom Search</div>
+        </div>
+        <!-- / SIDENAV HEADER -->
+
+        <!-- SIDENAV CONTENT -->
+        <div class="content py-16" fusePerfectScrollbar>
+
+            <div class="nav material2">
+                <form #formDirective="ngForm"   name="form" [formGroup]="form">
+            
+                    <div class="nav-item" >
+                        <div class="nav-link" style="height: 50px" >
+                            <mat-icon class="nav-link-icon">date_range</mat-icon>
+                            <mat-select  placeholder="Jours Disponible"  multiple>
+                                <mat-option *ngFor="let topping of toppingList" (onSelectionChange)="onChangeDates($event)" [value]="topping">{{topping}}</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+    
+                    <div class="nav-item" >
+                        <div class="nav-link" style="height: 50px" >
+                            <mat-icon class="nav-link-icon">monetization_on</mat-icon>
+                            <ng5-slider 
+                                *ngIf="isLoaded" 
+                                [(value)]="minValue" 
+                                [(highValue)]="maxValue"
+                                [options]="options"
+                                (userChange)="onChangeSlider($event)"
+                            ></ng5-slider>
+                        </div>
+                    </div>
+    
+                    <div class="nav-item" >
+                        <div class="nav-link" style="height: 50px" >
+                            <mat-icon class="nav-link-icon">my_location</mat-icon>
+                            <mat-select  placeholder="localisatons" multiple>
+                                <mat-option *ngFor="let address of userAddress" [value]="address">{{address}}</mat-option>
+                            </mat-select>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="nav-item" >
+                    <button fxFlex="50" mat-raised-button type="submit" [disabled]="false" (click)="onSubmit($event)"  color="accent">
+                        Submit
+                    </button>
+                    <button fxFlex="50" mat-raised-button type="submit" [disabled]="false"  color="default">
+                        Default
+                    </button>
+                </div>
+                
+
+            </div>
+        </div>
+        <!-- / SIDENAV CONTENT -->
+    </div>
+
+    
+</div>

@@ -9,6 +9,7 @@ import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scr
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { AuthService } from './../../../../../services/auth.service';
 import { User } from 'app/api/models/user';
+import * as _ from "lodash";
 
 @Component({
     selector     : 'navbar-vertical-style-1',
@@ -39,13 +40,20 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
         private _fuseNavigationService: FuseNavigationService,
         private _fuseSidebarService: FuseSidebarService,
         private _router: Router,
-        private authService : AuthService
+        private authService: AuthService
     )
     {
         // Set the private defaults
         this._unsubscribeAll = new Subject();
-        this.user = this.authService.user;    
+        this.user = this.authService.user;  
+                
     }
+
+
+    isEmptyObj(obj): boolean{
+        return _.values(obj).every(_.isEmpty);
+    }
+
 
     // -----------------------------------------------------------------------------------------------------
     // @ Accessors
@@ -53,10 +61,9 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
 
     // Directive
     @ViewChild(FusePerfectScrollbarDirective)
-    set directive(theDirective: FusePerfectScrollbarDirective)
-    {
-        if ( !theDirective )
-        {
+    set directive(theDirective: FusePerfectScrollbarDirective){
+
+        if ( !theDirective){
             return;
         }
 
@@ -82,8 +89,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
                     setTimeout(() => {
                         const activeNavItem: any = document.querySelector('navbar .nav-link.active');
 
-                        if ( activeNavItem )
-                        {
+                        if ( activeNavItem ){
                             const activeItemOffsetTop       = activeNavItem.offsetTop,
                                   activeItemOffsetParentTop = activeNavItem.offsetParent.offsetTop,
                                   scrollDistance            = activeItemOffsetTop - activeItemOffsetParentTop - (48 * 3) - 168;
@@ -104,6 +110,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+
         this._router.events
             .pipe(
                 filter((event) => event instanceof NavigationEnd),
