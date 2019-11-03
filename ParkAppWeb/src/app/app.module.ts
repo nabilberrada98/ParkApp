@@ -53,6 +53,11 @@ const appRoutes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
+        path        : 'Meslocations',
+        loadChildren: './main/reservations/Reservation.module#ReservationsModule',
+        canActivate: [AuthGuardService]
+    },
+    {
         path        : 'places',
         loadChildren: './main/Places/places.module#PlacesModule',
         canActivate: [AuthGuardService]

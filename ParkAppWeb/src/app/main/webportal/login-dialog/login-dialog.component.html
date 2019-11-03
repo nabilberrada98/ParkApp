@@ -1,11 +1,9 @@
-<h2 mat-dialog-title>Login</h2>
+<h2 mat-dialog-title><mat-icon>input</mat-icon>&nbsp;&nbsp; Login</h2>
 <mat-dialog-content>
-    
 <div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
-
+    
     <form #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)" class="p-24 mr-24" fxLayout="column" fxLayoutAlign="start"
             fxFlex="1 0 auto" name="form" [formGroup]="form">
-
       <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" required>
@@ -19,7 +17,6 @@
           <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
           <mat-error>Password est Requis!</mat-error>
       </mat-form-field>
-
 
       <button mat-raised-button type="submit" [disabled]="false" (click)="onSubmit()" color="accent">
         Login

@@ -38,7 +38,6 @@ export const PromiseHandler = (method, uri, data = {}, isAuth = false) => {
     return new Promise( async (resolve, reject) => {
     await axios(header)
         .then(response => resolve(response.data) )
-        .then( res  => console.log("response : ", res.data))
         .catch(err => reject(err))
     });
 }

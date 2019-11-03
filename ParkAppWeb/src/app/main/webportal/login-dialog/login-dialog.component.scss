@@ -18,3 +18,11 @@ color: #2196f3!important; }
 
 .form-elegant .modal-body, .form-elegant .modal-footer {
 font-weight: 400; }
+
+.error-dialog {
+    color: white !important;
+    background-color:red !important;
+    .mat-simple-snackbar-action {
+        color: white !important;
+    }
+}

@@ -28,9 +28,9 @@
     <div class="user" fxLayout="column" [ngClass]="fuseConfig.layout.navbar.secondaryBackground">
 
         <div class="h3 username">{{ fullName() }}</div>
-        <div class="h5 email hint-text mt-8">{{ user.email }}</div>
+        <div class="h5 email hint-text mt-8">{{ user?user.email :"" }}</div>
         <div class="avatar-container" [ngClass]="fuseConfig.layout.navbar.primaryBackground">
-            <img class="avatar" src="{{user.avatar}}">
+            <img class="avatar" src="{{user?user.avatar:''}}">
         </div>
 
     </div>

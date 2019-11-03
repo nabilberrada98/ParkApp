@@ -1,6 +1,7 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { AuthService } from 'app/services/auth.service.js';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login-dialog',
@@ -10,8 +11,8 @@ import { AuthService } from 'app/services/auth.service.js';
 export class LoginDialogComponent implements OnInit {
 
     form: FormGroup;
-
-    constructor(private formBuilder: FormBuilder,private authService: AuthService) {
+    errorMessage = null;
+    constructor(private formBuilder: FormBuilder,private _snackBar: MatSnackBar,private authService: AuthService) {
     }
 
     ngOnInit(): void {
@@ -27,7 +28,14 @@ export class LoginDialogComponent implements OnInit {
 
     onSubmit(): void {
         const data = this.form.value;
-        this.authService.login(data);
+        this.authService.login(data).catch((err)=>{
+            this._snackBar.open('Authentification échoué', 'Fermer', {
+                duration: 2000,
+                horizontalPosition: 'center',
+                verticalPosition: 'top',
+                panelClass: ['error-dialog']
+              });
+        });
     }
 }
 

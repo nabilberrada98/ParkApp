@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable, Subject} from 'rxjs';
 import { FuseUtils } from '@fuse/utils';
 import { Location } from './../api/models/Location.model';
-import {getAllLocations,storeLocation,updateLocation,deleteLocation} from '../api/controllers/LocationInstance.js';
+import {getAllLocations,storeLocation,updateLocation} from '../api/controllers/LocationInstance.js';
 @Injectable()
 export class LocationsService implements Resolve<any>
 {
@@ -23,11 +22,9 @@ export class LocationsService implements Resolve<any>
     /**
      * Constructor
      *
-     * @param {HttpClient} _httpClient
+     *
      */
-    constructor(
-        private _httpClient: HttpClient
-    )
+    constructor()
     {
         // Set the defaults
         this.onLocationsChanged = new BehaviorSubject([]);
@@ -187,7 +184,7 @@ export class LocationsService implements Resolve<any>
         this.deselectLocations();
     }
 
-    storeLocation(formData,files): Promise<any>{
+    public storeLocation(formData,files): Promise<any>{
         return storeLocation(JSON.stringify(formData),files).then(response => {
             this.getLocations();
         });

@@ -1,0 +1,94 @@
+<mat-table #table [dataSource]="dataSource"
+           [@animateStagger]="{value:'50'}">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let reservation">
+            <mat-checkbox [(ngModel)]="checkboxes[reservation._id]" (ngModelChange)="onSelectedChange(reservation._id)"
+                          (click)="$event.stopPropagation()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Locataire Column -->
+    <ng-container matColumnDef="Locataire">
+        <mat-header-cell *matHeaderCellDef>Locataire</mat-header-cell>
+        <mat-cell *matCellDef="let reservation">
+            <p class="text-truncate font-weight-600">{{reservation.locataire}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Place">
+        <mat-header-cell *matHeaderCellDef>Place</mat-header-cell>
+        <mat-cell *matCellDef="let reservation">
+            <p class="text-truncate font-weight-600">{{reservation.place.localisation.adresseTxt}}</p>
+        </mat-cell>
+    </ng-container>
+
+      <!-- NbrJours Column -->
+      <ng-container matColumnDef="NbrJours">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Nombre de jours</mat-header-cell>
+        <mat-cell *matCellDef="let reservation" fxHide fxShow.gt-md>
+                {{reservation.nbrJours}}
+        </mat-cell>
+    </ng-container>
+    
+    <!-- Debut Column -->
+    <ng-container matColumnDef="Debut">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Début</mat-header-cell>
+        <mat-cell *matCellDef="let reservation" fxHide fxShow.gt-sm>
+            <p class="email text-truncate">
+                {{reservation.startTime}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+     <!-- Fin Column -->
+     <ng-container matColumnDef="Fin">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Fin</mat-header-cell>
+        <mat-cell *matCellDef="let reservation" fxHide fxShow.gt-sm>
+            <p class="email text-truncate">
+                {{reservation.endTime}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Confirmed Column -->
+    <ng-container matColumnDef="Confirmed">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Est Confirmé</mat-header-cell>
+        <mat-cell *matCellDef="let reservation" fxHide fxShow.gt-md>
+                <mat-icon *ngIf="!reservation.isConfirmed" style="color: darkred">block</mat-icon>
+                <mat-icon *ngIf="reservation.isConfirmed" style="color: darkgreen">done_outline</mat-icon>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="Buttons">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let reservation">
+            <div fxFlex="row" fxLayoutAlign="end center">
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="Plus"
+                        (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="remove" (click)="deleteReservation(reservation)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Supprimer</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let reservation; columns: displayedColumns;"
+             class="Reservation"
+             (click)="showConfirm(reservation)"
+             [ngClass]="{'accent-50':checkboxes[reservation._id]}"
+             matRipple
+             [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+</mat-table>
+
+

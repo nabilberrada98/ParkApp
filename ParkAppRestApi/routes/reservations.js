@@ -7,6 +7,7 @@ const ResvController = require("../controllers/reservations");
 router
     .get("/", ResvController.index)
     .post("/", ResvController.store)
+    .post("/confirm", ResvController.confirm)
 
 
 

@@ -8,26 +8,23 @@ module.exports = {
         const Reservations = await Reservation.find({});
         res.status(200).json(Reservations);
     },
-
-    store: async (req, res, next) => {
-        const { places, userId } = req.body;
-        const resv = await Reservation(req.body);
-        const user = await User.findById(userId);
-        const arr = [];
-
-        resv.user = user;
-
-        places.forEach( async (placeId) => {
-            if(placeId){
-                const place = await Place.findById(placeId);
-                arr.push(place);
-            }
+    confirm : async (req, res, next) => {
+        const reservation = Reservation.findById(req.body._id);
+        Reservation.findByIdAndUpdate(reservation._id ,{isConfirmed : false});
+        const reserv = Reservation.deleteMany({ _id : reservation._id,place : req.body.place._id,locataire : req.body.locataire._id}, function (err) {
+            return true;
         });
-
-        if(arr.length >= 1){
-            resv.places = arr;
-        }
-
+        res.status(200).json(reserv);      
+    },
+    store: async (req, res, next) => {
+        const place = await Place.findById(req.body.placeId);
+        const resv = await new Reservation({
+            startTime : req.body.startDate,
+            endTime : req.body.endDate,
+            nbrJours : req.body.nbrJours,
+            locataire : req.user,
+            place : place
+        });
         res.status(200).json(resv);      
     },
 

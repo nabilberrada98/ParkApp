@@ -13,7 +13,6 @@ import { PagerService } from './pager.service';
 import { Ng5SliderModule } from 'ng5-slider';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'; 
-
 import { CustomSearchComponent } from "./customsearch/customsearch.component";
 import { MoreInfoDialogComponent } from "./places-list/more-dialog/more-dialog.component";
 

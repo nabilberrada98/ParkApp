@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Ajouter une réservation</h2>
+<mat-dialog-content>
+    <form
+        #formDirective="ngForm"
+        class="p-24 mr-24"
+        fxLayout="column"
+        fxLayoutAlign="start"
+        fxFlex="1 0 auto"
+        name="form"
+        [formGroup]="form"
+    >
+        <label for="Selecteddates">Période de réservation</label>
+        <br>
+        
+        <input
+            placeholder="vos réservations"
+            matInput
+            required
+            type="text"
+            ngxDaterangepickerMd
+            (change)="change($event)"
+            [locale]="local"
+            [alwaysShowCalendars]="true"
+            [showClearButton]="true"
+            [ranges]="ranges"
+            showCancel="true"
+            [isCustomDate]="isLouable"
+            [minDate]="minDate"
+            formControlName="Selecteddates"
+        />
+        <table class="simple invoice-table-footer">
+            <tbody>
+                <tr class="subtotal">
+                    <td>Nombre de jours</td>
+                    <td>{{totalDays}}</td>
+                </tr>
+                <tr class="tax">
+                    <td *ngIf="type == 0">Prix Journalier</td>
+                    <td *ngIf="type == 1">Prix Mensuel</td>
+                    <td *ngIf="type == 2">Prix Annuel</td>
+                    <td>{{prix}} MAD</td>
+                </tr>
+                <tr class="total">
+                    <td>TOTAL</td>
+                    <td>{{(totalDays * prix) | currency:'MAD'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button
+            mat-raised-button
+            type="submit"
+            (click)="onSubmit()"
+            color="accent"
+        >
+            Reservé la place
+        </button>
+    </form>
+</mat-dialog-content>

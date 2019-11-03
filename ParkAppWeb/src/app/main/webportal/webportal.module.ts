@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatToolbarModule, MatDialogModule, MatTabsModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule, MatToolbarModule, MatDialogModule, MatTabsModule, MatSnackBarModule } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule } from '@fuse/components';
@@ -43,6 +43,7 @@ const routes = [
         MatSelectModule,
         MatToolbarModule,
         MatButtonModule,
+        MatSnackBarModule,
         MatDialogModule,
         FuseSharedModule,
         FuseSidebarModule,

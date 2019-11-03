@@ -62,6 +62,13 @@ export const navigation : FuseNavigation[] = [
                 type     : 'item',
                 icon     : 'account_box',
                 url      : '/places'
+            },
+            {
+                id       : 'reservs',
+                title    : 'Mes reservations',
+                type     : 'item',
+                icon     : 'account_box',
+                url      : '/Meslocations'
             }
         ]
     }

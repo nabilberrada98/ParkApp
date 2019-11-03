@@ -6,7 +6,7 @@ let LocationSchema = mongoose.Schema({
         type : Boolean,
         default : true
     },
-    joursLouable: [  ],
+    joursLouable : [Number],
     type: Number,
     locataire: {
         type: Schema.Types.ObjectId,

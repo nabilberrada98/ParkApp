@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { storeUser as storeUService,getUser, updateUser as updUserS,getAllUsers} from '../api/controllers/UserInstance.js';
-import { User } from '../api/models/user';
+import { User } from '../api/models/User.model';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { FuseUtils } from '@fuse/utils/index.js';

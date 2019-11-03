@@ -49,7 +49,7 @@ const routes: Routes = [
 const config: InputFileConfig = {
     fileAccept: 'image/*',
     fileLimit: 4,
-    sizeLimit : 10000
+    sizeLimit : 100000
 };
 
 @NgModule({
@@ -58,7 +58,6 @@ const config: InputFileConfig = {
         LocationsListComponent,
         LocationsSelectedBarComponent,
         LocationsMainSidebarComponent,
-        LocationAddComponent,
         LocationAddComponent
     ],
     imports: [

@@ -107,6 +107,7 @@ export class LocationAddComponent implements OnInit {
         this.horizontalStepperStep2 = this._formBuilder.group({
             type: ["", Validators.required],
             prix: ["", Validators.required],
+            jourLouable : [["1","2","3","4","5","6","7"],Validators.required],
             description : [""]
         });
 

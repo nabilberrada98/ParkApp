@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 let PlaceSchema = mongoose.Schema({
     description: String,
-    disponibilite: JSON,
     numero: String,
     etage: Number,
     type : Number,
