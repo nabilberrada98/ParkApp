@@ -350,10 +350,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@ng-bootstrap/ng-bootstrap@4.x.x":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@ng-bootstrap/ng-bootstrap/-/ng-bootstrap-4.2.2.tgz#a1c3a9576656cb4f793bbc3df56dfbdeb098f2fb"
-  integrity sha512-v8QmC17bv9he5Ep6zutaI9aQ2w/2NqySP0fejOKe7cacKpGUqsLIakpyd2FD7mfZu7pSCCtHYpRWR+h6yq+Ngg==
+"@ngmodule/material-carousel@0.5.1":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@ngmodule/material-carousel/-/material-carousel-0.5.1.tgz#f44ebf28ee1cc64e97e8d754106677cc0d27bd2b"
+  integrity sha512-h6AftKaZQfdjR/UeiwtVLd5SJaMIvfe937ltFJqEdqpGvlBLp6UUlSLAnrbYVKr+YZdGpaTDFxv7PHJhEP6S1Q==
   dependencies:
     tslib "^1.9.0"
 
@@ -861,11 +861,6 @@ ansi-styles@^3.2.1:
   dependencies:
     color-convert "^1.9.0"
 
-ant-design@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/ant-design/-/ant-design-1.0.0.tgz#53ea0a397da976358e88bf06224fb3de756b87b4"
-  integrity sha1-U+oKOX2pdjWOiL8GIk+z3nVrh7Q=
-
 anymatch@^1.3.0:
   version "1.3.2"
   resolved "https://registry.yarnpkg.com/anymatch/-/anymatch-1.3.2.tgz#553dcb8f91e3c889845dfdba34c77721b90b9d7a"
@@ -1308,11 +1303,6 @@ bonjour@^3.5.0:
     dns-txt "^2.0.2"
     multicast-dns "^6.0.1"
     multicast-dns-service-types "^1.1.0"
-
-bootstrap@4.3.1:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
-  integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -5880,6 +5870,13 @@ ngx-cookie-service@2.0.0:
   resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-2.0.0.tgz#ef1cd3d97d9ffc354de6113b08d29d879d257533"
   integrity sha512-HqKrpdeWSO3ryLe/QTlBBsai9et8Iz9i7PBrvi/fMRmBVEqUbjXp/uIjWDA+K707C2MpVkImyzU0VrvnbS+iFA==
 
+ngx-input-file@7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/ngx-input-file/-/ngx-input-file-7.0.3.tgz#c599ced6da56cf0a79a5339ec309cc4115f02a96"
+  integrity sha512-S+bb0JmjhdhLl5cJajwiQYwb/nYNPekmiq8smAbOVPZeC/dgHp8p7Ih+qFSJhHkNDKcX/CoFpazz+5/0E3IXEQ==
+  dependencies:
+    tslib "^1.9.0"
+
 ngx-material-timepicker@3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/ngx-material-timepicker/-/ngx-material-timepicker-3.3.1.tgz#8ae5ce28e65d31060c398b308126cd75018442f2"
@@ -8355,6 +8352,11 @@ uglify-js@^3.1.4:
   dependencies:
     commander "2.20.0"
     source-map "~0.6.1"
+
+ui-carousel@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ui-carousel/-/ui-carousel-0.2.0.tgz#ee93dfaeb7d5f7353b8d7ec215e9fab6ce16ae33"
+  integrity sha1-7pPfrrfV9zU7jX7CFen6ts4WrjM=
 
 ultron@~1.1.0:
   version "1.1.1"

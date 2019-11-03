@@ -12,6 +12,7 @@ export class AuthService {
 
     user:User; //<User>;
 
+
     constructor(
         private route: ActivatedRoute,
         private userService: UserService,
@@ -20,25 +21,34 @@ export class AuthService {
     }
 
     login(data): void {
-        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-        sessionStorage.setItem('returnUrl', returnUrl);
+        console.log('login: ',data);
         Login(data).then( (result) => {
             result.login.authorities = result.authorities;
-            this.userService.save(result.login,result.token);
-            const route = sessionStorage.getItem('returnUrl');
+            this.userService.save(result.login, result.token);
             window.location.href = '/dashboard';
         })
         .catch( (err) => console.log(err) );
-
     }
-
+ 
     logout(): void {
         Logout().then( (data) => {
             this.userService.delete();
-            //window.location.href = '/login';
             this.router.navigate(['/']);
         })
         .catch( (err) => console.log(err) );
+    }
+
+    expiredSession(): Promise<boolean> {
+        return new Promise( (resolve, reject) => {
+            Logout().then( (data) => {
+                this.userService.delete();
+                resolve(true);
+            })
+            .catch( (err) => { 
+                console.log(err);
+                reject(true);
+            });
+       });
     }
 
     isLogin(): Promise<boolean> {
@@ -46,9 +56,10 @@ export class AuthService {
         return new Promise( (resolve, reject) => {
             accessToken().catch( (error) => {
                 const data = error.response.data;
-                if (data.message && data.message === 'TOKEN_EXPIRED'){
-                    this.logout();
-                    resolve(false);
+                console.log("data :", data);
+                if (data.message && data.message === "TOKEN_EXPIRED"){
+                    //this.logout();
+                    reject(true);
                 }
                 resolve(true);
             });

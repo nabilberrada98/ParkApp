@@ -1,83 +1,50 @@
 <!-- CONTENT -->
-<div class="content p-24">
+<div class="content p-24"  >
 
-        <div fxLayout="column" fxLayoutAlign="center">
+        <div class="cards">
 
-            <div class="cards" >
-                <div class="card" >
-                    <!-- PREVIEW -->
-                    <div class="card-preview">
-    
-                        <div class="fuse-card">
-    
-                            <div class="p-16" fxLayout="row" fxLayoutAlign="start center">
-                                <img class="w-40 h-40 border-radius-100" src="assets/images/avatars/Christy.jpg">
-    
-                                <div class="ml-16">
-                                    <div class="text-bold">Christy</div>
-                                    <div class="h5 text-bold secondary-text">20 mins. ago</div>
-                                </div>
+            <div class="card" *ngFor="let p of places"  id="{{p.place._id}}"  >
+
+                <!-- PREVIEW -->
+                <div class="card-preview" id="{{p.place._id}}" >
+
+                    <div class="fuse-card">
+                        <div class="p-16" fxLayout="row" fxLayoutAlign="start center">
+                            <img class="w-40 h-40 border-radius-100" src="{{ p.place.images[0] }}">
+
+                            <div class="ml-16">
+                                <div class="text-bold">{{ p.locataire.nom }}</div>
                             </div>
-    
-                            <img src="http://localhost:4300/assets/images/cards/card1.jpg">
-    
-                            <div class="p-16">
-                                <div class="h1">Kangaroo Valley Safari</div>
-                                <div class="h4 secondary-text">Free on Thursdays</div>
-                            </div>
-                            
-                            <div class="p-8 pt-0" fxLayout="row" fxLayoutAlign="space-between center">
-                                <div fxLayout="row" fxLayoutAlign="start center">
-                                    <button mat-button color="accent">Réserve</button>
-                                </div>
-    
-                                <button mat-icon-button aria-label="expand card"
-                                        (click)="cardExpanded = !cardExpanded">
-                                    <mat-icon *ngIf="cardExpanded">keyboard_arrow_up</mat-icon>
-                                    <mat-icon *ngIf="!cardExpanded">keyboard_arrow_down</mat-icon>
+                        </div>
+
+                        <!-- carousel (images) !!! -->
+                        <img src="assets/places/place1.jpeg">
+
+                        <div class="p-16">
+                            <div class="h1">{{ p.place.numero }}</div>
+                            <div class="h4 secondary-text">{{ p.place.localisation.ville.nom }}</div>
+                        </div>
+                        
+                        <div class="p-8 pt-0" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div fxLayout="row" fxLayoutAlign="start center">
+                                <a href="/reservations/{{ p.place._id }}" mat-raised-button color="accent">
+                                    <mat-icon>add_circle_outline</mat-icon>
+                                </a>
+                                &nbsp;
+                                <button (click)="moreInfo(p.place._id)" mat-raised-button color="accent">
+                                    <mat-icon>more_horiz</mat-icon>
                                 </button>
                             </div>
-
-                            <div *ngIf="cardExpanded" [@expandCollapse] >
-        
-                                <div class="p-16 pt-0 line-height-1.75">
-                                    Cards provide context and an entry point to more robust information and views, and their
-                                    content and quantity can vary greatly.
-                                </div>
-
-                                <div class="card-divider"></div>
-
-                                <div class="p-16 pt-0 line-height-1.75">
-                                    <div class="mb-16 text-bold">Tonight's Availability</div>
-                                    <div fxLayout="row" fxLayoutAlign="start center">
-                                        <mat-icon class="mr-16">access_time</mat-icon>
-                                        <mat-button-toggle-group>
-                                            <mat-button-toggle value="0530PM">
-                                                5:30PM
-                                            </mat-button-toggle>
-                                            <mat-button-toggle value="0730PM" [checked]="true">
-                                                7:30PM
-                                            </mat-button-toggle>
-                                            <mat-button-toggle value="0900PM">
-                                                9:00PM
-                                            </mat-button-toggle>
-                                        </mat-button-toggle-group>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-
                         </div>
-    
-                    </div>
-                    <!-- / PREVIEW -->
-            </div>
 
+                    </div>
+
+                </div>
+                <!-- / PREVIEW -->
+        
+            </div>
 
         </div>
 
-    </div>
-    <!-- / CONTENT -->
-    
+</div>
+<!-- / CONTENT -->

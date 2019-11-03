@@ -1,13 +1,13 @@
 @import "src/@fuse/scss/fuse";
 
-login {
+lock {
 
-    #login {
+    #lock {
         width: 100%;
         background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
         background-size: cover;
 
-        #login-form-wrapper {
+        #lock-form-wrapper {
             flex: 1 0 auto;
             padding: 32px;
 
@@ -15,11 +15,14 @@ login {
                 padding: 16px;
             }
 
-            #login-form {
-                width: 384px;
-                max-width: 384px;
-                padding: 32px;
-                text-align: center;
+            #lock-form {
+                display: flex;
+                flex-direction: column;
+                width: 420px;
+                max-width: 420px;
+                padding: 48px 32px 32px 32px;
+                background-color: white !important;
+
                 @include mat-elevation(16);
 
                 @include media-breakpoint('xs') {
@@ -27,41 +30,53 @@ login {
                     width: 100%;
                 }
 
-                .logo {
-                    width: 128px;
-                    margin: 32px auto;
-                }
+                .lock-form-header {
+                    display: flex;
+                    flex: 1 0 auto;
 
-                .title {
-                    font-size: 20px;
-                    margin: 16px 0 32px 0;
+                    .avatar-container {
+                        position: relative;
+                        margin-right: 16px;
+
+                        .avatar {
+                            margin: 0;
+                        }
+
+                        @include media-breakpoint('xs') {
+                            margin-right: 0;
+                        }
+
+                        mat-icon {
+                            position: absolute;
+                            bottom: -2px;
+                            right: -6px;
+                        }
+                    }
+
+                    .title {
+                        font-size: 20px;
+                        margin-bottom: 8px;
+
+                        @include media-breakpoint('xs') {
+                            margin-top: 16px;
+                            text-align: center;
+                        }
+                    }
+
+                    .subtitle {
+
+                        @include media-breakpoint('xs') {
+                            text-align: center;
+                        }
+                    }
                 }
 
                 form {
                     width: 100%;
-                    text-align: left;
+                    margin: 32px 0 0 0;
 
                     mat-form-field {
                         width: 100%;
-                    }
-
-                    mat-checkbox {
-                        margin: 0;
-                    }
-
-                    .remember-forgot-password {
-                        font-size: 13px;
-                        margin-top: 8px;
-
-                        .remember-me {
-                            margin-bottom: 16px
-                        }
-
-                        .forgot-password {
-                            font-size: 13px;
-                            font-weight: 600;
-                            margin-bottom: 16px
-                        }
                     }
 
                     .submit-button {
@@ -75,71 +90,9 @@ login {
                     }
                 }
 
-                .register {
-                    margin: 32px auto 24px auto;
+                .message {
                     font-weight: 600;
-
-                    .text {
-                        margin-right: 8px;
-                    }
-                }
-
-                .separator {
-                    font-size: 15px;
-                    font-weight: 600;
-                    margin: 24px auto;
-                    position: relative;
-                    overflow: hidden;
-                    width: 100px;
-
-                    .text {
-                        display: inline-flex;
-                        position: relative;
-                        padding: 0 8px;
-                        z-index: 9999;
-
-                        &:before,
-                        &:after {
-                            content: '';
-                            display: block;
-                            width: 30px;
-                            position: absolute;
-                            top: 10px;
-                            border-top: 1px solid;
-                        }
-
-                        &:before {
-                            right: 100%;
-                        }
-
-                        &:after {
-                            left: 100%;
-                        }
-                    }
-                }
-
-                button {
-
-                    &.google,
-                    &.facebook {
-                        width: 192px;
-                        text-transform: none;
-                        color: #FFFFFF;
-                        font-size: 13px;
-                    }
-
-                    @include media-breakpoint('xs') {
-                        width: 80%;
-                    }
-
-                    &.google {
-                        background-color: #D73D32;
-                        margin-bottom: 8px;
-                    }
-
-                    &.facebook {
-                        background-color: rgb(63, 92, 154);
-                    }
+                    text-align: center;
                 }
             }
         }

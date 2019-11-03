@@ -80,9 +80,17 @@ export class AppComponent implements OnInit, OnDestroy
         this.getUrls();
 
         this.authService.isLogin().then( (data) => {
-            if (data && sessionStorage.length === 3  && !this.isEmptyObj(this.authService.user) && !this.urls.includes(window.location.pathname) ){
+            if (!this.isEmptyObj(this.authService.user) && !this.urls.includes(window.location.pathname) ){
                 this.router.navigate(['dashboard']);
             }
+        })
+        .catch( () => {
+            //session expired :
+            console.log("session is expired !!");
+            if (window.location.pathname !== '/lock' && !this.isEmptyObj(this.authService.user)){
+                this.router.navigate(['lock']);
+            }
+
         });
 
     }

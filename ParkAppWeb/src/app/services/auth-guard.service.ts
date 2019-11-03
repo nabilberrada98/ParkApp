@@ -7,15 +7,16 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor(private auth: AuthService, private router: Router) { }
+    constructor(private auth: AuthService, private router: Router) { }
 
-  canActivate(route, state: RouterStateSnapshot): boolean {
-    console.log("canActivate auth: ", this.auth.user);
-    if(!this.auth.user || !sessionStorage.getItem("currentUser") ){
-          this.router.navigate(["/"]);
-          return false;
-      }
-    return true;
-  }
+    canActivate(route, state: RouterStateSnapshot): boolean {
+        console.log('canActivate auth: ', this.auth.user);
+        if(!this.auth.user || this.auth.user === undefined){
+            this.router.navigate(["/"]);
+            return false;
+        }
+        return true;
+    }
+
 
 }

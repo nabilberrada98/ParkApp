@@ -6,6 +6,8 @@ const PlacesController = require("../controllers/places");
 
 router
     .get("/", PlacesController.index)
+    .get("/prix", PlacesController.getRangePrices)
+    .get("/cities", PlacesController.getAllCities);
 
 router
     .get("/:placeId", PlacesController.getPlace)

@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let LibelleSchema = mongoose.Schema({
+    address: String,
     libelle: String,
     user: {
         type: Schema.Types.ObjectId,
