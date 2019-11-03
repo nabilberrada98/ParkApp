@@ -1,6 +1,6 @@
 <table class="table table-striped table-bordered">
     <tbody>
-        <tr *ngFor="let field of dynamicArray; let i = index">
+        <tr *ngFor="let field of dynamicArray; let i = index" >
             <!-- <td>
                 <input [(ngModel)]="field.title1" class="form-control" type="text" name="{{field.title1}}" />
             </td> -->
@@ -11,7 +11,7 @@
                             
                                 <div fxFlex="40" class="pl-4" appearance="outline">
                                     <mat-label>Marker Position</mat-label>
-                                    <input matInput [disabled]="true" value="{{ loc.position }}" name="position" type="text">
+                                    <input matInput [disabled]="true" value="{{ field.position }}" name="position" type="text">
                                 </div>
                                 <div fxFlex="40" class="pl-4" appearance="outline" >
                                     <mat-label>Choisis votre libelle</mat-label>

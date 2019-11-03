@@ -68,16 +68,19 @@ module.exports = {
 
     getAllLocalisation: async (req, res, next) => {
         const { userId } = req.params;
-        const loc = await Libelle.find({ user: ObjectId(userId) }, { address: "$address"})
+        const loc = await Libelle.find({ user: ObjectId(userId) }, { address: "$address"}).populate({
+            path: "loc",
+            model: "localisation"
+        });
         const data = [];
         
-        loc.forEach((val, i) => {
-            if(val.address){
-                data.push(val.address)
-            }
-        });
+        // loc.forEach((val, i) => {
+        //     if(val.address){
+        //         data.push({ address: val.address})
+        //     }
+        // });
 
-        res.status(200).json(data);
+        res.send(loc);
     },
 
 }

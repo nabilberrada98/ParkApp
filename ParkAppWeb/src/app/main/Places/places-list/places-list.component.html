@@ -3,17 +3,17 @@
 
         <div class="cards">
 
-            <div class="card" *ngFor="let place of places"  id="{{place.id}}"  >
+            <div class="card" *ngFor="let p of places"  id="{{p.place._id}}"  >
 
                 <!-- PREVIEW -->
-                <div class="card-preview" id="{{place.id}}" >
+                <div class="card-preview" id="{{p.place._id}}" >
 
                     <div class="fuse-card">
                         <div class="p-16" fxLayout="row" fxLayoutAlign="start center">
-                            <img class="w-40 h-40 border-radius-100" src="assets/images/avatars/Christy.jpg">
+                            <img class="w-40 h-40 border-radius-100" src="{{ p.place.images[0] }}">
 
                             <div class="ml-16">
-                                <div class="text-bold">{{ place.locataire.nom }}</div>
+                                <div class="text-bold">{{ p.locataire.nom }}</div>
                             </div>
                         </div>
 
@@ -21,18 +21,17 @@
                         <img src="assets/places/place1.jpeg">
 
                         <div class="p-16">
-                            <div class="h1">{{ place.numero }}</div>
-                            <div class="h4 secondary-text">{{ place.localisation.ville }}</div>
+                            <div class="h1">{{ p.place.numero }}</div>
+                            <div class="h4 secondary-text">{{ p.place.localisation.ville.nom }}</div>
                         </div>
                         
                         <div class="p-8 pt-0" fxLayout="row" fxLayoutAlign="space-between center">
                             <div fxLayout="row" fxLayoutAlign="start center">
-                                <button mat-raised-button color="accent">
+                                <a href="/reservations/{{ p.place._id }}" mat-raised-button color="accent">
                                     <mat-icon>add_circle_outline</mat-icon>
-                                    
-                                </button>
+                                </a>
                                 &nbsp;
-                                <button (click)="moreInfo(place.id)" mat-raised-button color="accent">
+                                <button (click)="moreInfo(p.place._id)" mat-raised-button color="accent">
                                     <mat-icon>more_horiz</mat-icon>
                                 </button>
                             </div>

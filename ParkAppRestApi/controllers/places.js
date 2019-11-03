@@ -1,12 +1,38 @@
 const Place = require("../models/place");
 const Location = require("../models/location");
 const Ville = require("../models/ville");
+const Localisation = require("../models/localisation");
+const Libelle = require("../models/libelle");
 
 module.exports = {
 
     index: async (req, res, next) => {
-        const places = await Place.find({});
-        res.status(200).json(places);
+        const locations = await Location.find({}).populate(["locataire_details", {
+            path: "place_details", 
+            populate: {
+                path: 'localisation',
+                model: Localisation,
+                populate: [
+                    {
+                        path: 'ville',
+                        model: Ville
+                    },
+                    {
+                        path: 'libelle',
+                        model: Libelle
+                    }
+                ],
+            }
+        }]);
+
+        locations.forEach(function(location){
+            if(location){
+                location.locataire = location.locataire_details;
+                location.place = location.place_details;
+            }
+        });
+        
+        res.status(200).json(locations);
     },
 
     getPlace: async (req, res, next) => {

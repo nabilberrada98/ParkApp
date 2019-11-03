@@ -25,8 +25,13 @@ export class PlacesComponent implements OnInit {
 
     pagedItems: any[];
     places = [];
+    placesFiltered = null;
+
+    markers = [];
+
     // pager object
     pager: any = {};
+    search: [];
 
     // Private
     private _unsubscribeAll: Subject<any>;
@@ -59,75 +64,26 @@ export class PlacesComponent implements OnInit {
      */
     ngOnInit(): void{ 
 
-        this.places.push(
-            {
-                id: 1,
-                prix: 20,
-                description: "place 1",
-                locataire: {
-                    "id": "5da39d87a6b37c6a141358e9",
-                    "nom" : "younes",
-                    "prenom" : "enhari",
-                    "phone" : "0622365290",
-                    "email" : "test@test.com",
-                },
-                numero: "K1",
-                etage: 0,
-                type: 0,
-                vehicules: [
-                    0,
-                    1
-                ],
-                heureOuvertureParking: 6,
-                heureFermetureParking: 23,
-                isInParking: true,
-                isCameraEquiped: true,
-                localisation: {
-                    lat: 33.9664448022247,
-                    lng: -6.872549057006836,
-                    ville: "rabat"
-                },
-                images : [
-                    "assets/places/place1.jpeg",
-                    "assets/places/place2.jpg"
-                ]
-            },
-            {
-                id: 2,
-                prix: 20,
-                description: "place 2",
-                locataire: {
-                    "id": "5da39d87a6b37c6a141358e9",
-                    "nom" : "youssi",
-                    "prenom" : "azolaye",
-                    "phone" : "0622365290",
-                    "email" : "test@test.com",
-                },
-                numero: "K2",
-                etage: 0,
-                type: 0,
-                vehicules: [
-                    0,
-                    1
-                ],
-                heureOuvertureParking: 6,
-                heureFermetureParking: 23,
-                isInParking: true,
-                isCameraEquiped: true,
-                localisation: {
-                    lat: 33.9664448022247,
-                    lng: -6.872549057006836,
-                    ville: "rabat"
-                },
-                images : [
-                    "assets/places/place1.jpeg",
-                    "assets/places/place2.jpg"
-                ]
-            }
-        );
+        this._placeService.getPlaces().then( (data) => {
+            this.places = data;
+            // initialize to page 1
+            this.setPage(1);
+        });
 
-        // initialize to page 1
-        this.setPage(1);
+
+        this._placeService.userLibelles().then( (data) => {
+            this.markers = data;
+        });
+
+        // this._placeService.onPlacesChanged
+        //     .pipe(takeUntil(this._unsubscribeAll))
+        //     .subscribe(place => {
+        //         this.places = place;
+        //     });
+
+
+        console.log("places : ", this._placeService.places);
+
 
         this.searchInput.valueChanges
             .pipe(
@@ -155,7 +111,45 @@ export class PlacesComponent implements OnInit {
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
 
- 
+    customSearch({ libelles, prix, days }): void{
+        
+        if(libelles.length === 0){
+            const arr = this.places.filter((p) => p.prix >= prix.min && p.prix <= prix.max);
+            this.placesFiltered = arr || this.places;
+        }
+
+        const places = this.customFilter(libelles, prix);
+        this.placesFiltered = places || this.places;
+        
+
+    }
+
+
+    customFilter(libelles, prix: { max: number, min: number }){
+        const data = [];
+        const self = this;
+        
+        this.places.forEach(function(p, i){
+
+            const isBwn = p.prix >= prix.min && p.prix <= prix.max;
+
+            libelles.forEach(function(lib){
+                const address = p.place.localisation.libelle.address.trim() === lib.address.trim();
+                const nearPlaces = self.findNearPlaces(lib.loc.lat, lib.loc.lng, self.places) || [];
+                if (address || isBwn){
+                    data.push(p);
+                }
+
+                const arr = this.places.filter( (p) => p.place.localisation.libelle._id === nearPlaces._id );
+                data.push(arr);
+
+            });
+
+        });
+
+        return data;
+    }
+
 
     /**
      * Toggle the sidebar
@@ -179,7 +173,38 @@ export class PlacesComponent implements OnInit {
     
     }    
  
+    findNearPlaces( lat1: number, lon1: number, markers): []{    
+        const pi = Math.PI;
+        const R = 6371;
+        const distances = [];
+        let closest = -1;
+    
+        for( let i=0; i < markers.length; i++ ) {  
+            var lat2 = markers[i].place.localisation.lat;
+            let lon2 = markers[i].place.localisation.lng;
+    
+            let chLat = lat2-lat1;
+            let chLon = lon2-lon1;
+    
+            let dLat = chLat*(pi/180);
+            let dLon = chLon*(pi/180);
+    
+            let rLat1 = lat1*(pi/180);
+            let rLat2 = lat2*(pi/180);
+    
+            let a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(rLat1) * Math.cos(rLat2); 
+            let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            let d = R * c;
+    
+            distances[i] = d;
+            if ( closest == -1 || d < distances[closest] ) {
+                closest = i;
+            }
+        }
+    
+        return markers[closest];
+    }
+
 
 }
 
- 

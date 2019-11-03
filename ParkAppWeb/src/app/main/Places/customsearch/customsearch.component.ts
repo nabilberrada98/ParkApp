@@ -19,11 +19,14 @@ export class CustomSearchComponent implements OnInit, OnDestroy
 
     @Output() onCustomSearch: EventEmitter<any> = new EventEmitter<any>();
 
+
     constructor(
         private _placeService: PlaceService,
         private _authService: AuthService
     )
     {
+
+        this.getUserAddressTxt();
 
         this.getPrices().then( () => {
             this.minValue = this.rangePrix.min;
@@ -45,8 +48,6 @@ export class CustomSearchComponent implements OnInit, OnDestroy
             this.isLoaded = true;
         });
 
-        this.getUserAddressTxt();
-
         // Set the defaults
         this.view = 'main';
 
@@ -66,7 +67,8 @@ export class CustomSearchComponent implements OnInit, OnDestroy
     ceil = 0;
     rangePrix: any;
     days = [];
-    userAddress = [];
+    libelles = [];
+    selectedAddress = [];
 
     isLoaded = false;
 
@@ -85,14 +87,13 @@ export class CustomSearchComponent implements OnInit, OnDestroy
     }
 
     async getUserAddressTxt(){
-        let userId = this._authService.user._id;
-        await this._placeService.userAddressTxt(userId).then( (data) => {
-            this.userAddress = data;
+        await this._placeService.userLibelles().then( (data) => {
+            this.libelles = data;
        });
     }
 
-    onChangeSlider(e){
-        console.log(e);
+    onChangeSlider({ value, highValue }): void{
+        this.rangePrix = { min: value, max: highValue};
     }
 
     onChangeDates(event): void{
@@ -105,9 +106,23 @@ export class CustomSearchComponent implements OnInit, OnDestroy
         }
     }
 
+    onChangeTxt(event): void{
+        if(event.isUserInput) {
+            if(event.source.selected) {
+                this.libelles.forEach( (l) => {
+                    if(l.address.trim() ===  event.source.value.trim()){
+                        this.selectedAddress.push(l);
+                    }
+                });
+            }else{
+                this.selectedAddress = this.selectedAddress.filter( (a) => a.address !== event.source.value);
+                console.log(this.selectedAddress);
+            }
+        }
+    }
+
     onSubmit(e): void{
-        const data = { days: this.days, prix: this.rangePrix, addressTxt: this.userAddress };
-        console.log(data);
+        const data = { days: this.days, prix: this.rangePrix, libelles: this.selectedAddress };
         this.onCustomSearch.emit(data);
     }
 

@@ -21,7 +21,7 @@ export class AuthService {
     }
 
     login(data): void {
-        console.log("login: ",data);
+        console.log('login: ',data);
         Login(data).then( (result) => {
             result.login.authorities = result.authorities;
             this.userService.save(result.login, result.token);

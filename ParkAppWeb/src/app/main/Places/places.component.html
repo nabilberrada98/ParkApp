@@ -30,7 +30,7 @@
 
                 <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
                     <mat-icon>search</mat-icon>
-                    <input [formControl]="searchInput" placeholder="rechercher une place par ville">
+                    <input [formControl]="searchInput" placeholder="rechercher">
                 </div>
 
                 <!-- TOOLBAR -->
@@ -53,7 +53,9 @@
     </div>
     <!-- / HEADER -->
 
-    <app-places-list [places]="places"  ></app-places-list>
+    
+
+    <app-places-list [places]="placesFiltered || places"  ></app-places-list>
 
 
     <div class="simple-pagination" *ngIf="pager.pages && pager.pages.length" >
@@ -79,7 +81,10 @@
 
 
     <mat-sidenav #settingsSidenav position="end">
-        <custom-search *ngIf="sidenav.opened" ></custom-search>
+        <custom-search 
+            *ngIf="sidenav.opened"
+            (onCustomSearch)="customSearch($event)"
+        ></custom-search>
     </mat-sidenav>
 
 
