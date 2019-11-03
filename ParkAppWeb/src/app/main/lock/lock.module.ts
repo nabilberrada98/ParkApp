@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule } from '@angular/material';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 
@@ -18,10 +18,9 @@ const routes = [
         LockComponent
     ],
     imports     : [
-    RouterModule.forChild(routes),
+        RouterModule.forChild(routes),
 
         MatButtonModule,
-        MatCheckboxModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
@@ -29,6 +28,6 @@ const routes = [
         FuseSharedModule
     ]
 })
-export class LoginModule
+export class LockModule
 {
 }

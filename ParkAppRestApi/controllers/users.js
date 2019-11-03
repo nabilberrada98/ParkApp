@@ -1,8 +1,10 @@
 const User = require("../models/user");
 const Role = require("../models/role");
 const config = require("../config/config");
-const jwt = require('jsonwebtoken');
 const Auth = require('../controllers/auth');
+var ObjectId = require('mongodb').ObjectID;
+const Libelle = require("../models/libelle");
+
 
 module.exports = {
 
@@ -57,7 +59,28 @@ module.exports = {
         const url = config.host + ":" + config.port + "/users/" + file.filename;
         await User.findByIdAndUpdate(userId, { avatar: url })
         res.status(200).json("test");
-    }
+    },
 
+    getAddressTxt: async (req, res) => {
+        const users = await User.find({ role: ObjectId(req.params.roleId) });
+        res.send(users);
+    },
+
+    getAllLocalisation: async (req, res, next) => {
+        const { userId } = req.params;
+        const loc = await Libelle.find({ user: ObjectId(userId) }, { address: "$address"}).populate({
+            path: "loc",
+            model: "localisation"
+        });
+        const data = [];
+        
+        // loc.forEach((val, i) => {
+        //     if(val.address){
+        //         data.push({ address: val.address})
+        //     }
+        // });
+
+        res.send(loc);
+    },
 
 }

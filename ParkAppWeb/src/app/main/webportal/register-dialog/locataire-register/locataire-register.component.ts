@@ -68,13 +68,10 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
 
     handleLibelles(){
         const libelleData = [];
-        this.libelles.find( (val, i) => {
-            if(val){
-                let marker = this.markers[i];
-                let libelle = this.libelles[i];
-                libelleData.push( Object.assign({ nom: libelle }, { loc: marker }) );
-            }
-            return true;
+        this.libelles.forEach( (val, i) => {
+            const marker = this.markers[i];
+            const libelle = this.libelles[i];
+            libelleData.push( Object.assign({ nom: libelle },  marker) );
         });
         return libelleData;
     }
@@ -97,7 +94,6 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
             phone   : ['', Validators.required],
             email  : ['', Validators.required],
             password   : ['', Validators.required],
-            libelle : ['', Validators.required],
         });
 
     }
@@ -109,8 +105,8 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
     
     mapClicked($event: MouseEvent): void {
         console.log('coordinations : ', $event.coords);
-        let obj = { lat: $event.coords.lat, lng: $event.coords.lng };
-        this.markers.push($event.coords);
+        let obj = { loc: {lat: $event.coords.lat, lng: $event.coords.lng} };
+        this.markers.push(obj);
         this.handleGeoInfo($event.coords);
     }
 
@@ -120,22 +116,22 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
 
     handleGeoInfo = async (data) => {
         await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${data.lat}, ${data.lng}&key=AIzaSyAAFz7wsoEsvZOY24eqBigX57ZdcUT-RbA`).then((response) => {
-            let data = response.data;
-            let currentMarkerPosition = data.results[0].formatted_address.split(",")[0];
+            var data = response.data;
+            var currentMarkerPosition = data.results[0].formatted_address.split(",")[0];
             console.log(currentMarkerPosition, data.results);
             this.city = data.plus_code.compound_code.split(" ")[1].split(",")[0];
             this.region = data.results[data.results.length - 2].formatted_address.split(",")[0];
-            this.table.addRow({ city: this.city, rehion: this.region, position: currentMarkerPosition });
-            this.getGeoInfo();
+            this.table.addRow({ city: this.city, region: this.region, position: currentMarkerPosition });
+            this.getGeoInfo(currentMarkerPosition);
         }).catch((error) => {
             console.log(error);
         });
     }
 
-    getGeoInfo = async () => {
+    getGeoInfo = async (position) => {
         let lastest = this.markers[this.markers.length - 1];
-        const temp = Object.assign({ ville: { nom: this.city, region: { nom: this.region }  }  }, lastest);
-        lastest = temp;
+        lastest.ville = position,
+        //lastest.ville = { nom: this.city, region: { nom: this.region } };
         console.log(this.markers);
     }
 
@@ -152,7 +148,7 @@ export class LocataireRegisterComponent implements OnInit, OnDestroy {
 
 
 interface Marker {
-    lat: number;
-    lng: number;
+    loc: { lat: number, lng: number; };
     label?: string;
+    ville?: object;
 }

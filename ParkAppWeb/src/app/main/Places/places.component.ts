@@ -1,8 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, ViewChild, OnInit, ViewEncapsulation } from '@angular/core';
 import { fuseAnimations } from '@fuse/animations';
 import { PagerService } from './pager.service';
 import { Options, LabelType } from 'ng5-slider';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
+import { Subject } from 'rxjs';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { PlaceService } from 'app/services/place.service';
 
 
 @Component({
@@ -14,174 +18,193 @@ import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 })
 export class PlacesComponent implements OnInit {
 
-    toppings = new FormControl();
-    toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+    @ViewChild('settingsSidenav') sidenav: any;
+    dialogRef: any;
+    hasSelectedUsers: boolean;
+    searchInput: FormControl;
 
+    pagedItems: any[];
+    places = [];
+    placesFiltered = null;
 
-    time = new Date();
-
-    // Optional message to display below each input field
-    message = {
-      hour: 'Hour is required',
-      minute: 'Minute is required',
-      meridiem: 'Meridiem is required'
-    }
-
-    readonly = false;
-
-    required = true;
-
-
-    constructor(private pagerService: PagerService, private fb: FormBuilder){
-
-    }
-    
-    myForm:FormGroup;
-    disabled = false;
-    ShowFilter = false;
-    limitSelection = false;
-    cities = [];
-    selectedItems = [];
-    dropdownSettings: any = {};
-
-    // array of all items to be paged
-    private allItems: any[];
+    markers = [];
 
     // pager object
     pager: any = {};
+    search: [];
 
-    // paged items
-    pagedItems: any[];
+    // Private
+    private _unsubscribeAll: Subject<any>;
 
-    minValue: number = 100;
-    maxValue: number = 400;
+    /**
+     * Constructor
+     *
+     * @param {UserService} _userService
+     * @param {FuseSidebarService} _fuseSidebarService
+     * @param {MatDialog} _matDialog
+     */
+    constructor(
+        private _placeService: PlaceService,
+        private _fuseSidebarService: FuseSidebarService,
+        private pagerService: PagerService, 
+        private fb: FormBuilder,
+    ){
+        this.searchInput = new FormControl('');
 
-    options: Options = {
-      floor: 0,
-      ceil: 500,
-      translate: (value: number, label: LabelType): string => {
-        switch (label) {
-          case LabelType.Low:
-            return '<b>Min price:</b> $' + value;
-          case LabelType.High:
-            return '<b>Max price:</b> $' + value;
-          default:
-            return '$' + value;
-        }
-      }
-    };
-
-
-    onItemSelect(item: any) {
-        console.log('onItemSelect', item);
+        // Set the private defaults
+        this._unsubscribeAll = new Subject();
     }
-    onSelectAll(items: any) {
-        console.log('onSelectAll', items);
-    }
-    toogleShowFilter() {
-        this.ShowFilter = !this.ShowFilter;
-        this.dropdownSettings = Object.assign({}, this.dropdownSettings, { allowSearchFilter: this.ShowFilter });
-    }
+    
+    // -----------------------------------------------------------------------------------------------------
+    // @ Lifecycle hooks
+    // -----------------------------------------------------------------------------------------------------
 
-    // tslint:disable-next-line:typedef
-    handleLimitSelection() {
-        if (this.limitSelection) {
-            this.dropdownSettings = Object.assign({}, this.dropdownSettings, { limitSelection: 2 });
-        } else {
-            this.dropdownSettings = Object.assign({}, this.dropdownSettings, { limitSelection: null });
-        }
-    }
+    /**
+     * On init
+     */
+    ngOnInit(): void{ 
 
-
-    ngOnInit(){
-
-        this.cities = [
-            { item_id: 1, item_text: 'New Delhi' },
-            { item_id: 2, item_text: 'Mumbai' },
-            { item_id: 3, item_text: 'Bangalore' },
-            { item_id: 4, item_text: 'Pune' },
-            { item_id: 5, item_text: 'Chennai' },
-            { item_id: 6, item_text: 'Navsari' }
-        ];
-        this.selectedItems = [{ item_id: 4, item_text: 'Pune' }, { item_id: 6, item_text: 'Navsari' }];
-        this.dropdownSettings = {
-            singleSelection: false,
-            idField: 'item_id',
-            textField: 'item_text',
-            selectAllText: 'Select All',
-            unSelectAllText: 'UnSelect All',
-            itemsShowLimit: 3,
-            allowSearchFilter: this.ShowFilter
-        };
-        this.myForm = this.fb.group({
-            city: [this.selectedItems]
+        this._placeService.getPlaces().then( (data) => {
+            this.places = data;
+            // initialize to page 1
+            this.setPage(1);
         });
 
 
-        this.allItems = [
-            {
-                "name": "Item 1"
-            },
-            {
-                "name": "Item 2"
-            },
-            {
-                "name": "Item 3"
-            },
-            {
-                "name": "Item 4"
-            },            
-            {
-                "name": "Item 1"
-            },
-            {
-                "name": "Item 2"
-            },
-            {
-                "name": "Item 3"
-            },
-            {
-                "name": "Item 4"
-            },
-            {
-                "name": "Item 1"
-            },
-            {
-                "name": "Item 2"
-            },
-            {
-                "name": "Item 3"
-            },
-            {
-                "name": "Item 4"
-            }
-        ];
+        this._placeService.userLibelles().then( (data) => {
+            this.markers = data;
+        });
 
-        // initialize to page 1
-        this.setPage(1);
+        // this._placeService.onPlacesChanged
+        //     .pipe(takeUntil(this._unsubscribeAll))
+        //     .subscribe(place => {
+        //         this.places = place;
+        //     });
+
+
+        console.log("places : ", this._placeService.places);
+
+
+        this.searchInput.valueChanges
+            .pipe(
+                takeUntil(this._unsubscribeAll),
+                debounceTime(300),
+                distinctUntilChanged()
+            )
+            .subscribe(searchText => {
+                console.log(searchText);
+                //this._placesService.onSearchTextChanged.next(searchText);
+            });
+    }
+
+    /**
+     * On destroy
+     */
+    ngOnDestroy(): void
+    {
+        // Unsubscribe from all subscriptions
+        this._unsubscribeAll.next();
+        this._unsubscribeAll.complete();
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Public methods
+    // -----------------------------------------------------------------------------------------------------
+
+    customSearch({ libelles, prix, days }): void{
+        
+        if(libelles.length === 0){
+            const arr = this.places.filter((p) => p.prix >= prix.min && p.prix <= prix.max);
+            this.placesFiltered = arr || this.places;
+        }
+
+        const places = this.customFilter(libelles, prix);
+        this.placesFiltered = places || this.places;
+        
 
     }
 
-    setPage(page: number) {
+
+    customFilter(libelles, prix: { max: number, min: number }){
+        const data = [];
+        const self = this;
+        
+        this.places.forEach(function(p, i){
+
+            const isBwn = p.prix >= prix.min && p.prix <= prix.max;
+
+            libelles.forEach(function(lib){
+                const address = p.place.localisation.libelle.address.trim() === lib.address.trim();
+                const nearPlaces = self.findNearPlaces(lib.loc.lat, lib.loc.lng, self.places) || [];
+                if (address || isBwn){
+                    data.push(p);
+                }
+
+                const arr = this.places.filter( (p) => p.place.localisation.libelle._id === nearPlaces._id );
+                data.push(arr);
+
+            });
+
+        });
+
+        return data;
+    }
+
+
+    /**
+     * Toggle the sidebar
+     *
+     * @param name
+     */
+    toggleSidebar(name): void
+    {
+        this._fuseSidebarService.getSidebar(name).toggleOpen();
+    }
+
+
+    setPage(page: number): void {
         // get pager object from service
-        this.pager = this.pagerService.getPager(this.allItems.length, page);
+        this.pager = this.pagerService.getPager(this.places.length, page);
 
         // get current page of items
-        this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        this.pagedItems = this.places.slice(this.pager.startIndex, this.pager.endIndex + 1);
     
         console.log(this.pagedItems, this.pager);
     
-    }
-
-
+    }    
+ 
+    findNearPlaces( lat1: number, lon1: number, markers): []{    
+        const pi = Math.PI;
+        const R = 6371;
+        const distances = [];
+        let closest = -1;
     
-
-}
-
-class PriceRange {
-    constructor(
-      public lower: number,
-      public upper: number
-    ) {
+        for( let i=0; i < markers.length; i++ ) {  
+            var lat2 = markers[i].place.localisation.lat;
+            let lon2 = markers[i].place.localisation.lng;
+    
+            let chLat = lat2-lat1;
+            let chLon = lon2-lon1;
+    
+            let dLat = chLat*(pi/180);
+            let dLon = chLon*(pi/180);
+    
+            let rLat1 = lat1*(pi/180);
+            let rLat2 = lat2*(pi/180);
+    
+            let a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(rLat1) * Math.cos(rLat2); 
+            let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            let d = R * c;
+    
+            distances[i] = d;
+            if ( closest == -1 || d < distances[closest] ) {
+                closest = i;
+            }
+        }
+    
+        return markers[closest];
     }
+
+
 }
+
