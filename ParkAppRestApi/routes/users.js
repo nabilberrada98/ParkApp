@@ -12,6 +12,8 @@ router
 
 router
     .get("/:userId",authJwt, UsersController.getUser)
+    .get("/locations/:roleId", UsersController.getAddressTxt)
+    .get("/localisations/:userId", UsersController.getAllLocalisation)
     .put("/:userId", authJwt,UsersController.editUser)
     .patch("/:userId", authJwt,UsersController.editUser)
     .delete("/:userId", authJwt,UsersController.deleteUser);

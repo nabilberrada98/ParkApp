@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { storeUser as storeUService,getUser, updateUser as updUserS,getAllUsers} from '../api/controllers/UserInstance.js';
 import { User } from '../api/models/User.model';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { FuseUtils } from '@fuse/utils/index.js';
-
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +22,7 @@ export class UserService {
 
     searchText: string;
     filterBy: string;
-
+    
     constructor() {
         this.onUsersChanged = new BehaviorSubject([]);
         this.onSelectedUsersChanged = new BehaviorSubject([]);
@@ -32,7 +31,8 @@ export class UserService {
         this.onFilterChanged = new Subject();
     }
 
-        // -----------------------------------------------------------------------------------------------------
+
+    // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
 
@@ -229,7 +229,6 @@ export class UserService {
     }
 
     delete(): void {
-        sessionStorage.removeItem("returnUrl");
         sessionStorage.removeItem("currentUser");
         sessionStorage.removeItem("token");
     }

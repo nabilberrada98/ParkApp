@@ -22,10 +22,11 @@ import { AuthGuardService } from './services/auth-guard.service';
 
 
 const appRoutes: Routes = [
-    // {
-    //     path        : 'login',
-    //     loadChildren: './main/login/login.module#LoginModule'
-    // },
+    {
+        path        : 'lock',
+        loadChildren: './main/login/login.module#LoginModule',
+        canActivate: [AuthGuardService]
+    },
     {
         path        : 'administration/gstuser',
         loadChildren: './main/administration/gstuser/gstuser.module#UsersModule',
@@ -47,8 +48,8 @@ const appRoutes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
-        path        : 'reservation',
-        loadChildren: './main/reservation-info/reservation.module#ReservationInfoModule',
+        path        : 'reservation/:placeId',
+        loadChildren: './main/reservation/reservation.module#ReservationModule',
         canActivate: [AuthGuardService]
     },
     {

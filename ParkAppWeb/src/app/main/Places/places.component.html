@@ -1,31 +1,61 @@
-<div id="academy-courses" class="page-layout simple">
+<mat-sidenav-container>
+
+<div id="places" class="page-layout simple fullwidth">
     
     <!-- HEADER -->
     <div class="header accent p-24 h-160" fxLayout="row" fxLayoutAlign="space-between center">
 
-        <div fxLayout="column" fxLayoutAlign="center start">
-            <div fxLayout="row" fxLayoutAlign="start center">
-                <mat-icon class="secondary-text s-18">home</mat-icon>
-                <mat-icon class="secondary-text s-16">chevron_right</mat-icon>
-                <span class="secondary-text">User Interface</span>
-            </div>
-            <div class="h2 mt-16">Cards</div>
-        </div>
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
 
-        <div>
-            <mat-slide-toggle color="primary" >
-                View Source
-            </mat-slide-toggle>
+            <button mat-icon-button class="sidebar-toggle mr-12" fxHide.gt-sm
+                    (click)="toggleSidebar('users-main-sidebar')">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">account_box</mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Places
+                </span>
+            </div>
+
         </div>
+        <!-- / APP TITLE -->
+
+        <!-- SEARCH -->
+        <div class="ml-sm-32" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+
+            <div class="search-wrapper mt-16 mt-sm-0">
+
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input [formControl]="searchInput" placeholder="rechercher">
+                </div>
+
+                <!-- TOOLBAR -->
+                <div class="toolbar" fxLayout="row" fxLayoutAlign="space-between center" fxFlexOrder="3">
+
+                    <!-- BOARD SETTINGS BUTTON -->
+                    <button mat-icon-button (click)="settingsSidenav.toggle()"
+                            aria-label="Settings" matTooltip="Settings">
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                    <!-- / BOARD SETTINGS BUTTON -->
+                </div>
+                <!-- / TOOLBAR -->
+
+            </div>
+
+        </div>
+        <!-- / SEARCH -->
 
     </div>
     <!-- / HEADER -->
 
-    <div style="max-width: 960px" >
-    </div>
+    
 
-
-    <app-places-list></app-places-list>
+    <app-places-list [places]="placesFiltered || places"  ></app-places-list>
 
 
     <div class="simple-pagination" *ngIf="pager.pages && pager.pages.length" >
@@ -47,7 +77,15 @@
 
     </div>
 
-
-    <br>
-
 </div>
+
+
+    <mat-sidenav #settingsSidenav position="end">
+        <custom-search 
+            *ngIf="sidenav.opened"
+            (onCustomSearch)="customSearch($event)"
+        ></custom-search>
+    </mat-sidenav>
+
+
+</mat-sidenav-container>

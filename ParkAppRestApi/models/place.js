@@ -18,7 +18,7 @@ let PlaceSchema = mongoose.Schema({
         default : false
     },
     images : [String],
-    localisation : {
+    localisation:{
         type: Schema.Types.ObjectId,
         ref: "localisation"
     }
@@ -44,13 +44,22 @@ let Place = module.exports = mongoose.model('place', PlaceSchema);
 // Place.createCollection().then(function(collection) {
 //     Place.create({
 //                 description : "une nouvelle place ensoleillé",
-//                 numero : "K220",
+//                 numero : "K1",
 //                 etage : 0,
-//                 vehicule : ["Citadine"],
+//                 type : 0,
+//                 vehicules : [ 
+//                     0, 
+//                     1
+//                 ],
 //                 isInParking : true,
+//                 isCameraEquiped : true,
 //                 heureOuvertureParking : "06:00h",
 //                 heureFermetureParking : "23:00h",
-//                 type : 0
+//                 localisation: "5dbd96802d80a619bbd2521a",
+//                 images : [ 
+//                     "assets/places/place1.jpeg", 
+//                     "assets/places/place2.jpg"
+//                 ],
 //             });
 //     console.log('Place is created!');
 // });

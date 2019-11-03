@@ -19,8 +19,9 @@ module.exports = {
         }
 
         var token = jwt.sign({ id: user.id, roleId: user.role, roleName: role.name }, config.secret, {
-            expiresIn: 86400, // expires in 24 hours
+            expiresIn: 1080, // expires in 24 hours
         });
+        
         user.tokens = user.tokens.concat({token});
         await user.save();
         res.status(200).send({
@@ -43,9 +44,7 @@ module.exports = {
     },
 
     accessToken: async (req, res, next) => {
-        let token = req.token;
-        const user = jwt.verify(token, config.secret);
-        const currentUser = await User.findById(user.id);
+        const currentUser = await User.findById(req.user.id);
         res.status(200).json(currentUser);
     }
 

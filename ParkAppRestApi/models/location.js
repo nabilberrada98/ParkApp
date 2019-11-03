@@ -18,19 +18,52 @@ let LocationSchema = mongoose.Schema({
         ref: "place",
         required : true
     }
+}, {  toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+LocationSchema.methods.toJSON = function(){
+    const location = this.toObject();
+    delete location.place_details;
+    delete location.locataire_details;
+    return location;
+}
+
+LocationSchema.virtual('place_details',{
+    ref : 'place',
+    localField : 'place',
+    foreignField : '_id',
+    justOne:true
+});
+
+LocationSchema.virtual('locataire_details',{
+    ref : 'user',
+    localField : 'locataire',
+    foreignField : '_id',
+    justOne:true
 });
 
 
 let Location = module.exports = mongoose.model('location', LocationSchema);
 
 // Location.createCollection().then(function(collection) {
-//     Location.create({
-//         prix : 90,
-//         status : true,
-//         type : 0,
-//         locataire : "5da0f52d319fd80ce0057fa9",
-//         place : "5da76a033b026e1c3435663c"
-//     })
+//     Location.create(
+
+//     {
+//         "status" : true,
+//         "prix" : 20,
+//         "type" : 0,
+//         "locataire" : "5da39d87a6b37c6a141358e9",
+//         "place" : "5db989dcaa8633b19bab6735"
+//     },
+//     {
+//         "status" : true,
+//         "prix" : 10,
+//         "type" : 0,
+//         "locataire" : "5da39d87a6b37c6a141358e9",
+//         "place" : "5db9bfedaa8633b19bab68ef"
+//     }
+
+    
+//     )
 //     console.log('Location is created!');
 // });
 

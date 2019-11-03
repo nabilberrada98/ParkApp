@@ -6,14 +6,15 @@ import { MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, Mat
 import { FuseSharedModule } from '@fuse/shared.module';
 
 import { FuseSidebarModule, FuseConfirmDialogModule } from '@fuse/components';
-import { PlacesService } from './places.service';
+import { PlaceService } from 'app/services/place.service';
 import { PlacesComponent } from './places.component';
 import { PlacesListComponent } from './places-list/places-list.component';
 import { PagerService } from './pager.service';
 import { Ng5SliderModule } from 'ng5-slider';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown-angular7';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker'; 
+import { CustomSearchComponent } from "./customsearch/customsearch.component";
+import { MoreInfoDialogComponent } from "./places-list/more-dialog/more-dialog.component";
 
 const routes = [
     {
@@ -26,7 +27,9 @@ const routes = [
 @NgModule({
     declarations: [
         PlacesComponent,
-        PlacesListComponent
+        PlacesListComponent,
+        CustomSearchComponent,
+        MoreInfoDialogComponent
     ],
     imports     : [
         RouterModule.forChild(routes),
@@ -41,7 +44,6 @@ const routes = [
         MatSlideToggleModule,
         Ng5SliderModule,
         NgMultiSelectDropDownModule.forRoot(),
-        //MDBBootstrapModule.forRoot(),
         NgxMaterialTimepickerModule,
         
         MatAutocompleteModule,
@@ -56,7 +58,6 @@ const routes = [
         MatExpansionModule,
         MatGridListModule,
         MatListModule,
-        MatMomentDateModule,
         MatPaginatorModule,
         MatProgressBarModule,
         MatRadioModule,
@@ -77,10 +78,10 @@ const routes = [
 
     ],
     providers   : [
-        PlacesService,
+        PlaceService,
         PagerService,
     ],
-    entryComponents: [PlacesComponent]
+    entryComponents: [PlacesComponent, MoreInfoDialogComponent]
 })
 export class PlacesModule
 {

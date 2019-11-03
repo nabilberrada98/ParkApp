@@ -13,7 +13,7 @@ let VilleSchema = mongoose.Schema({
 let Ville = mongoose.model('ville', VilleSchema);
 
 // Ville.createCollection().then(function(collection) {
-//     Ville.create({  nom : 'rabat'});
+//     Ville.create({  nom : 'rabat' });
 //     console.log('Ville is created!');
 // });
 

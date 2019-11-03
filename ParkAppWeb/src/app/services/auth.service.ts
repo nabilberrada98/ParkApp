@@ -11,6 +11,7 @@ export class AuthService {
 
     user : User;
 
+
     constructor(
         private route: ActivatedRoute,
         private userService: UserService,
@@ -23,29 +24,41 @@ export class AuthService {
         sessionStorage.setItem('returnUrl', returnUrl);
         return Login(data).then( (result) => {
             result.login.authorities = result.authorities;
-            this.userService.save(result.login,result.token);
-            const route = sessionStorage.getItem('returnUrl');
+            this.userService.save(result.login, result.token);
             window.location.href = '/dashboard';
         });
       
     }
-
+ 
     logout(): void {
         Logout().then( (data) => {
             this.userService.delete();
-            //window.location.href = '/login';
             this.router.navigate(['/']);
         })
         .catch( (err) => console.log(err) );
+    }
+
+    expiredSession(): Promise<boolean> {
+        return new Promise( (resolve, reject) => {
+            Logout().then( (data) => {
+                this.userService.delete();
+                resolve(true);
+            })
+            .catch( (err) => { 
+                console.log(err);
+                reject(true);
+            });
+       });
     }
 
     isLogin(): Promise<boolean> {
         return new Promise( (resolve, reject) => {
             accessToken().catch( (error) => {
                 const data = error.response.data;
-                if (data.message && data.message === 'TOKEN_EXPIRED'){
-                    this.logout();
-                    resolve(false);
+                console.log("data :", data);
+                if (data.message && data.message === "TOKEN_EXPIRED"){
+                    //this.logout();
+                    reject(true);
                 }
                 resolve(true);
             });

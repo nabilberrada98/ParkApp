@@ -47,7 +47,7 @@ const authJwt = require("./middleware/auth");
 const places = require('./routes/places');
 // Setup routes and handle errors
 app.use('/api/users', users);
-app.use("/api/places", authJwt, places);
+app.use("/api/places", places);
 app.use("/api/reservations", authJwt, reservations);
 //add auth later
 app.use("/api/locations",authJwt, locations );

@@ -1,0 +1,63 @@
+<h2 mat-dialog-title>More</h2>
+<mat-dialog-content>
+
+<div class="mb-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-md="row">
+
+  <div class="card">
+
+      <img src="assets/places/place1.jpeg">
+
+      <div class="p-16">
+          <div class="h1">{{ place.numero }}</div>
+          <div class="h4 secondary-text">{{ place.localisation.ville }}</div>
+      </div>
+      
+      <div class="p-16 pt-0 line-height-1.75">
+          {{ place.description }}
+      </div>
+
+      <div class="card-divider"></div>
+
+      <div class="p-16 pt-0 line-height-1.75">
+          <div class="mb-16 text-bold">Type de la place</div>
+          <div fxLayout="row" fxLayoutAlign="start center">
+              <img *ngIf="place.type == 0" src="assets/types/crenau.jpg">
+              <img *ngIf="place.type == 1" src="assets/types/bataille.jpg">
+              <img *ngIf="place.type == 2" src="assets/types/epi.jpg">
+              <img *ngIf="place.type == 3" src="assets/types/garage.png">
+          </div>
+      </div>
+
+      <div class="p-16 pt-0 line-height-1.75">
+          <div class="mb-16 text-bold">Type de la place</div>
+          <div fxLayout="row" fxLayoutAlign="start center">
+              <img class="cars" *ngIf="place.vehicules.includes(0)" src="assets/cars/sedan.png">
+              <img class="cars" *ngIf="place.vehicules.includes(1)" src="assets/cars/decapotable.png">
+              <img class="cars" *ngIf="place.vehicules.includes(2)" src="assets/cars/truck.png">
+              <img class="cars" *ngIf="place.vehicules.includes(3)" src="assets/cars/moto.png">
+          </div>
+      </div>
+
+      <div *ngIf="place.isInParking" class="p-16 pt-0 line-height-1.75">
+          <div class="mb-16 text-bold">Availability</div>
+          <div fxLayout="row" fxLayoutAlign="start center">
+              <mat-icon class="mr-16">access_time</mat-icon>
+              <mat-button-toggle-group>
+                  <mat-button-toggle value="0530PM">
+                      5:30PM
+                  </mat-button-toggle>
+                  <mat-button-toggle value="0730PM" [checked]="true">
+                      7:30PM
+                  </mat-button-toggle>
+                  <mat-button-toggle value="0900PM">
+                      9:00PM
+                  </mat-button-toggle>
+              </mat-button-toggle-group>
+          </div>
+      </div>
+
+  </div>    
+
+</div>
+
+</mat-dialog-content>

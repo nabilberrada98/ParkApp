@@ -1,4 +1,5 @@
 import { Component, ElementRef, Renderer2, ViewEncapsulation } from '@angular/core';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
     selector     : 'navbar',
@@ -19,10 +20,13 @@ export class NavbarComponent
      */
     constructor(
         private _elementRef: ElementRef,
-        private _renderer: Renderer2
+        private _renderer: Renderer2,
+        private authService: AuthService
     )
     {
+
         this._renderer.addClass(this._elementRef.nativeElement, 'vertical-style-1');
+
     }
 
 }

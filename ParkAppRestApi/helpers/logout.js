@@ -20,8 +20,8 @@ logout.prototype.logoutUser = async function(req, res, callback){
 			error: "Refresh token has expired" 
 		});
     }
-    user.tokens = user.tokens.filter(t=> t.token != token);
-    user.save();
+    user.tokens = user.tokens.filter( (t) => t.token !== token);
+    await user.save();
     callback(null, {'success': true, "message": "User logout successfully"});
 }
 
