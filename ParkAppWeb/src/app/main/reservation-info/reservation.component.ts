@@ -9,7 +9,7 @@ import {AddReservationComponent} from './add-reservation/add-reservation.compone
   encapsulation: ViewEncapsulation.None,
   animations   : fuseAnimations
 })
-export class ReservationComponent implements OnInit {
+export class ReservationInfoComponent implements OnInit {
 
   public SelectedLocation;
 

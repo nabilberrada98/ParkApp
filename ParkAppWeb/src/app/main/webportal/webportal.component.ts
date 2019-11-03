@@ -12,7 +12,6 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
   styleUrls: [
     './webportal.component.scss'
   ],
-  encapsulation: ViewEncapsulation.None,
   animations   : fuseAnimations
 })
 
@@ -60,4 +59,9 @@ export class WebportalComponent implements OnInit {
         $.getScript("/assets/js/morphext.min.js", ()=>{});
         $.getScript("/assets/js/scripts.js", ()=>{});
     }
+
+
+    scrollToElement($element): void {
+        $element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+      }
 }

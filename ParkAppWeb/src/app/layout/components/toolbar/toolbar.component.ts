@@ -7,8 +7,7 @@ import { FuseConfigService } from '@fuse/services/config.service';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { navigation } from 'app/navigation/navigation';
 import { AuthService } from 'app/services/auth.service';
-import { UserService } from '../../../services/user.service';
-import { User } from 'app/api/models/user';
+import { User } from 'app/api/models/User.model';
 
 @Component({
     selector     : 'toolbar',
@@ -102,7 +101,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
     }
 
     fullName(): string{
-        return this.user.nom + " " + this.user.prenom;
+        return this.user?this.user.nom + " " + this.user.prenom : "";
     }
 
 }

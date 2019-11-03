@@ -48,7 +48,12 @@ const appRoutes: Routes = [
     },
     {
         path        : 'reservation',
-        loadChildren: './main/reservation/reservation.module#ReservationModule',
+        loadChildren: './main/reservation-info/reservation.module#ReservationInfoModule',
+        canActivate: [AuthGuardService]
+    },
+    {
+        path        : 'Meslocations',
+        loadChildren: './main/reservations/Reservation.module#ReservationsModule',
         canActivate: [AuthGuardService]
     },
     {

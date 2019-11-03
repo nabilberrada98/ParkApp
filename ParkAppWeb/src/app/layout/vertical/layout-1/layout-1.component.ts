@@ -4,6 +4,8 @@ import { takeUntil } from 'rxjs/operators';
 
 import { FuseConfigService } from '@fuse/services/config.service';
 import { navigation } from 'app/navigation/navigation';
+import { AuthService } from 'app/services/auth.service';
+import { UserService } from 'app/services/user.service';
 
 @Component({
     selector     : 'vertical-layout-1',
@@ -15,7 +17,7 @@ export class VerticalLayout1Component implements OnInit, OnDestroy
 {
     fuseConfig: any;
     navigation: any;
-
+    isLoggedIn = false;
     // Private
     private _unsubscribeAll: Subject<any>;
 
@@ -25,12 +27,13 @@ export class VerticalLayout1Component implements OnInit, OnDestroy
      * @param {FuseConfigService} _fuseConfigService
      */
     constructor(
-        private _fuseConfigService: FuseConfigService
+        private _fuseConfigService: FuseConfigService,
+        private userS : UserService 
     )
     {
         // Set the defaults
         this.navigation = navigation;
-
+        this.isLoggedIn = this.userS.getCurrentUser() != undefined;
         // Set the private defaults
         this._unsubscribeAll = new Subject();
     }

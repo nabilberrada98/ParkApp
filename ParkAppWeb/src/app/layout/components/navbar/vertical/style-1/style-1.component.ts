@@ -8,7 +8,7 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { FusePerfectScrollbarDirective } from '@fuse/directives/fuse-perfect-scrollbar/fuse-perfect-scrollbar.directive';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
 import { AuthService } from './../../../../../services/auth.service';
-import { User } from 'app/api/models/user';
+import { User } from 'app/api/models/User.model';
 
 @Component({
     selector     : 'navbar-vertical-style-1',
@@ -103,7 +103,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
      * On init
      */
     ngOnInit(): void
-    {
+    { 
         this._router.events
             .pipe(
                 filter((event) => event instanceof NavigationEnd),
@@ -166,7 +166,7 @@ export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
     }
 
     fullName(): string{
-        return this.user.nom + " " + this.user.prenom;
+        return this.user?(this.user.nom + " " + this.user.prenom) : "";
     }
 
 

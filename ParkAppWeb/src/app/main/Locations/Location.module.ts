@@ -58,7 +58,6 @@ const config: InputFileConfig = {
         LocationsListComponent,
         LocationsSelectedBarComponent,
         LocationsMainSidebarComponent,
-        LocationAddComponent,
         LocationAddComponent
     ],
     imports: [

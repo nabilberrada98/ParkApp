@@ -13,6 +13,11 @@ export const storeReservation = (data) => {
   return storeItem(uri, data);
 }
 
+export const confirmReservation = (data) => {
+  const uri = "/api/reservations/confirm";
+  return storeItem(uri, data);
+}
+
 export const updateReservation = (id, data) => {
   let uri = "/api/reservations/"+id;
   return updateItem(uri, data);

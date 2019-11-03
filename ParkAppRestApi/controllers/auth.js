@@ -9,13 +9,13 @@ module.exports = {
 
     login: async (req, res, next) => {
         const user = await User.findOne({ email: req.body.email });
-        if(user === null) return res.status(404).send({ reason: 'Utilisateur introuvable.' });
+        if(user === null) return res.status(501).send({ reason: 'Utilisateur introuvable.' });
 
         const role = await Role.findById(user.role);
 
         var passwordIsValid = await bcrypt.compareSync(req.body.password, user.password);
         if (!passwordIsValid) {
-            return res.status(401).send({ auth: false, accessToken: null, reason: 'Invalide Password!' });
+            return res.status(501).send({ auth: false, accessToken: null, reason: 'Invalide Password!' });
         }
 
         var token = jwt.sign({ id: user.id, roleId: user.role, roleName: role.name }, config.secret, {

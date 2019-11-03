@@ -7,19 +7,27 @@
         </div>
         <div fxFlex fxFill fxLayout="row" fxLayoutAlign="end center">
             <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center">
-                <a mat-button href="#home" color="accent" class="page-scroll">Acceuil</a>
+                <button mat-button color="accent" (click)="scrollToElement(home)">
+                    Acceuil
+                </button>
                 <div class="toolbar-separator" color="accent"></div>
-                <a mat-button href="#features" color="accent" class="page-scroll">Fonctionnalités</a>
+                <button mat-button color="accent" (click)="scrollToElement(features)">
+                    Fonctionnalités
+                </button>
                 <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
-                <a mat-button href="#stats" color="accent" class="page-scroll">Statistiques</a>
+                <button mat-button color="accent" (click)="scrollToElement(stats)">
+                    Statistiques
+                </button>
                 <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
-                <a mat-button href="#contacts" color="accent" class="page-scroll">Contact</a>
+                <button mat-button color="accent" (click)="scrollToElement(contacts)">
+                    Contact
+                </button>
             </div>
         </div>
     </mat-toolbar>
 
     <!-- HEADER -->
-    <div class="header accent p-24 p-sm-24" id="Home" style="height: 500px;" fxLayoutAlign="center center">
+    <div class="header accent p-24 p-sm-24" id="Home" #home style="height: 500px;" fxLayoutAlign="center center">
         <div class="hero-text container" fxLayout="row" fxLayoutAlign="center" fxLayoutWrap fxLayoutGap="18%">
             <div fxFlex="42%">
                 <h1 [@animate]="{
@@ -37,9 +45,13 @@
                     Comparez ,réservez ,louez le parking idéal pret de chez-vous
                     GRATUITEMENT !
                 </h3>
-                <button mat-flat-button color="accent" (click)="loginDialog()" >Se Connecter</button>
+                <button mat-flat-button color="accent" (click)="loginDialog()">
+                    Se Connecter
+                </button>
                 &nbsp;
-                <button mat-flat-button color="accent" (click)="registerDialog()">Créer un compte</button>
+                <button mat-flat-button color="accent" (click)="registerDialog()">
+                    Créer un compte
+                </button>
             </div>
             <div fxFlex="40%">
                 <img class="img-fluid" src="assets/images/portal/maquette-admin.png" alt="alternative" />
@@ -49,7 +61,7 @@
     <!-- / HEADER -->
 
     <!-- CONTENT -->
-    <div class="content p-24" id="features">
+    <div class="content p-24" id="features" #features>
         <div fxLayout="column" fxLayoutAlign="center">
             <h2 class="accent" [@animate]="{
                     value: '*',
@@ -102,7 +114,8 @@
     </div>
     <!-- / CONTENT -->
 
-    <div class="header accent p-24 p-sm-24 counter" id="stats" style="height: 300px;" fxLayoutAlign="center center">
+    <div class="header accent p-24 p-sm-24 counter" #stats id="stats" style="height: 300px;"
+        fxLayoutAlign="center center">
         <div id="counter">
             <div class="cell">
                 <div class="counter-value number-count" data-count="231">
@@ -127,47 +140,52 @@
         </div>
     </div>
 
-    <div class="content" id="contacts">
-            <div fxLayout="column" fxLayoutAlign="center">
-                <h2 class="accent" [@animate]="{
-                        value: '*',
-                        params: { delay: '300ms', y: '50px' }
-                    }" style="text-align: center; font-size: 24px;padding : 10px; border-radius: 15px;">
-                    Contactez nous :
-                </h2>
-                <div class="row" fxLayout="column" class="p-24 p-sm-24" fxLayoutAlign="center center">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Nom et prénom</mat-label>
-                                <input matInput required placeholder="Saisir ici">
-                                <mat-icon matSuffix>face</mat-icon>
-                            </mat-form-field>           
-                            <mat-form-field appearance="fill">
-                                <mat-label>Adresse Mail</mat-label>
-                                <input matInput required placeholder="Saisir ici">
-                                <mat-icon matSuffix>alternate_email</mat-icon>
-                            </mat-form-field>
-                            <mat-form-field>
-                                <mat-label>Message</mat-label>
-                                <textarea rows="4" matInput placeholder="Votre message"></textarea>
-                                <mat-icon matSuffix>mail</mat-icon>
-                            </mat-form-field>
-                            <button mat-flat-button color="accent">Envoyer le message</button>
-                        <!-- end of contact form -->
-    
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
+    <div class="content" id="contacts" #contacts>
+        <div fxLayout="column" fxLayoutAlign="center">
+            <h2 class="accent" [@animate]="{
+                    value: '*',
+                    params: { delay: '300ms', y: '50px' }
+                }" style="text-align: center; font-size: 24px;padding : 10px; border-radius: 15px;">
+                Contactez nous :
+            </h2>
+            <div class="row" fxLayout="column" class="p-24 p-sm-24" fxLayoutAlign="center center">
+                <mat-form-field appearance="fill">
+                    <mat-label>Nom et prénom</mat-label>
+                    <input matInput required placeholder="Saisir ici" />
+                    <mat-icon matSuffix>face</mat-icon>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Adresse Mail</mat-label>
+                    <input matInput required placeholder="Saisir ici" />
+                    <mat-icon matSuffix>alternate_email</mat-icon>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Message</mat-label>
+                    <textarea rows="4" matInput placeholder="Votre message"></textarea>
+                    <mat-icon matSuffix>mail</mat-icon>
+                </mat-form-field>
+                <button mat-flat-button color="accent">
+                    Envoyer le message
+                </button>
+                <!-- end of contact form -->
+            </div>
+            <!-- end of col -->
         </div>
+        <!-- end of row -->
+    </div>
 
     <div class="header accent" style="height: 100px;" fxLayoutAlign="center center">
-            <div fxLayout="row" fxLayoutGap="20%" fxLayoutAlign="center center">
-                    <div fxFlex="40%">
-                        <h4>A propos de ParkApp</h4>
-                        <p>Développé par deux entrepreneur pret a vous servir</p>
-                    </div> <!-- end of col -->
-                    <div fxFlex="40%">
-                            <h4>@CopyRight</h4>
-                            <p>Younes Enhari & Nabil Berrada</p>
-                    </div> <!-- end of col -->
-                </div>    
+        <div fxLayout="row" fxLayoutGap="20%" fxLayoutAlign="center center">
+            <div fxFlex="40%">
+                <h4>A propos de ParkApp</h4>
+                <p>Développé par deux entrepreneur pret a vous servir</p>
+            </div>
+            <!-- end of col -->
+            <div fxFlex="40%">
+                <h4>@CopyRight</h4>
+                <p>Younes Enhari & Nabil Berrada</p>
+            </div>
+            <!-- end of col -->
+        </div>
     </div>
 </div>

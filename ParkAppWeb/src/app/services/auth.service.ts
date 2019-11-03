@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './user.service';
-import { User } from '../api/models/user';
+import { User } from '../api/models/User.model';
 import { Login, Logout, accessToken } from "../api/controllers/AuthInstance.js";
 
 @Injectable({
@@ -9,7 +9,7 @@ import { Login, Logout, accessToken } from "../api/controllers/AuthInstance.js";
 })
 export class AuthService {
 
-    user:User;
+    user : User;
 
     constructor(
         private route: ActivatedRoute,
@@ -18,17 +18,16 @@ export class AuthService {
         this.user = this.userService.getCurrentUser();
     }
 
-    login(data): void {
+    login(data): Promise<any> {
         const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
         sessionStorage.setItem('returnUrl', returnUrl);
-        Login(data).then( (result) => {
+        return Login(data).then( (result) => {
             result.login.authorities = result.authorities;
             this.userService.save(result.login,result.token);
             const route = sessionStorage.getItem('returnUrl');
             window.location.href = '/dashboard';
-        })
-        .catch( (err) => console.log(err) );
-
+        });
+      
     }
 
     logout(): void {

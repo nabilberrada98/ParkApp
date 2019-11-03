@@ -6,20 +6,20 @@ import { MatButtonModule, MatCardModule, MatIconModule, MatTabsModule, MatDivide
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseSidebarModule } from '@fuse/components';
 import { AgmCoreModule } from '@agm/core';
-import { ReservationComponent } from './reservation.component';
+import { ReservationInfoComponent } from './reservation.component';
 import { UICarouselModule } from "ui-carousel";
 import { AddReservationComponent } from './add-reservation/add-reservation.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 const routes = [
     {
         path     : '**',
-        component: ReservationComponent,
+        component: ReservationInfoComponent,
     },
 ];
 
 @NgModule({
     declarations: [
-        ReservationComponent,
+        ReservationInfoComponent,
         AddReservationComponent
     ],
     imports     : [
@@ -42,10 +42,10 @@ const routes = [
         }),
     ],
     entryComponents : [
-        ReservationComponent,
+        ReservationInfoComponent,
         AddReservationComponent
     ]
 })
-export class ReservationModule
+export class ReservationInfoModule
 {
 }

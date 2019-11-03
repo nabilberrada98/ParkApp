@@ -22,7 +22,7 @@
             <button mat-button [matMenuTriggerFor]="userMenu"
                     class="user-button">
                 <div fxLayout="row" fxLayoutAlign="center center">
-                    <img class="avatar mr-0 mr-sm-16" src="{{user.avatar}}">
+                    <img class="avatar mr-0 mr-sm-16" src="{{user?user.avatar:''}}">
                     <span class="username mr-12" fxHide fxShow.gt-sm> {{ fullName() }} </span>
                     <mat-icon class="s-16" fxHide.xs>keyboard_arrow_down</mat-icon>
                 </div>

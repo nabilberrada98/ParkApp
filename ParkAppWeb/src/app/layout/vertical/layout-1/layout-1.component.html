@@ -1,4 +1,5 @@
-<div id="main">
+
+<div id="main" *ngIf="isLoggedIn; else loggedOut">
 
     <div id="container-1" class="container">
 
@@ -23,7 +24,7 @@
 
 
 <!-- QUICK PANEL -->
-<fuse-sidebar name="quickPanel" position="right" class="quick-panel">
+<fuse-sidebar name="quickPanel" position="right" class="quick-panel" *ngIf="isLoggedIn;">
     <quick-panel></quick-panel>
 </fuse-sidebar>
 <!-- / QUICK PANEL -->
@@ -51,3 +52,29 @@
     </fuse-sidebar>
 </ng-template>
 <!-- / LEFT NAVBAR -->
+
+<ng-template #loggedOut>
+    <div id="main">
+
+        <div id="container-1" class="container">
+    
+            <ng-container *ngTemplateOutlet="leftNavbar"></ng-container>
+    
+            <div id="container-2" class="container">
+                <ng-container *ngTemplateOutlet="toolbar"></ng-container>
+               
+                <div id="container-3" class="container"
+                     >
+                    <!-- CONTENT -->
+                    <content></content>
+                    <!-- / CONTENT -->
+                    <ng-container *ngTemplateOutlet="footer"></ng-container>
+                </div>
+                
+            </div>
+    
+        </div>
+    
+    </div>
+    
+</ng-template>
