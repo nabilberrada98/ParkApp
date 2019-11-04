@@ -11,7 +11,6 @@
                     <div class="fuse-card">
                         <div class="p-16" fxLayout="row" fxLayoutAlign="start center">
                             <img class="w-40 h-40 border-radius-100" src="{{ p.place.images[0] }}">
-
                             <div class="ml-16">
                                 <div class="text-bold">{{ p.locataire.nom }}</div>
                             </div>
@@ -19,10 +18,9 @@
 
                         <!-- carousel (images) !!! -->
                         <img src="assets/places/place1.jpeg">
-
                         <div class="p-16">
                             <div class="h1">{{ p.place.numero }}</div>
-                            <div class="h4 secondary-text">{{ p.place.localisation.ville.nom }}</div>
+                            <!-- <div class="h4 secondary-text">{{ p.place.localisation.ville.nom || "" }}</div> -->
                         </div>
                         
                         <div class="p-8 pt-0" fxLayout="row" fxLayoutAlign="space-between center">

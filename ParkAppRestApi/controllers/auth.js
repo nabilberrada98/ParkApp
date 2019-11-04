@@ -19,7 +19,7 @@ module.exports = {
         }
 
         var token = jwt.sign({ id: user.id, roleId: user.role, roleName: role.name }, config.secret, {
-            expiresIn: 1080, // expires in 24 hours
+            expiresIn: 86400, // expires in 24 hours
         });
         
         user.tokens = user.tokens.concat({token});

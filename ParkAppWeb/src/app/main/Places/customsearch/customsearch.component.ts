@@ -123,6 +123,7 @@ export class CustomSearchComponent implements OnInit, OnDestroy
 
     onSubmit(e): void{
         const data = { days: this.days, prix: this.rangePrix, libelles: this.selectedAddress };
+        
         this.onCustomSearch.emit(data);
     }
 

@@ -53,10 +53,7 @@
     </div>
     <!-- / HEADER -->
 
-    
-
-    <app-places-list [places]="placesFiltered || places"  ></app-places-list>
-
+    <app-places-list [places]="filteredPlaces$.value" ></app-places-list>
 
     <div class="simple-pagination" *ngIf="pager.pages && pager.pages.length" >
 

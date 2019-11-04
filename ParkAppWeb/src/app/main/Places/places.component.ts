@@ -4,7 +4,7 @@ import { PagerService } from './pager.service';
 import { Options, LabelType } from 'ng5-slider';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { FuseSidebarService } from '@fuse/components/sidebar/sidebar.service';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject, combineLatest } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { PlaceService } from 'app/services/place.service';
 
@@ -28,6 +28,8 @@ export class PlacesComponent implements OnInit {
     placesFiltered = null;
 
     markers = [];
+    places$ = new BehaviorSubject<any[]>([]);
+    filteredPlaces$ = new BehaviorSubject<any[]>([]);
 
     // pager object
     pager: any = {};
@@ -66,14 +68,14 @@ export class PlacesComponent implements OnInit {
 
         this._placeService.getPlaces().then( (data) => {
             this.places = data;
+            this.places$.next(data);
+            this.filteredPlaces$.next(data);
+
             // initialize to page 1
             this.setPage(1);
         });
 
-
-        this._placeService.userLibelles().then( (data) => {
-            this.markers = data;
-        });
+        
 
         // this._placeService.onPlacesChanged
         //     .pipe(takeUntil(this._unsubscribeAll))
@@ -113,17 +115,9 @@ export class PlacesComponent implements OnInit {
 
     customSearch({ libelles, prix, days }): void{
         
-        if(libelles.length === 0){
-            const arr = this.places.filter((p) => p.prix >= prix.min && p.prix <= prix.max);
-            this.placesFiltered = arr || this.places;
-        }
-
-        const places = this.customFilter(libelles, prix);
-        this.placesFiltered = places || this.places;
-        
+        this.setFilters(libelles, prix, days);
 
     }
-
 
     customFilter(libelles, prix: { max: number, min: number }){
         const data = [];
@@ -135,19 +129,60 @@ export class PlacesComponent implements OnInit {
 
             libelles.forEach(function(lib){
                 const address = p.place.localisation.libelle.address.trim() === lib.address.trim();
-                const nearPlaces = self.findNearPlaces(lib.loc.lat, lib.loc.lng, self.places) || [];
-                if (address || isBwn){
-                    data.push(p);
-                }
+                const nearPlaces = self.findNearPlaces(lib.loc.lat, lib.loc.lng, self.places);
+                // if (address || isBwn){
+                //     data.push(p);
+                // }
 
-                const arr = this.places.filter( (p, i) => p.place.localisation.libelle._id === nearPlaces[i]._id );
-                data.push(arr);
+                self.places.filter( (p, i) => {
+                    console.log( nearPlaces[i] );
+                });
+                
+                data.push([]);
 
             });
 
         });
 
         return data;
+    }
+
+    setFilters(libelles, prix, days){
+        
+        this.filteredPlaces$.next(this.places$.value);
+        console.log(libelles, prix, days);
+        const self = this;
+
+
+        combineLatest(
+            this.places$,
+        )
+        .subscribe(([places]) => {
+            let filteredPlaces = [ ...places ];
+
+            // find near places : 
+            if(libelles.length >= 1){
+                const nears = [];
+                libelles.forEach(function(lib){
+                    const data = self.findNearPlaces(lib.loc.lat, lib.loc.lng);
+                    nears.push(data);
+                });
+                filteredPlaces = nears;
+            }
+
+            // find matchers price :
+            if (!(prix.max && prix.min)){
+                filteredPlaces = filteredPlaces.filter((p) =>  p.prix >= prix.min && p.prix <= prix.max);
+            }
+
+            if(days.length >= 1){
+                // 
+            }
+
+            self.filteredPlaces$.next(filteredPlaces);
+        });
+
+        //libelles.setValue('');
     }
 
 
@@ -173,15 +208,15 @@ export class PlacesComponent implements OnInit {
     
     }    
  
-    findNearPlaces( lat1: number, lon1: number, markers): []{    
+    findNearPlaces( lat1: number, lon1: number){    
         const pi = Math.PI;
         const R = 6371;
         const distances = [];
         let closest = -1;
     
-        for( let i=0; i < markers.length; i++ ) {  
-            var lat2 = markers[i].place.localisation.lat;
-            let lon2 = markers[i].place.localisation.lng;
+        for( let i=0; i < this.places.length; i++ ) {  
+            var lat2 = this.places[i].place.localisation.lat;
+            let lon2 = this.places[i].place.localisation.lng;
     
             let chLat = lat2-lat1;
             let chLon = lon2-lon1;
@@ -202,7 +237,7 @@ export class PlacesComponent implements OnInit {
             }
         }
     
-        return markers[closest];
+        return this.places[closest];
     }
 
 
