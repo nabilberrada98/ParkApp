@@ -184,9 +184,11 @@ export class LocationsService implements Resolve<any>
         this.deselectLocations();
     }
 
-    public storeLocation(formData,files): Promise<any>{
-        return storeLocation(JSON.stringify(formData),files).then(response => {
+    public storeLocation(data): Promise<any>{
+        return storeLocation(data).then(response => {
             this.getLocations();
         });
     }
+
+
 }

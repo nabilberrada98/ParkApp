@@ -19,6 +19,9 @@ import { LayoutModule } from 'app/layout/layout.module';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { AdminGuardService } from './services/admin-guard.service';
+import { LocataireGuardService } from './services/locataire-guard.service';
+import { PropGuardService } from './services/prop-guard.service';
 
 
 const appRoutes: Routes = [
@@ -33,23 +36,13 @@ const appRoutes: Routes = [
         canActivate: [AuthGuardService]
     },
     {
-        path        : 'project',
-        loadChildren: './main/dashboards/project/project.module#ProjectDashboardModule',
-        canActivate: [AuthGuardService]
-    },
-    {
-        path        : 'dashboard',
-        loadChildren: './main/dashboards/analytics/analytics.module#AnalyticsDashboardModule',
-        canActivate: [AuthGuardService]
-    },
-    {
         path        : 'locations',
         loadChildren: './main/Locations/Location.module#LocationsModule',
-        canActivate: [AuthGuardService]
+        canActivate: [AuthGuardService, ]
     },
     {
         path        : 'reservation/:placeId',
-        loadChildren: './main/reservation/reservation.module#ReservationModule',
+        loadChildren: './main/reservations-info/reservation.module#reservationModule',
         canActivate: [AuthGuardService]
     },
     {

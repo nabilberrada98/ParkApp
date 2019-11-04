@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { getRangePrices, getUserLibelles, getAllPlaces } from '../api/controllers/PlaceInstance.js';
-import { User } from '../api/models/user';
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { FuseUtils } from '@fuse/utils/index.js';

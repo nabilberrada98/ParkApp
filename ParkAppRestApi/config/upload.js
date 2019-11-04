@@ -24,14 +24,9 @@ var storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const token = jwt.decode(req.headers["x-access-token"], 8);
     if(token){
-        let roleId = Number(token.roleId);
-        let path = url.parse(req.url).pathname === "/api/places";
+        let path = url.parse(req.url).pathname === "/api/locations";
 
-        if(path){
-            cb(null, __basedir + '/resources/static/assets/uploads/places');
-        }else{
-            cb(null, __basedir + '/resources/static/assets/uploads/users');
-        }
+        cb(null, __basedir + '/resources/static/assets/uploads/places');
 
     }
     

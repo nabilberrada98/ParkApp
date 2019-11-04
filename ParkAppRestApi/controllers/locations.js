@@ -1,5 +1,9 @@
 const Location = require("../models/location");
+const Place = require("../models/place");
+const Localisation = require("../models/localisation");
 const config = require("../config/config");
+const ObjectId = require("mongoose").ObjectId;
+
 module.exports = {
 
 
@@ -10,26 +14,33 @@ module.exports = {
 
     store: async (req, res, next) => {
         // try {
-            console.log('heere');
-            //console.log(req.body);
-            // console.log(req.body);
+            console.log('======================================================');
+
+            console.log(req.body);
+
             var folder = "places";
-            const parsedData =JSON.parse(req.body.data);
-            const parsedFiles =req.body.files;
-            console.log(parsedFiles);
-            //console.log(parsedData);
+            const parsedFiles = req.files;
             const images=[];
             parsedFiles.forEach(function(file) {
-                // let name = file.originalname || file.name;
-                // let extension = name.substr((~-name.lastIndexOf(".") >>> 0) + 2);
                 images.push(config.host + ":" + config.port + "/" + folder +"/" + file.filename);
             });
-            let userId = Number(req.user._id);
-            parsedData.place.images=images;
-            // console.log(req.body);
-            // const newLoc = new Location();
-            const loc = await Location.create({ ...parsedData, locataire : userId})
-            res.status(201).send("loc");
+
+            console.log(images);
+
+            let userId = req.user._id;
+            let parsedData = JSON.parse(req.body.content);
+            let place = parsedData.place;
+            let placeLoc = parsedData.place.localisation;
+            placeLoc.ville = null;
+            parsedData.place.images = images;
+
+            const loc = await Localisation.create({ ...placeLoc });
+            parsedData.place.localisation = loc._id;
+            const p = await Place.create({ ...place });
+            parsedData.place = p._id;
+            const location = await Location.create({ ...parsedData , locataire: userId });
+
+            res.status(201).send(location);
         // }catch(e){
         //     console.log(e);
         //     req.files.forEach(function(file){

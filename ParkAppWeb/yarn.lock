@@ -5733,6 +5733,11 @@ mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdirp@~0.5.0:
   dependencies:
     minimist "0.0.8"
 
+moment-weekday-calc@1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/moment-weekday-calc/-/moment-weekday-calc-1.1.4.tgz#ebf57d4c9cf1446e330c207658aa0a90816d4dc9"
+  integrity sha512-/Gyrgu9pQnapt47wPmp/Fk0h+Qx0QJyf9uwBtu4bLINzAoraDOVN2cprUiBzcTMOuFroW2V0y9yJTJ71UUV6Xg==
+
 moment@2.22.2:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
@@ -5869,6 +5874,13 @@ ngx-cookie-service@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ngx-cookie-service/-/ngx-cookie-service-2.0.0.tgz#ef1cd3d97d9ffc354de6113b08d29d879d257533"
   integrity sha512-HqKrpdeWSO3ryLe/QTlBBsai9et8Iz9i7PBrvi/fMRmBVEqUbjXp/uIjWDA+K707C2MpVkImyzU0VrvnbS+iFA==
+
+ngx-daterangepicker-material@2.1.8:
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/ngx-daterangepicker-material/-/ngx-daterangepicker-material-2.1.8.tgz#6f9844488b164897c3cf4eca179ff52d37eb807e"
+  integrity sha512-nSS/M2CQnUSfzZwy+V5mcnE+tjqwmr+HusIDYmiE1zNARG7gkEzYWBmXIOxsC1Dx9snA3NMpqqXj2NitIhyHig==
+  dependencies:
+    tslib "^1.9.0"
 
 ngx-input-file@7.0.3:
   version "7.0.3"

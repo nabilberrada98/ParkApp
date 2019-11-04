@@ -10,6 +10,7 @@ import { ReservationInfoComponent } from './reservation.component';
 import { UICarouselModule } from "ui-carousel";
 import { AddReservationComponent } from './add-reservation/add-reservation.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+
 const routes = [
     {
         path     : '**',

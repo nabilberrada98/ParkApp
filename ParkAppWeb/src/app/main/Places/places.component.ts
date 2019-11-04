@@ -135,12 +135,12 @@ export class PlacesComponent implements OnInit {
 
             libelles.forEach(function(lib){
                 const address = p.place.localisation.libelle.address.trim() === lib.address.trim();
-                const nearPlaces = self.findNearPlaces(lib.loc.lat, lib.loc.lng, self.places) || [];
+                const nearPlaces = self.findNearPlaces(lib.loc.lat, lib.loc.lng, self.places) || [];
                 if (address || isBwn){
                     data.push(p);
                 }
 
-                const arr = this.places.filter( (p) => p.place.localisation.libelle._id === nearPlaces._id );
+                const arr = this.places.filter( (p, i) => p.place.localisation.libelle._id === nearPlaces[i]._id );
                 data.push(arr);
 
             });

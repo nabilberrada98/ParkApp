@@ -7,6 +7,8 @@ const cors = require('cors');
 require("./config/connection");
 const app = express();
 
+global.__basedir = __dirname;
+
 app.use(bodyParser.json({limit: '30mb'}));
 app.use(bodyParser.urlencoded({ extended: false}));
 
@@ -50,7 +52,7 @@ app.use('/api/users', users);
 app.use("/api/places", places);
 app.use("/api/reservations", authJwt, reservations);
 //add auth later
-app.use("/api/locations",authJwt, locations );
+app.use("/api/locations", authJwt, locations );
 app.use("/api/auth", auth);
 
 // Catch 404 and forward to errors handler

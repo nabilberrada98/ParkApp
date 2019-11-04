@@ -25,7 +25,7 @@ export class AuthService {
         return Login(data).then( (result) => {
             result.login.authorities = result.authorities;
             this.userService.save(result.login, result.token);
-            window.location.href = '/dashboard';
+            window.location.href = '/places';
         });
       
     }

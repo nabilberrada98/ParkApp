@@ -16,6 +16,7 @@ const authJwt = async (req, res, next) => {
 		const decoded = jwt.verify(token, config.secret);
 		const user = await User.findOne({_id : decoded.id, 'tokens.token':token});
 		req.user=user;
+		req.userId = decoded.id;
 		req.token=token;
 		next();
 	}catch(TokenExpiredError){

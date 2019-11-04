@@ -4,6 +4,7 @@ import { Subject } from "rxjs";
 import { MouseEvent } from "@agm/core";
 import axios from "axios";
 import { LocationsService } from "app/services/Location.service";
+import { Router } from "@angular/router";
 @Component({
     selector: "app-location-add",
     templateUrl: "./location-add.component.html",
@@ -20,7 +21,11 @@ export class LocationAddComponent implements OnInit {
     ville: string;
     private _unsubscribeAll: Subject<any>;
 
-    constructor(private _formBuilder: FormBuilder,private _locationService : LocationsService) {
+    constructor(
+        private _formBuilder: FormBuilder,
+        private _locationService : LocationsService,
+        private router: Router
+    ) {
         this._unsubscribeAll = new Subject();
     }
 
@@ -63,22 +68,35 @@ export class LocationAddComponent implements OnInit {
      * Finish the horizontal stepper
      */
     finishHorizontalStepper(): void {
-        // console.log(this.horizontalStepperStep1.value);
-        // console.log(this.horizontalStepperStep2.value);
-        // console.log(this.horizontalStepperStep3.value);
-        // console.log(this.lat ,this.lng);
-        // const localisation = 
-        const formData = {prix : this.horizontalStepperStep2.value.prix, type : this.horizontalStepperStep2.value.type,
-                place : {...this.horizontalStepperStep1.value , localisation : {
-                                                                lat :this.lat,
-                                                                lng : this.lng,
-                                                                ville : this.ville?this.ville.toLowerCase():""
-                                                            }
-        }};
-        console.log(formData,this.horizontalStepperStep3.value.images);
-        // this._locationService.storeLocation(formData,this.horizontalStepperStep3.value.images).then((data)=>{
-        //     console.log(data);
-        // });
+
+        const formData = new FormData();
+        const files = this.horizontalStepperStep3.value.images;
+
+        for (const file of files) {
+            formData.append('file', file.file);
+        }
+
+        const data = {
+            prix: this.horizontalStepperStep2.value.prix, 
+            type: this.horizontalStepperStep2.value.type,
+            place: {
+                ...this.horizontalStepperStep1.value , 
+                localisation: {
+                    lat: this.lat,
+                    lng: this.lng,
+                    ville: this.ville ? this.ville.toLowerCase() : null
+                }
+            }
+        };
+
+
+        formData.append('content', JSON.stringify(data));
+
+        var self = this;
+        this._locationService.storeLocation(formData).then(( data ) => {
+            console.log(data);
+            self.router.navigate(["/locations"]);
+        });
     }
 
     ngOnInit() {
