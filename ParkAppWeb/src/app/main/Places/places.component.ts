@@ -213,10 +213,11 @@ export class PlacesComponent implements OnInit {
         const R = 6371;
         const distances = [];
         let closest = -1;
-    
-        for( let i=0; i < this.places.length; i++ ) {  
-            var lat2 = this.places[i].place.localisation.lat;
-            let lon2 = this.places[i].place.localisation.lng;
+        const places = this.places$.value;
+
+        for( let i=0; i < places.length; i++ ) {  
+            var lat2 = places[i].place.localisation.lat;
+            let lon2 = places[i].place.localisation.lng;
     
             let chLat = lat2-lat1;
             let chLon = lon2-lon1;
@@ -237,7 +238,7 @@ export class PlacesComponent implements OnInit {
             }
         }
     
-        return this.places[closest];
+        return places[closest];
     }
 
 

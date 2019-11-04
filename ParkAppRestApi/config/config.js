@@ -18,6 +18,6 @@ CONFIG.salt = 8;
 CONFIG.jwt_encryption  = process.env.JWT_ENCRYPTION || 'jwt_please_change';
 CONFIG.jwt_expiration  = process.env.JWT_EXPIRATION || '10000';
 
-CONFIG.host = "localhost";
+CONFIG.host = "http://localhost";
 
 module.exports = CONFIG;
